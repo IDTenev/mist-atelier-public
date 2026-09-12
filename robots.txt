@@ -1,0 +1,3 @@
+# Project-level file; host-root robots.txt controls crawler policy.
+User-agent: *
+Disallow: /mist-atelier-public/

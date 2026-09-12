@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "scope": "public_approved_guides_only",
+  "external_crawler_verification": "not_tested",
+  "indexing": "blocked",
+  "training_policy": "undetermined",
+  "observed_at": "2026-09-11T11:50:59.317Z",
+  "pending_changes": [],
+  "pending_removed_count": 0,
+  "documents": [
+    {
+      "document_id": "arduino_uno_r3",
+      "title": "Arduino UNO R3: 보드 핀과 GPIO 첫 확인",
+      "document_version": "0.2.0",
+      "reviewed_at": "2026-09-11",
+      "body_sha256": "7ad99ea418ed4e83c025b411f066a20ac04c7090dda4e11ab0cfd44389986ddf",
+      "metadata_sha256": "f462b9be753c85f0ba8b5e060459376b4bb4843c1b2e65effed7b44c59c3e289",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/arduino_uno_r3/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/arduino_uno_r3/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/arduino_uno_r3.json"
+    },
+    {
+      "document_id": "arduino_zero_samd21",
+      "title": "Arduino Zero: LED 핀, 기본 SPI, EDBG 확인",
+      "document_version": "0.2.0",
+      "reviewed_at": "2026-09-11",
+      "body_sha256": "9cceb31d4337f54ba371a5eb234de43ffdeffc4d5d9e1efc7775d161f3f8bee2",
+      "metadata_sha256": "4df58795a2af3ed82f0728c5b31bdffb4081c29638281a22b622604ced5bfbf0",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/arduino_zero_samd21/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/arduino_zero_samd21/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/arduino_zero_samd21.json"
+    },
+    {
+      "document_id": "esp32_p4_function_ev",
+      "title": "ESP32-P4 Function EV v1.4: 첫 실행과 핀·RTOS 경계",
+      "document_version": "0.2.0",
+      "reviewed_at": "2026-09-11",
+      "body_sha256": "e0633d9f365a087ab55d166741c86d8bdcf16e8f4e3ec47167952b2288268e73",
+      "metadata_sha256": "a82893fccd3515e9d8b58d4405a867ed50430220f8fa66ab73fbf37ec5018e41",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/esp32_p4_function_ev/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/esp32_p4_function_ev/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/esp32_p4_function_ev.json"
+    },
+    {
+      "document_id": "stm32_nucleo_f401re",
+      "title": "NUCLEO-F401RE: Cube GPIO 예제를 읽는 기준",
+      "document_version": "0.2.0",
+      "reviewed_at": "2026-09-11",
+      "body_sha256": "a210a6af509cd6d7dfc08288d3ea0535d434d5143d1af607a3d318f189d31728",
+      "metadata_sha256": "d809cd133d0d781c518838afe2c0cd62932529def887bd7e5d7c37a76d83e112",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stm32_nucleo_f401re/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/stm32_nucleo_f401re/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/stm32_nucleo_f401re.json"
+    }
+  ],
+  "duplicate_groups": [],
+  "events": [
+    {
+      "event_id": "urn:sha256:debf95d607c1b7e820e18042279e8ace2185afd5268b35dacf910cb844b2eb2e",
+      "document_id": "stm32_nucleo_f401re",
+      "title": "NUCLEO-F401RE: Cube GPIO 예제를 읽는 기준",
+      "kind": "baseline",
+      "observed_at": "2026-09-11T11:50:59.317Z",
+      "document_version": "0.2.0",
+      "body_sha256": "a210a6af509cd6d7dfc08288d3ea0535d434d5143d1af607a3d318f189d31728",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stm32_nucleo_f401re/"
+    },
+    {
+      "event_id": "urn:sha256:a184e3c712070ee0f40b03d1cf2e905e8d4947a35f96ab5d8b0c03fc8b8f3ba4",
+      "document_id": "esp32_p4_function_ev",
+      "title": "ESP32-P4 Function EV v1.4: 첫 실행과 핀·RTOS 경계",
+      "kind": "baseline",
+      "observed_at": "2026-09-11T11:50:59.317Z",
+      "document_version": "0.2.0",
+      "body_sha256": "e0633d9f365a087ab55d166741c86d8bdcf16e8f4e3ec47167952b2288268e73",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/esp32_p4_function_ev/"
+    },
+    {
+      "event_id": "urn:sha256:08a83184e79f01a4cae9f00edc61ea772b653e59ecc88aaa92025865bb45f63d",
+      "document_id": "arduino_zero_samd21",
+      "title": "Arduino Zero: LED 핀, 기본 SPI, EDBG 확인",
+      "kind": "baseline",
+      "observed_at": "2026-09-11T11:50:59.317Z",
+      "document_version": "0.2.0",
+      "body_sha256": "9cceb31d4337f54ba371a5eb234de43ffdeffc4d5d9e1efc7775d161f3f8bee2",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/arduino_zero_samd21/"
+    },
+    {
+      "event_id": "urn:sha256:498e27b2102c369ebf74d9f2f4d9d6abf9ef04c60bf56a72e34fd37bc1e4403e",
+      "document_id": "arduino_uno_r3",
+      "title": "Arduino UNO R3: 보드 핀과 GPIO 첫 확인",
+      "kind": "baseline",
+      "observed_at": "2026-09-11T11:50:59.317Z",
+      "document_version": "0.2.0",
+      "body_sha256": "7ad99ea418ed4e83c025b411f066a20ac04c7090dda4e11ab0cfd44389986ddf",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/arduino_uno_r3/"
+    }
+  ]
+}

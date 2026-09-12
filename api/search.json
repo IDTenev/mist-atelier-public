@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "scope": "approved_guides_only",
+  "documents": [
+    {
+      "document_id": "arduino_uno_r3",
+      "title": "Arduino UNO R3: 보드 핀과 GPIO 첫 확인",
+      "target": {
+        "id": "arduino_uno_r3",
+        "manufacturer": "Microchip / Atmel",
+        "part_number": "ATmega328P",
+        "board": "Arduino UNO R3 (A000066)",
+        "hardware_revision": "R3; selected reference board",
+        "silicon_revision": "unknown",
+        "framework": "Arduino AVR Boards",
+        "sdk_version": "1.8.6",
+        "sdk_commit": "42fa4a1ea1b1b11d1cc0a60298e529d37f9d14bd",
+        "board_selector": "arduino:avr:uno"
+      },
+      "text": "# Arduino UNO R3: 보드 핀과 GPIO 첫 확인\n\n문서 0.2.0 · 검토일 2026-09-11 · 펌웨어 검증: `not_tested` (컴파일·업로드·실기 미수행)\n\n## 적용 대상\n\nArduino UNO R3 A000066, ATmega328P, Arduino AVR Boards 1.8.6을 기준으로 한다. 코어 commit은 `42fa4a1ea1b1b11d1cc0a60298e529d37f9d14bd`, 보드 식별자는 `arduino:avr:uno`다. UNO R4·UNO WiFi 및 다른 AVR 보드에 그대로 적용하지 않는다. 실물의 칩 리비전과 도구 체인 버전은 미확인이다.\n\n## 핀 번호를 읽는 기준\n\nArduino 숫자 핀 13, MCU 포트 PB5, 보드 LED는 같은 연결을 가리키지만 이름의 계층이 다르다. [UNO Full Pinout](https://raw.githubusercontent.com/arduino/docs-content/20d1c1c179703cc10ece612f3e4be223fcd02590/content/hardware/02.uno/boards/uno-rev3/downloads/A000066-full-pinout.pdf)의 1쪽(2022-10-06 판본)과 [코어 standard 핀 정의](https://raw.githubusercontent.com/arduino/ArduinoCore-avr/42fa4a1ea1b1b11d1cc0a60298e529d37f9d14bd/variants/standard/pins_arduino.h)의 `LED_BUILTIN`, `PIN_SPI_SCK`를 대조했다.\n\n| 용도 | Arduino 핀 | MCU 포트 | 주의 |\n|---|---|---|---|\n| 내장 LED / SPI 클럭 | D13 | PB5 | SPI와 LED를 독립 핀처럼 동시에 제어하지 않음 |\n| I2C SDA | A4 / D18 / SDA | PC4 | 헤더 이름이 달라도 별도 버스가 아님 |\n| I2C SCL | A5 / D19 / SCL | PC5 | 같은 연결의 다른 표기 |\n\n이 표는 핀 연결 설명이며 허용 전압·전류 설계표가 아니다. MCU 데이터시트와 보드 회로의 동작 조건을 확인하기 전 외부 전압이나 부하를 연결하지 않는다.\n\n## 내장 LED 최소 예제\n\n빈 Arduino 스케치 전체를 아래로 작성한다. 외부 배선 없이 내장 LED만 확인하는 예제다. [GPIO 구현](https://raw.githubusercontent.com/arduino/ArduinoCore-avr/42fa4a1ea1b1b11d1cc0a60298e529d37f9d14bd/cores/arduino/wiring_digital.c)의 `pinMode`, `digitalWrite`와 위 핀 정의를 근거로 새로 작성했다. 코어 소스의 복제본이 아니다.\n\n```cpp\n#include <Arduino.h>\n\nstatic const unsigned long BLINK_INTERVAL_MS = 500;\n\n// Configure only the onboard LED; no external load is required.\nvoid setup()\n{\n    pinMode(LED_BUILTIN, OUTPUT);\n}\n\n// A blocking delay is intentional for this standalone smoke test only.\nvoid loop()\n{\n    digitalWrite(LED_BUILTIN, HIGH);\n    delay(BLINK_INTERVAL_MS);\n    digitalWrite(LED_BUILTIN, LOW);\n    delay(BLINK_INTERVAL_MS);\n}\n```\n\n예상 결과는 약 0.5초 켜짐/0.5초 꺼짐이다. 이 결과를 실제로 관찰한 것은 아니다. 주기 제어·통신을 함께 하는 제품 코드나 ISR에 이 지연 구조를 그대로 옮기지 않는다.\n\n## 동작하지 않을 때\n\n1. IDE에서 UNO와 AVR Boards 1.8.6이 선택되어 있는지, 컴파일 오류인지 업로드 오류인지 먼저 구분한다.\n2. 업로드 오류라면 USB 데이터 케이블, 실제 포트, 다른 프로그램의 포트 점유를 확인한다. 실패 로그를 보존한다.\n3. 업로드 성공인데 LED가 다르면 D13을 사용하는 외부 회로·SPI 코드를 제거한 최소 예제로 좁힌다. 전원을 끄고 외부 배선을 분리한다.\n4. 전기적 이상·발열이 있으면 전원을 끄고 회로 검토를 먼저 한다. 반복 업로드는 전원 문제의 해결책이 아니다.\n\n## 자료 공백과 이용 조건\n\n이 묶음에는 ATmega328P 원제조사 데이터시트·정오표·부트로더 복구 절차가 없다. [Arduino 보드 설명](https://raw.githubusercontent.com/arduino/docs-content/20d1c1c179703cc10ece612f3e4be223fcd02590/content/hardware/02.uno/boards/uno-rev3/datasheet/datasheet.md)의 칩 최대 속도와 보드 동작 속도는 구분해야 하며, 해당 원문의 미완성 전력 수치를 채택하지 않았다.\n\n원저작자: Arduino 및 문서 기여자. 본문은 해당 자료를 한국어로 재구성하고 범위·예제·문제 해결 설명을 추가한 파생 안내다. 본문과 새 예제는 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 조건으로 제공한다. 상업적 재사용도 출처·라이선스·변경 고지와 동일조건 등 해당 조건을 지켜야 한다. 참조한 코어 파일은 별도의 LGPL-2.1-or-later이며, 본문 라이선스로 코어의 조건을 바꾸지 않는다. 상표 소유자의 인증을 의미하지 않는다.\n"
+    },
+    {
+      "document_id": "arduino_zero_samd21",
+      "title": "Arduino Zero: LED 핀, 기본 SPI, EDBG 확인",
+      "target": {
+        "id": "arduino_zero_samd21",
+        "manufacturer": "Microchip / Atmel",
+        "part_number": "ATSAMD21G18A",
+        "board": "Arduino Zero (ABX00003)",
+        "hardware_revision": "Selected reference design; physical PCB revision unknown",
+        "silicon_revision": "unknown",
+        "framework": "Arduino SAMD Boards",
+        "sdk_version": "1.8.14",
+        "sdk_commit": "993398cb7a23a4e0f821a73501ae98053773165b",
+        "board_selector": "arduino:samd:arduino_zero_edbg"
+      },
+      "text": "# Arduino Zero: LED 핀, 기본 SPI, EDBG 확인\n\n문서 0.2.0 · 검토일 2026-09-11 · 펌웨어 검증: `not_tested` (컴파일·업로드·디버깅 실기 미수행)\n\n## 적용 대상\n\nArduino Zero ABX00003 / ATSAMD21G18A, Arduino SAMD Boards 1.8.14, commit `993398cb7a23a4e0f821a73501ae98053773165b` 기준이다. 보드 식별자는 Programming Port용 `arduino:samd:arduino_zero_edbg`다. 실물 PCB·실리콘 리비전과 도구 체인은 미확인이다. AVR용 레지스터 코드와 다른 SAMD 보드의 variant를 적용하지 않는다.\n\n## 핀아웃 그림과 코어 설정은 구분한다\n\n[Zero Full Pinout](https://raw.githubusercontent.com/arduino/docs-content/20d1c1c179703cc10ece612f3e4be223fcd02590/content/hardware/12.hero/boards/zero/downloads/ABX00003-full-pinout.pdf) 1쪽(2021-12-17)에서 D13/PA17과 LED_BUILTIN 연결을 확인했다. 그러나 그림의 D11~D13 SPI 표시를 이 코어의 기본 `SPI` 객체 핀으로 바로 읽으면 안 된다.\n\n| 항목 | SAMD Boards 1.8.14 기준 | 근거 |\n|---|---|---|\n| 내장 LED | Arduino 13 / PA17 | variant.h의 LED 정의, variant.cpp의 핀 13 |\n| 기본 SPI MISO | Arduino 22 / PA12 | variant.h의 SPI 정의, variant.cpp의 22~24 |\n| 기본 SPI MOSI | Arduino 23 / PB10 | 동일 |\n| 기본 SPI SCK | Arduino 24 / PB11 | 동일 |\n\n근거: [variant.h의 LEDs·SPI Interfaces](https://raw.githubusercontent.com/arduino/ArduinoCore-samd/993398cb7a23a4e0f821a73501ae98053773165b/variants/arduino_zero/variant.h), [variant.cpp의 g_APinDescription](https://raw.githubusercontent.com/arduino/ArduinoCore-samd/993398cb7a23a4e0f821a73501ae98053773165b/variants/arduino_zero/variant.cpp). 기본 SPI는 ICSP 헤더 쪽 매핑으로 확인해야 한다. 이는 그림 전체가 잘못되었다는 판정이 아니라, 하드웨어 대체 기능과 선택한 소프트웨어 기본 매핑을 분리한 것이다.\n\n## 최소 LED 예제\n\n빈 스케치 전체에 넣는 새 예제다. 외부 배선을 추가하지 않는다.\n\n```cpp\n#include <Arduino.h>\n\nstatic const unsigned long BLINK_INTERVAL_MS = 500;\n\n// Use the selected board variant instead of hard-coding a port register.\nvoid setup()\n{\n    pinMode(LED_BUILTIN, OUTPUT);\n}\n\n// Blocking timing is limited to this isolated LED check.\nvoid loop()\n{\n    digitalWrite(LED_BUILTIN, HIGH);\n    delay(BLINK_INTERVAL_MS);\n    digitalWrite(LED_BUILTIN, LOW);\n    delay(BLINK_INTERVAL_MS);\n}\n```\n\n예상 결과는 내장 LED가 약 0.5초 간격으로 상태를 바꾸는 것이다. 빌드·실기 성공을 확인한 예제가 아니다.\n\n## 디버깅이 시작되지 않을 때\n\n[Debugging with the Arduino Zero](https://raw.githubusercontent.com/arduino/docs-content/20d1c1c179703cc10ece612f3e4be223fcd02590/content/hardware/12.hero/boards/zero/tutorials/debugging-with-zero/debugging-with-zero.md)의 IDE 2 절차에 따라 Programming USB 포트, SAMD 보드 패키지, Atmel EDBG 디버거 선택을 확인한다. Native USB 포트와 혼동하지 않는다. `Optimize for Debugging` 설정과 중단점 위치를 확인하고, 시리얼 프로그램이 포트를 점유한 경우 종료 후 다시 시도한다. IDE의 정확한 설치 버전은 이번에 고정·시험하지 않았다.\n\nSPI 무응답은 먼저 코어의 `SPI` 핀과 연결한 헤더를 대조한다. MCU가 제공하는 SERCOM 대체 기능이 자동으로 모든 헤더에서 활성화되는 것은 아니다. 외부 신호를 연결하기 전 보드 전압과 상대 장치의 신호 조건을 확인한다.\n\n## 자료 공백과 이용 조건\n\nSAMD21 원제조사 데이터시트·정오표·전체 SERCOM 설정·부트로더 복구는 미확보다. 전기적 최대치를 이 요약만 보고 적용하지 않는다.\n\n원저작자: Arduino 및 문서 기여자, 디버깅 안내 저자 Karl Söderby. 한국어 재구성, 판본별 SPI 주의사항, 새 LED 예제와 검증 제한을 추가했다. 본문과 새 예제는 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)이며 상업적 이용 시에도 출처·변경 고지·동일조건을 지킨다. 참조한 코어 원문은 별도의 LGPL-2.1-or-later다. 원저작자의 제휴·인증을 의미하지 않는다.\n"
+    },
+    {
+      "document_id": "stm32_nucleo_f401re",
+      "title": "NUCLEO-F401RE: Cube GPIO 예제를 읽는 기준",
+      "target": {
+        "id": "stm32_nucleo_f401re",
+        "manufacturer": "STMicroelectronics",
+        "part_number": "STM32F401RE",
+        "board": "NUCLEO-F401RE",
+        "hardware_revision": "Reference example mentions RevC and tested RevB; physical revision unknown",
+        "silicon_revision": "unknown",
+        "framework": "STM32CubeF4 / HAL",
+        "sdk_version": "v1.28.1",
+        "sdk_commit": "83778d5c95cb01695c7facbf095db3ab445532ea",
+        "board_selector": "Projects/STM32F401RE-Nucleo/Examples/GPIO/GPIO_IOToggle"
+      },
+      "text": "# NUCLEO-F401RE: Cube GPIO 예제를 읽는 기준\n\n문서 0.2.0 · 검토일 2026-09-11 · 펌웨어 검증: `not_tested` (SDK 설치·빌드·업로드 미수행)\n\n## 적용 대상과 판본\n\nSTM32F401RE / NUCLEO-F401RE, STM32CubeF4 v1.28.1의 GPIO_IOToggle 예제를 기준으로 한다. Cube commit은 `83778d5c95cb01695c7facbf095db3ab445532ea`, 그 판본의 HAL 드라이버 commit은 `c2e1406d7ea4b73aa42b98ddeb75a8670b1a5a16`이다. 다른 STM32 계열의 클럭·핀 설정으로 일반화하지 않는다.\n\n[공식 예제 readme](https://raw.githubusercontent.com/STMicroelectronics/STM32CubeF4/83778d5c95cb01695c7facbf095db3ab445532ea/Projects/STM32F401RE-Nucleo/Examples/GPIO/GPIO_IOToggle/readme.txt)는 설명에 RevC, 시험 환경에 RevB를 각각 적고 있다. 따라서 특정 PCB 리비전에서 우리가 시험했다고 표시하지 않는다. 실물 보드와 실리콘 리비전은 미확인이다.\n\n## 예제 구조\n\n[공식 main.c](https://raw.githubusercontent.com/STMicroelectronics/STM32CubeF4/83778d5c95cb01695c7facbf095db3ab445532ea/Projects/STM32F401RE-Nucleo/Examples/GPIO/GPIO_IOToggle/Src/main.c)의 `main`, `SystemClock_Config`를 읽는 순서는 다음과 같다.\n\n1. HAL과 시스템 클럭을 초기화한다. 선택 예제의 설정은 HCLK 84 MHz다. 이것은 모든 보드의 기본 클럭이나 설계 허용치에 대한 선언이 아니다.\n2. GPIOA 주변장치 클럭을 활성화한다.\n3. PA5를 출력으로 초기화한다.\n4. 반복문에서 `HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5)` 후 `HAL_Delay(100)`을 수행한다.\n\n예상 현상은 예제가 연결 대상으로 설명한 LED2의 약 100ms 간격 상태 전환이다. 여기에는 실제 측정 결과가 없다. HAL의 함수 선언은 [GPIO 헤더](https://raw.githubusercontent.com/STMicroelectronics/stm32f4xx-hal-driver/c2e1406d7ea4b73aa42b98ddeb75a8670b1a5a16/Inc/stm32f4xx_hal_gpio.h), 동작은 [GPIO 드라이버](https://raw.githubusercontent.com/STMicroelectronics/stm32f4xx-hal-driver/c2e1406d7ea4b73aa42b98ddeb75a8670b1a5a16/Src/stm32f4xx_hal_gpio.c)의 해당 함수에서 확인한다.\n\n## 재현에 필요한 프로젝트\n\nSDK 전체를 별도로 준비할 경우 같은 Cube 판본의 `Projects/STM32F401RE-Nucleo/Examples/GPIO/GPIO_IOToggle` 프로젝트를 사용한다. 이 아카이브의 단일 `main.c`만으로는 빌드할 수 없다. CMSIS·HAL·시작 코드·링커 설정·보드 지원 파일과 맞는 도구 체인이 필요하다. 공식 readme의 `Directory contents` 및 `How to use it`에 있는 프로젝트 구성을 확인한다. 도구 체인 버전은 이번에 시험하지 않았다.\n\n단순 GPIO 확인을 위해 클럭 설정을 임의로 높이거나 다른 MCU의 startup/linker 파일을 복사하지 않는다. 원문 예제 전체를 한 판본으로 맞춘 뒤 검증 기록을 남긴다.\n\n## 증상별 확인 순서\n\n| 증상 | 먼저 확인할 항목 |\n|---|---|\n| 헤더·심볼 누락 | SDK와 서브모듈, 선택 프로젝트의 include/링커 설정 |\n| LED가 바뀌지 않음 | 업로드 성공 여부, 실물 보드 리비전·회로, GPIOA 클럭과 PA5 설정 |\n| 지연에서 멈춘 것처럼 보임 | SysTick 동작, 인터럽트 문맥 여부, 중단점 위치 |\n| 디버거 연결 실패 | 보드 전원·USB·ST-LINK 연결; 컴파일 오류와 별도 진단 |\n\n공식 readme는 ISR에서 `HAL_Delay`를 쓸 때 SysTick 선점 조건을 경고한다. 이 안내에서는 지연을 메인 루프에만 둔다. ISR 문제를 해결한다며 우선순위를 무작정 변경하지 말고, 작업을 태스크/메인 루프로 넘기는 구조를 먼저 검토한다.\n\n## 공백과 권리\n\nMCU 데이터시트·레퍼런스 매뉴얼·정오표·보드 회로는 이 취득 묶음에 없다. 전압 허용치·핀 대체 기능·DMA/RTOS 제약을 여기서 확정하지 않는다.\n\n출처 제공자: STMicroelectronics. 참조한 예제와 HAL 원문은 각각 해당 저장소의 BSD-3-Clause 조건이며, 공개 묶음에 원문 라이선스·저작권 고지를 보존한다. 본문은 코드를 전재하지 않은 새 한국어 분석 안내다. 자체 설명의 일반 재사용 라이선스는 미정(`LicenseRef-Project-Reserved`); 열람 공개와 임의의 상업적 재배포 허락은 다르다. ST의 라이선스가 프로젝트 전체에 적용되거나 ST가 이 문서를 인증하는 것은 아니다.\n"
+    },
+    {
+      "document_id": "esp32_p4_function_ev",
+      "title": "ESP32-P4 Function EV v1.4: 첫 실행과 핀·RTOS 경계",
+      "target": {
+        "id": "esp32_p4_function_ev",
+        "manufacturer": "Espressif Systems",
+        "part_number": "ESP32-P4",
+        "board": "ESP32-P4-Function-EV-Board",
+        "hardware_revision": "v1.4; P4X/v3.x chip variant excluded",
+        "silicon_revision": "unknown; must identify before hardware use",
+        "framework": "ESP-IDF",
+        "sdk_version": "v5.5.1",
+        "sdk_commit": "fcae32885b0296b32044cb99ecbdc50d98dddb83",
+        "board_selector": "esp32p4"
+      },
+      "text": "# ESP32-P4 Function EV v1.4: 첫 실행과 핀·RTOS 경계\n\n문서 0.2.0 · 검토일 2026-09-11 · 펌웨어 검증: `not_tested` (SDK 설치·빌드·플래시·실기 미수행)\n\n## 대상\n\nESP32-P4-Function-EV-Board 하드웨어 v1.4와 ESP-IDF v5.5.1을 기준으로 한다. SDK commit은 `fcae32885b0296b32044cb99ecbdc50d98dddb83`, 빌드 타깃은 `esp32p4`다. 최신 버전 추천이 아닌 수집 기준선이다. 실리콘 리비전·실제 도구 체인은 미확인이고, P4X/v3.x 변형은 범위 밖이다.\n\n[v1.4 보드 안내](https://raw.githubusercontent.com/espressif/esp-dev-kits/2d88ba80221375b1340f5e73c7053736515a8fa0/docs/en/esp32-p4-function-ev-board/user_guide_v1.4.rst)의 시작 주석은 보드 v1.4와 칩 리비전을 구분한다. 같은 문서의 구성 설명에서 Wi-Fi/Bluetooth 모듈은 ESP32-C6-MINI-1이다. 보드가 무선을 제공한다는 사실을 P4 자체의 내장 무선 기능으로 옮겨 적지 않는다.\n\n## 첫 예제 경로\n\n별도로 준비한 정확한 ESP-IDF v5.5.1 환경에서 `examples/get-started/hello_world` 프로젝트의 작업 사본을 사용한다. [해당 판본 README](https://raw.githubusercontent.com/espressif/esp-idf/fcae32885b0296b32044cb99ecbdc50d98dddb83/examples/get-started/hello_world/README.md)의 지원 타깃 표에는 ESP32-P4가 있다. 원문 README만 확보했으며 프로젝트의 C 소스나 SDK 전체를 이 공개 묶음에 넣지 않았다.\n\nESP-IDF 환경이 활성화된 터미널에서 그 작업 사본 디렉터리로 이동한 후:\n\n```powershell\nidf.py --version\nidf.py set-target esp32p4\nidf.py build\n```\n\n`set-target`은 해당 프로젝트의 빌드 설정을 변경하므로 기존 제품 프로젝트에서 실행하지 않는다. 버전이 다르면 먼저 선택한 SDK 환경을 확인한다. 빌드 성공과 플래시 성공, 실제 실행은 별도로 기록한다. 이 명령은 안내이며 이번 작업에서는 실행하지 않았다.\n\n장비의 기존 펌웨어를 덮어쓸 수 있는 플래시는 별도 하드웨어 작업이다. 수행하기 전 칩 리비전·전원·실제 포트·기존 펌웨어 보존 필요를 확인하고 공식 절차를 따른다. 정상 실행의 확인 기준은 `Hello world!`와 칩 정보 출력이며, 이 기록에는 실측 로그가 없다.\n\n## 연결 실패를 좁히기\n\n보드 안내의 `Hardware Setup`은 플래시/디버깅에 USB-to-UART 포트를 권한다. 충전 전용 케이블이나 전원 입력 포트와 혼동하지 않는다. [Flashing Troubleshooting](https://raw.githubusercontent.com/espressif/esp-idf/fcae32885b0296b32044cb99ecbdc50d98dddb83/docs/en/get-started/flashing-troubleshooting.rst)의 P4 치환값은 부트 스트랩 `GPIO35`다. 다른 ESP32 예제의 GPIO0을 무조건 적용하지 않는다.\n\n포트가 없으면 USB 연결·케이블·드라이버를 먼저 확인한다. 포트는 있는데 연결이 실패하면 점유 프로그램, 자동 리셋, BOOT/RESET 순서를 보드 안내와 대조한다. 전송 도중 실패하는 경우에만 baud rate·전원·신호 안정성의 영향을 분리해서 조사한다. 실패 로그 없이 플래시 지우기부터 하지 않는다.\n\n## GPIO와 FreeRTOS 주의점\n\n[P4 GPIO 설명](https://raw.githubusercontent.com/espressif/esp-idf/fcae32885b0296b32044cb99ecbdc50d98dddb83/docs/en/api-reference/peripherals/gpio/esp32p4.inc)은 GPIO34~38을 스트랩 핀으로, GPIO24/25를 기본 USB-JTAG 핀으로 구분한다. 보드 안내의 J1 표는 GPIO0/1/45를 조건부 연결로 표시한다. 칩의 GPIO 목록을 보드의 즉시 사용 가능한 핀 목록으로 해석하지 않는다. 저항 이동 같은 하드웨어 개조는 이 안내에서 수행하지 않는다.\n\n[IDF FreeRTOS 문서](https://raw.githubusercontent.com/espressif/esp-idf/fcae32885b0296b32044cb99ecbdc50d98dddb83/docs/en/api-reference/system/freertos_idf.rst)의 `Task Creation`, `Scheduler Suspension`, `Critical Sections`를 함께 확인한다. 이 판본의 태스크 스택 크기 인자는 바이트 단위이며 일반 FreeRTOS 예제의 워드 단위를 그대로 적용하지 않는다. SMP에서는 한 코어의 스케줄러/인터럽트 중지만으로 다른 코어의 공유 데이터 접근을 막지 못한다. 임계구역에 블로킹·yield 호출을 넣지 않는다. 구체적인 락·큐·스택 크기는 실제 작업과 설정을 측정한 뒤 결정한다.\n\n## 공백과 이용 조건\n\nP4 데이터시트·TRM·정오표·회로 PDF와 무선 보조 칩 펌웨어 조합은 이 묶음에 미확보다. 카메라/LCD/DMA 성능이나 특정 실리콘 리비전 호환을 검증했다고 표시하지 않는다.\n\n출처: Espressif Systems 및 기여자. 보드 문서를 한국어로 재구성하고 SDK 판본별 주의사항과 검증 경계를 추가한 파생 안내다. 본문은 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)이며 상업적 재사용에도 출처·변경 고지·동일조건을 적용한다. 함께 참고한 ESP-IDF 문서 원문은 Apache-2.0이고 관련 고지를 보존한다. 개별 SDK 예제의 라이선스까지 일괄 Apache-2.0으로 간주하지 않는다. Espressif의 인증·보증을 뜻하지 않는다.\n"
+    }
+  ]
+}

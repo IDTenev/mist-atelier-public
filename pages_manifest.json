@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "generated_by": "pages_site.mjs",
+  "version": "0.9.0",
+  "site_url": "https://idtenev.github.io/mist-atelier-public/",
+  "repository_url": "https://github.com/IDTenev/mist-atelier-public",
+  "scope": "approved_guides_only",
+  "documents": [
+    "arduino_uno_r3",
+    "arduino_zero_samd21",
+    "stm32_nucleo_f401re",
+    "esp32_p4_function_ev"
+  ],
+  "files": [
+    {
+      "path": ".nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "404.html",
+      "bytes": 3438,
+      "sha256": "612d99bf8c3158e68f07766b171e30fe81f784537a779821dabd2e05a07450a5"
+    },
+    {
+      "path": "api/changes.json",
+      "bytes": 2187,
+      "sha256": "e7d776c70a5756dc7bd5026116f4695e324fbfcee412e49695dc188d6ef006ab"
+    },
+    {
+      "path": "api/discovery.json",
+      "bytes": 5064,
+      "sha256": "4e1520cfc849cf77a607b165a4030d68afb57fee37d6533f5dac35325cbe4899"
+    },
+    {
+      "path": "api/guides/arduino_uno_r3.json",
+      "bytes": 8694,
+      "sha256": "84271675a84e2a01f272f73c81eac0a4888629004c57d43d5d9dde7396dfc0c5"
+    },
+    {
+      "path": "api/guides/arduino_zero_samd21.json",
+      "bytes": 8693,
+      "sha256": "a853bfe565f9c373f3865520faf910a8904140fa7c79d13046ef7b09670e73a7"
+    },
+    {
+      "path": "api/guides/esp32_p4_function_ev.json",
+      "bytes": 10298,
+      "sha256": "54d5714416b59b00a899bfdff95578d5c60668a02f4f40383e58958ab9989ff4"
+    },
+    {
+      "path": "api/guides/stm32_nucleo_f401re.json",
+      "bytes": 8078,
+      "sha256": "214dbfff5c8a8d3c4df749c18308e990f6fefda1da508bcf17b6b3595545c8cf"
+    },
+    {
+      "path": "api/search.json",
+      "bytes": 21080,
+      "sha256": "2402c32b14ed3129f86d3d753083680ef7c4ddd3dc89aedc90fa046c290adfab"
+    },
+    {
+      "path": "assets/mist_atelier_logo.png",
+      "bytes": 161122,
+      "sha256": "9512999a4ee00af826806ae604304755148fc8011a7ba034a695292a139c75b7"
+    },
+    {
+      "path": "assets/mist_forest.png",
+      "bytes": 1869768,
+      "sha256": "586ef196fcc928ec1974c967a1393cf106ced6d34f5677f82a8211b692680bf3"
+    },
+    {
+      "path": "assets/site.css",
+      "bytes": 25099,
+      "sha256": "73455b4015a8420e0b64ba13f8a5a75acbc601159195f612770165a89eb87681"
+    },
+    {
+      "path": "assets/site.js",
+      "bytes": 6596,
+      "sha256": "f2885dc47fd14445658c6b80e18af006026a6cb804c8629dab7fbc4dc2e23fea"
+    },
+    {
+      "path": "changes.atom",
+      "bytes": 2249,
+      "sha256": "83cf50f29548549cedb0e25b665b70b70f10f8c257ea1e227966f856a1759bfe"
+    },
+    {
+      "path": "changes/index.html",
+      "bytes": 6354,
+      "sha256": "ac712d3a761a506fc559014bdb733466f1bd2949850e703ac876f88c9e7b305c"
+    },
+    {
+      "path": "discovery/index.html",
+      "bytes": 6119,
+      "sha256": "6e3c903c8f6dd30244655889e5f8fb25d844426330187d6e4e951e4fc69c4b3f"
+    },
+    {
+      "path": "guide-files/licenses/arduino_docs_cc_by_sa_4_0.txt",
+      "bytes": 18788,
+      "sha256": "733e4dca70c92c4259348b1c8c8223d072dca7a3f72bff73221dec21f892236d"
+    },
+    {
+      "path": "guide-files/licenses/arduino_lgpl_2_1.txt",
+      "bytes": 26526,
+      "sha256": "20c17d8b8c48a600800dfd14f95d5cb9ff47066a9641ddeab48dc54aec96e331"
+    },
+    {
+      "path": "guide-files/licenses/esp_devkits_cc_by_sa_4_0.txt",
+      "bytes": 20139,
+      "sha256": "2003829cf643d61b00a76088dd31bb11b8029546f24c56b39fd492adb9281483"
+    },
+    {
+      "path": "guide-files/licenses/esp_devkits_license_scope.txt",
+      "bytes": 20266,
+      "sha256": "e7bbfd8b1066fcf2b018da3c50f47dd75a9893ecf0b73ca3056c81d3f5de4e9a"
+    },
+    {
+      "path": "guide-files/licenses/esp_idf_apache_2_0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "guide-files/licenses/esp_idf_copyright.rst",
+      "bytes": 13301,
+      "sha256": "461b6a126c59fce1ea9182f35b0e4f33b42654acd337d5b83996340e1ad2b581"
+    },
+    {
+      "path": "guide-files/licenses/st_examples_bsd_3_clause.txt",
+      "bytes": 1485,
+      "sha256": "376c82bcef0be563bf59b93d05cfdd4b6295e4660b55b31dd8a883bf1d6637f7"
+    },
+    {
+      "path": "guide-files/licenses/st_hal_bsd_3_clause.txt",
+      "bytes": 1485,
+      "sha256": "376c82bcef0be563bf59b93d05cfdd4b6295e4660b55b31dd8a883bf1d6637f7"
+    },
+    {
+      "path": "guides/arduino_uno_r3/index.html",
+      "bytes": 10208,
+      "sha256": "8df6331c0a83af5ece59fe3d4cfb3c363ade37130e1d1ec43630f25ebd6a1e82"
+    },
+    {
+      "path": "guides/arduino_uno_r3/index.md",
+      "bytes": 4370,
+      "sha256": "7ad99ea418ed4e83c025b411f066a20ac04c7090dda4e11ab0cfd44389986ddf"
+    },
+    {
+      "path": "guides/arduino_zero_samd21/index.html",
+      "bytes": 10008,
+      "sha256": "78c2ac04b289de5ba6fe97193e69fe163eab4898bd2eeb3128d7887ccea72548"
+    },
+    {
+      "path": "guides/arduino_zero_samd21/index.md",
+      "bytes": 4189,
+      "sha256": "9cceb31d4337f54ba371a5eb234de43ffdeffc4d5d9e1efc7775d161f3f8bee2"
+    },
+    {
+      "path": "guides/esp32_p4_function_ev/index.html",
+      "bytes": 11022,
+      "sha256": "91dbc8d42e4bc629664344008b32e2cc3d74a2c0b53cab3ecfde3a2f40175829"
+    },
+    {
+      "path": "guides/esp32_p4_function_ev/index.md",
+      "bytes": 5225,
+      "sha256": "e0633d9f365a087ab55d166741c86d8bdcf16e8f4e3ec47167952b2288268e73"
+    },
+    {
+      "path": "guides/index.html",
+      "bytes": 4927,
+      "sha256": "b605416d72b0661246d81a7031aeb395e13a6a6c5972252a720f5947e0964b79"
+    },
+    {
+      "path": "guides/stm32_nucleo_f401re/index.html",
+      "bytes": 10292,
+      "sha256": "1cc4d6e01d2a75e27450aa0a2b9024f31a032c9d7f914f9312f2fc51561e8b6f"
+    },
+    {
+      "path": "guides/stm32_nucleo_f401re/index.md",
+      "bytes": 4397,
+      "sha256": "a210a6af509cd6d7dfc08288d3ea0535d434d5143d1af607a3d318f189d31728"
+    },
+    {
+      "path": "index.html",
+      "bytes": 7761,
+      "sha256": "d41c6059063c8dee2acc9a865f781d109dd8c331e8f30e4b9f9ab56b21142ab3"
+    },
+    {
+      "path": "library/index.html",
+      "bytes": 7769,
+      "sha256": "0c4414ad907dffd9b4ec45f330765d7e88b57347fcaf1af0f7b2a56ee2f849ae"
+    },
+    {
+      "path": "llms.txt",
+      "bytes": 724,
+      "sha256": "3bb3e440fa3cebd0dc965da84b5db55cb6344a462f5c8e58d21a90d5b22d4a4e"
+    },
+    {
+      "path": "policy/index.html",
+      "bytes": 5714,
+      "sha256": "545b652ba84b82fd88101aab5df9d81a0c8553e92a20c29693182405ca786260"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2000,
+      "sha256": "ebb9058fabf5f7c6ac33f2e2b484bb4bea51e3ab300806ffb478b1a298a07a75"
+    },
+    {
+      "path": "robots.txt",
+      "bytes": 114,
+      "sha256": "91d3f7e3365a1927987077120f03daee5076ad1ff48a9db79dc961b7d24d2b21"
+    },
+    {
+      "path": "sitemap.xml",
+      "bytes": 498,
+      "sha256": "bfb16825c4adab4446a6e196902bdf3c681bc69d568ff2b490a4227a295651c2"
+    }
+  ]
+}

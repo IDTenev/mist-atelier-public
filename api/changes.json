@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "scope": "public_approved_guides_only",
+  "observed_at": "2026-09-11T11:50:59.317Z",
+  "pending_changes": 0,
+  "events": [
+    {
+      "event_id": "urn:sha256:debf95d607c1b7e820e18042279e8ace2185afd5268b35dacf910cb844b2eb2e",
+      "document_id": "stm32_nucleo_f401re",
+      "title": "NUCLEO-F401RE: Cube GPIO 예제를 읽는 기준",
+      "kind": "baseline",
+      "observed_at": "2026-09-11T11:50:59.317Z",
+      "document_version": "0.2.0",
+      "body_sha256": "a210a6af509cd6d7dfc08288d3ea0535d434d5143d1af607a3d318f189d31728",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stm32_nucleo_f401re/"
+    },
+    {
+      "event_id": "urn:sha256:a184e3c712070ee0f40b03d1cf2e905e8d4947a35f96ab5d8b0c03fc8b8f3ba4",
+      "document_id": "esp32_p4_function_ev",
+      "title": "ESP32-P4 Function EV v1.4: 첫 실행과 핀·RTOS 경계",
+      "kind": "baseline",
+      "observed_at": "2026-09-11T11:50:59.317Z",
+      "document_version": "0.2.0",
+      "body_sha256": "e0633d9f365a087ab55d166741c86d8bdcf16e8f4e3ec47167952b2288268e73",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/esp32_p4_function_ev/"
+    },
+    {
+      "event_id": "urn:sha256:08a83184e79f01a4cae9f00edc61ea772b653e59ecc88aaa92025865bb45f63d",
+      "document_id": "arduino_zero_samd21",
+      "title": "Arduino Zero: LED 핀, 기본 SPI, EDBG 확인",
+      "kind": "baseline",
+      "observed_at": "2026-09-11T11:50:59.317Z",
+      "document_version": "0.2.0",
+      "body_sha256": "9cceb31d4337f54ba371a5eb234de43ffdeffc4d5d9e1efc7775d161f3f8bee2",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/arduino_zero_samd21/"
+    },
+    {
+      "event_id": "urn:sha256:498e27b2102c369ebf74d9f2f4d9d6abf9ef04c60bf56a72e34fd37bc1e4403e",
+      "document_id": "arduino_uno_r3",
+      "title": "Arduino UNO R3: 보드 핀과 GPIO 첫 확인",
+      "kind": "baseline",
+      "observed_at": "2026-09-11T11:50:59.317Z",
+      "document_version": "0.2.0",
+      "body_sha256": "7ad99ea418ed4e83c025b411f066a20ac04c7090dda4e11ab0cfd44389986ddf",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/arduino_uno_r3/"
+    }
+  ]
+}

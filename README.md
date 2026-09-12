@@ -1,0 +1,19 @@
+# Mist Atelier · 공개 안내 사이트
+
+[사이트 열기](https://idtenev.github.io/mist-atelier-public/) · [출처·범위·데이터 처리](https://idtenev.github.io/mist-atelier-public/policy/) · [정정 문의](https://github.com/IDTenev/mist-atelier-public/issues)
+
+이 저장소는 승인된 한국어 MCU 안내 4개, 필요한 라이선스 고지, 사이트 디자인 자산과 정적 파일만 담습니다. 개발 저장소와 Git 이력은 분리되어 있으며 내부 원문·수집 데이터·개발 문서는 포함하지 않습니다.
+
+## 이용 안내
+
+사이트에서 보드·SDK·본문 검색, 안내 HTML·Markdown·JSON, 출처와 변경 이력을 볼 수 있습니다. 검색·이력 필터에는 JavaScript가 필요하며 본문은 JavaScript 없이 읽을 수 있습니다. JSON은 배포 시점의 정적 자료이며 서버 검색 API가 아닙니다. 실기 검증·전체 임베디드 원문 공개·AI 학습 허가를 의미하지 않습니다.
+
+## 권리와 디자인
+
+문서별 출처·판본·라이선스는 각 안내와 guide-files/licenses/ 고지를 확인하세요. 로고는 운영자 제공 자산, 배경은 생성형 이미지로 만든 장식입니다. 사이트 전체나 자산에 대한 별도 일반 재사용 라이선스는 부여하지 않습니다.
+
+## 배포 구조
+
+main 브랜치의 루트를 GitHub Pages에서 제공합니다. .nojekyll로 Jekyll 변환을 하지 않습니다. pages_manifest.json은 파일별 SHA-256과 크기를 기록합니다. 수정은 비공개 개발 프로젝트에서 승인·생성·검증 후 이 저장소에 일반 commit/push로 반영합니다. 개발 저장소 전체를 복사하거나 이곳에 원문을 직접 추가하지 마세요.
+
+HTML은 noindex 요청 중이지만 공개 접근 보호가 아닙니다. 철회 후에도 과거 Git 이력·복사본·호스팅 캐시에 내용이 남을 수 있습니다. 운영 계정은 IDTenev이며 민감정보를 공개 이슈에 올리지 마세요.
