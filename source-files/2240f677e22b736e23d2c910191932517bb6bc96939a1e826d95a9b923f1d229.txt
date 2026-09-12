@@ -1,0 +1,196 @@
+/*
+ * Copyright (c) Arduino s.r.l. and/or its affiliated companies
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/delete-node/ &slot0_partition;
+/delete-node/ &slot1_partition;
+/delete-node/ &scratch_partition;
+/delete-node/ &storage_partition;
+
+&flash0 {
+	partitions {
+		slot0_partition: partition@10000 {
+			label = "image-0";
+			reg = < 0x10000 0x60000 >;
+		};
+
+		user_sketch: partition@70000 {
+			label = "user";
+			reg = <0x070000 0x10000>;
+		};
+	};
+};
+
+&rtc2 {
+    status = "okay";
+    clock-frequency = <32768>;
+    prescaler = <1>;  // Optional: sets the RTC tick to ~30.5 µs
+};
+
+&adc {
+	zephyr,deferred-init;
+};
+
+&pinctrl {
+	empty_default: empty_default {
+		group1 {
+			psels = <>;
+		};
+	};
+
+	pwm1_default: pwm1_default {
+		group1 {
+			psels = <NRF_PSEL(PWM_OUT0, 0, 10)>,
+				<NRF_PSEL(PWM_OUT1, 0, 9)>,
+				<NRF_PSEL(PWM_OUT2, 0, 20)>,
+				<NRF_PSEL(PWM_OUT3, 0, 23)>;
+				nordic,invert;
+		};
+	};
+
+	pwm1_sleep: pwm1_sleep {
+		group1 {
+			psels = <NRF_PSEL(PWM_OUT0, 0, 10)>,
+				<NRF_PSEL(PWM_OUT1, 0, 9)>,
+				<NRF_PSEL(PWM_OUT2, 0, 20)>,
+				<NRF_PSEL(PWM_OUT3, 0, 23)>;
+				low-power-enable;
+		};
+	};
+
+	pwm2_default: pwm2_default {
+		group1 {
+			psels = <NRF_PSEL(PWM_OUT0, 0, 22)>,
+				<NRF_PSEL(PWM_OUT1, 0, 24)>,
+				<NRF_PSEL(PWM_OUT2, 0, 29)>,
+				<NRF_PSEL(PWM_OUT3, 0, 28)>;
+				nordic,invert;
+		};
+	};
+
+	pwm2_sleep: pwm2_sleep {
+		group1 {
+			psels = <NRF_PSEL(PWM_OUT0, 0, 22)>,
+				<NRF_PSEL(PWM_OUT1, 0, 24)>,
+				<NRF_PSEL(PWM_OUT2, 0, 29)>,
+				<NRF_PSEL(PWM_OUT3, 0, 28)>;
+				low-power-enable;
+		};
+	};
+
+	pwm3_default: pwm3_default {
+		group1 {
+			psels = <NRF_PSEL(PWM_OUT0, 0, 27)>,
+				<NRF_PSEL(PWM_OUT1, 0, 11)>,
+				<NRF_PSEL(PWM_OUT2, 0, 2)>,
+				<NRF_PSEL(PWM_OUT3, 0, 30)>;
+				nordic,invert;
+		};
+	};
+
+	pwm3_sleep: pwm3_sleep {
+		group1 {
+			psels = <NRF_PSEL(PWM_OUT0, 0, 27)>, /* keep original config */
+				<NRF_PSEL(PWM_OUT1, 0, 11)>,
+				<NRF_PSEL(PWM_OUT2, 0, 2)>,
+				<NRF_PSEL(PWM_OUT3, 0, 30)>;
+				low-power-enable;
+		};
+	};
+};
+
+&pwm0 {
+	status = "okay";
+	zephyr,deferred-init;
+	pinctrl-0 = <&empty_default>;
+	pinctrl-1 = <&pwm1_sleep>;
+	pinctrl-2 = <&pwm1_default>;
+	pinctrl-names = "default", "sleep", "arduino";
+};
+
+&pwm1 {
+	status = "okay";
+	zephyr,deferred-init;
+	pinctrl-0 = <&empty_default>;
+	pinctrl-1 = <&pwm2_sleep>;
+	pinctrl-2 = <&pwm2_default>;
+	pinctrl-names = "default", "sleep", "arduino";
+};
+
+&pwm2 {
+	status = "okay";
+	zephyr,deferred-init;
+	pinctrl-0 = <&empty_default>;
+	pinctrl-1 = <&pwm3_sleep>;
+	pinctrl-2 = <&pwm3_default>;
+	pinctrl-names = "default", "sleep", "arduino";
+};
+
+&i2c1 {
+	status = "okay";
+	zephyr,deferred-init;
+};
+
+/ {
+	zephyr,user {
+		digital-pin-gpios = <&gpio0 10 0>,		// 0: GPIO3
+				    <&gpio0 9 0>,				// 1: GPIO2/RX
+				    <&gpio0 20 0>,				// 2: GPIO1/TX
+				    <&gpio0 23 0>,				// 3: SCL1
+				    <&gpio0 22 0>,				// 4: SDA1
+				    <&gpio0 24 0>,				// 5: GPIO0
+				    <&gpio0 29 0>,				// 6: CS
+				    <&gpio0 28 0>,				// 7: CIPO
+				    <&gpio0 27 0>,				// 8: COPI
+				    <&gpio0 11 0>,				// 9: SCLK
+				    <&gpio0 2 0>,				// 10: A0
+				    <&gpio0 30 0>,				// 11: A1
+				    <&gpio0 19 0>,				// 12: INT ESLOV
+				    <&gpio0 18 0>,				// 13: Reset BHI260
+				    <&gpio0 14 0>,				// 14: INT BHI260
+				    <&gpio0 25 0>,				// 15: BQ25120 CD
+				    <&gpio0 26 0>,				// 16: CS FLASH
+				    <&gpio0 31 0>;				// 17: CS BHI260
+
+		builtin-led-gpios = <&gpio0 10 0>;		// TODO: fixme: use real i2c led (will need some magic like PureAnalog)
+
+		adc-pin-gpios = <&gpio0 2 0>,				// 10: A0 (AIN0)
+				<&gpio0 30 0>;				// 11: A1 (AIN6)
+
+		io-channels =	<&adc 0>,
+				<&adc 6>;
+
+		pwm-pin-gpios =	    <&gpio0 10 0>,
+				    <&gpio0 9 0>,
+				    <&gpio0 20 0>,
+				    <&gpio0 23 0>,
+				    <&gpio0 22 0>,
+				    <&gpio0 24 0>,
+				    <&gpio0 29 0>,
+				    <&gpio0 28 0>,
+				    <&gpio0 27 0>,
+				    <&gpio0 11 0>,
+				    <&gpio0 2 0>,
+				    <&gpio0 30 0>;
+		
+
+		pwms =	<&pwm0 0 PWM_HZ(500) PWM_POLARITY_NORMAL>,
+			<&pwm0 1 PWM_HZ(500) PWM_POLARITY_NORMAL>,
+			<&pwm0 2 PWM_HZ(500) PWM_POLARITY_NORMAL>,
+			<&pwm0 3 PWM_HZ(500) PWM_POLARITY_NORMAL>,
+			<&pwm1 0 PWM_HZ(500) PWM_POLARITY_NORMAL>,
+			<&pwm1 1 PWM_HZ(500) PWM_POLARITY_NORMAL>,
+			<&pwm1 2 PWM_HZ(500) PWM_POLARITY_NORMAL>,
+			<&pwm1 3 PWM_HZ(500) PWM_POLARITY_NORMAL>,
+			<&pwm2 0 PWM_HZ(500) PWM_POLARITY_NORMAL>,
+			<&pwm2 1 PWM_HZ(500) PWM_POLARITY_NORMAL>,
+			<&pwm2 2 PWM_HZ(500) PWM_POLARITY_NORMAL>,
+			<&pwm2 3 PWM_HZ(500) PWM_POLARITY_NORMAL>;
+
+		serials = <&uart0>;
+		i2cs = <&i2c1>;
+		// spis = <&spi0>; // conflicts with uart0 (same peripheral)
+	};
+};

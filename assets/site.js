@@ -12,7 +12,7 @@ export function filter_public_guides(documents, params) {
     return { filters, items };
 }
 
-// Preserve shareable filters locally; no cookies, local storage or analytics are used.
+// Preserve shareable filters locally without transmitting query terms to the counter.
 function replace_query(params) {
     const url = new URL(location.href);
     url.search = params.toString();
@@ -97,7 +97,35 @@ function enable_history(form) {
     addEventListener('popstate', () => apply(new URLSearchParams(location.search), false));
 }
 
+// One public-site key survives navigation and deployment; previews never increment it.
+export function public_counter_url(site_url, current_url) {
+    const site = new URL(site_url);
+    const current = new URL(current_url);
+    if (site.protocol !== 'https:' || !/^[a-z0-9-]+\.github\.io$/.test(site.hostname) ||
+        !/^\/[a-zA-Z0-9_-]+\/$/.test(site.pathname) || site.search || site.hash || site.username || site.password || site.port) throw new Error('Invalid counter site');
+    if (current.origin !== site.origin || !current.pathname.startsWith(site.pathname)) return null;
+    return 'https://hits.sh/' + site.hostname + site.pathname.slice(0, -1) + '.svg?style=flat-square&label=views&color=69e7e8&labelColor=09212b';
+}
+
+// A failed or blocked image has an honest fallback; no retries inflate the shared count.
+function enable_view_counter(element) {
+    const value = element.querySelector('[data-view-value]');
+    try {
+        const url = public_counter_url(element.dataset.viewCounter, location.href);
+        if (!url) { value.textContent = '공개 사이트에서 집계'; return; }
+        const badge = new Image();
+        badge.alt = '사이트 누적 조회수 (Hits)';
+        badge.referrerPolicy = 'no-referrer';
+        const timeout = setTimeout(() => { value.textContent = '집계 지연'; }, 10000);
+        badge.addEventListener('load', () => { clearTimeout(timeout); value.replaceChildren(badge); }, { once: true });
+        badge.addEventListener('error', () => { clearTimeout(timeout); value.textContent = '집계 불가'; }, { once: true });
+        badge.src = url;
+    } catch { value.textContent = '집계 불가'; }
+}
+
 if (typeof document !== 'undefined') {
+    const counter = document.querySelector('[data-view-counter]');
+    if (counter) enable_view_counter(counter);
     const search = document.querySelector('[data-guide-search]');
     if (search) void enable_search(search);
     const history_form = document.querySelector('.history-filter');

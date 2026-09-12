@@ -1,0 +1,13 @@
+## IDF Component Manager Manifest File
+dependencies:
+  espressif/esp_msc_ota:
+      version: "^2.0"
+      override_path: ../../../../../components/usb/esp_msc_ota
+  espressif/button:
+      version: "^4.0.0"
+      override_path: ../../../../../components/button
+  espressif/tinyusb:
+    version: "0.19.*"
+  ## Required IDF version
+  idf:
+    version: ">=5.0"

@@ -36,6 +36,9 @@ small { font-size:.8125rem; }
 .sidebar-brand { min-height:12.5rem; display:flex; align-items:center; justify-content:center; padding:.65rem 0; }
 .topbar-main { min-height:78px; display:flex; flex-wrap:wrap; align-items:center; gap:1rem 2rem; padding:1rem clamp(1.5rem,3vw,3rem); border-bottom:1px solid var(--border); }
 .library-label { font-size:.875rem; letter-spacing:.08em; color:var(--muted); }
+.view-counter { display:flex; align-items:center; flex-wrap:wrap; gap:.5rem; font-size:.75rem; color:var(--muted); }
+.view-counter [data-view-value] { display:inline-flex; min-height:20px; align-items:center; color:var(--accent); font-variant-numeric:tabular-nums; }
+.view-counter img { display:block; max-width:160px; height:20px; }
 .topbar nav { display:flex; flex-wrap:wrap; gap:1.8rem; margin-left:auto; font-size:.875rem; }
 .topbar nav a { display:block; padding:.45rem 0; border-bottom:1px solid transparent; color:var(--muted); }
 .topbar nav a[aria-current] { color:var(--ink); border-bottom-color:var(--accent); }
@@ -81,6 +84,13 @@ main { min-width:0; padding:1.65rem clamp(1.5rem,3vw,3rem) 3rem; }
 .filter-submit { min-height:44px; font-size:.875rem; }
 .search-status { font-size:.875rem; margin:.8rem 0 0; color:var(--muted); }
 .search-status:empty { display:none; }
+[data-source-controls] { border:0; padding:0; margin:0; min-width:0; }
+[data-source-controls] .filter-label { margin-top:1rem; }
+[data-source-results] h3 { font-size:1.0625rem; line-height:1.5; margin:.75rem 0; overflow-wrap:anywhere; }
+[data-source-results] .type-label,[data-source-view] h1,.source-metadata { overflow-wrap:anywhere; }
+[data-static-site] main>h1 { overflow-wrap:anywhere; }
+.source-metadata { max-width:none; padding:1.2rem; background:var(--surface); border:1px solid var(--border); margin:1rem 0; }
+.public-source-text { max-width:100%; max-height:75vh; overflow:auto; padding:1.2rem; background:#071a27; border:1px solid var(--border); font-size:.875rem; line-height:1.65; tab-size:4; }
 .reset-filter { padding:.65rem; color:var(--muted); font-size:.875rem; text-decoration:underline; text-underline-offset:3px; }
 .library-context { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.8rem; padding:1.05rem 0 1.65rem; color:#c3d5df; font-size:.875rem; }
 .quick-topics { display:flex; gap:.5rem; flex-wrap:wrap; }

@@ -1,0 +1,44 @@
+.pre_check_docs_runner:
+  stage: pre_check
+  image: $ESP_IDF_DOC_ENV_IMAGE
+  tags: [check_doc_links]
+
+.pre_check_docs_build:
+  extends: .pre_check_docs_runner
+  variables:
+    DOCS_DIR: $CI_PROJECT_DIR/docs
+  before_script:
+    - cd "$DOCS_DIR"
+    - pip install -r requirements.txt
+
+check_readme_links:
+  extends: .pre_check_docs_runner
+  allow_failure: true
+  script:
+    - python ${CI_PROJECT_DIR}/tools/ci/check_readme_links.py
+
+check_doc_links:
+  extends: .pre_check_docs_build
+  variables:
+    DOCTGT: "esp32 esp32s2 esp32s3 esp32c3 esp32c6 esp32h2 esp32c2 esp32p4 esp32c5 esp32c61 esp32s31 other"
+    DOCLANG: "en zh_CN"
+  allow_failure: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - |
+      for lang in $DOCLANG; do
+        for target in $DOCTGT; do
+          build-docs -t $target -l $lang linkcheck
+        done
+      done
+
+check_lang_links:
+  extends: .pre_check_docs_build
+  allow_failure: false
+  script:
+    - build-docs -l $DOCLANG lang-linkcheck
+  parallel:
+    matrix:
+      - DOCLANG: ["en", "zh_CN"]

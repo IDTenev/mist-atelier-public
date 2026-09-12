@@ -1,0 +1,307 @@
+/*
+ * Copyright (c) Arduino s.r.l. and/or its affiliated companies
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* USB CDC-ACM UART for console */
+&zephyr_udc0 {
+    board_cdc_acm_uart: board_cdc_acm_uart {
+        compatible = "zephyr,cdc-acm-uart";
+        status = "okay";
+    };
+};
+
+&lpuart1 {
+	status = "okay";
+    /* lpuart1 is not set as deferred-init to catch early boot logs since it is assigned to zephyr,console */
+};
+
+/* I2C buses */
+&i2c1 {
+    status = "okay";
+    zephyr,deferred-init;
+};
+
+&i2c2 {
+    status = "okay";
+    zephyr,deferred-init;
+};
+
+&i2c3 {
+    status = "okay";
+    zephyr,deferred-init;
+};
+
+&gc2145 {
+    zephyr,deferred-init;
+};
+
+&pwmclock {
+    status = "okay";
+    zephyr,deferred-init;
+};
+
+&dcmi {
+    zephyr,deferred-init;
+};
+
+/* SPI buses */
+&spi4 {
+    status = "okay";
+    zephyr,deferred-init;
+};
+
+&spi5 {
+    status = "okay";
+    zephyr,deferred-init;
+};
+
+&rtc {
+    status = "okay";
+
+    clocks = <&rcc STM32_CLOCK(APB4, 16U)>,
+             <&rcc STM32_SRC_LSE RTC_SEL(1)>;
+};
+
+/* PWM Timers */
+&timers1 {
+    status = "okay";
+    st,prescaler = <0>;
+
+    pwm1: pwm {
+        status = "okay";
+        zephyr,deferred-init;
+        pinctrl-0 = <>;
+        pinctrl-1 = <>;
+        pinctrl-2 = <&tim1_ch1_pk1 &tim1_ch3_pj9>;
+        pinctrl-names = "default", "sleep", "arduino";
+    };
+};
+
+&timers3 {
+	status = "okay";
+	st,prescaler = <0>;
+
+	cam_clock_pwm: pwm {
+		status = "okay";
+		zephyr,deferred-init;
+		pinctrl-0 = <>;
+		pinctrl-1 = <>;
+		pinctrl-2 = <&tim3_ch2_pa7>;
+		pinctrl-names = "default", "sleep", "arduino";
+	};
+};
+
+
+&timers8 {
+    status = "okay";
+    st,prescaler = <100>;
+
+    pwm8: pwm {
+        status = "okay";
+        zephyr,deferred-init;
+        pinctrl-0 = <>;
+        pinctrl-1 = <>;
+        pinctrl-2 = <&tim8_ch2_pj10 &tim8_ch3n_ph15>;
+        pinctrl-names = "default", "sleep", "arduino";
+    };
+};
+
+&timers12 {
+    status = "okay";
+    st,prescaler = <100>;
+
+    pwm12: pwm {
+        status = "okay";
+        zephyr,deferred-init;
+        pinctrl-0 = <>;
+        pinctrl-1 = <>;
+        pinctrl-2 = <&tim12_ch1_ph6>;
+        pinctrl-names = "default", "sleep", "arduino";
+    };
+};
+
+&adc1 {
+    zephyr,deferred-init;
+    pinctrl-0 = <>;
+    pinctrl-1 = <>;
+    pinctrl-2 = <&adc1_inp4_pc4>;
+    pinctrl-names = "default", "sleep", "arduino";
+    st,adc-clock-source = "SYNC";
+    st,adc-prescaler = <4>;
+    status = "okay";
+
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+    channel@4 {
+        reg = <4>;
+        zephyr,gain = "ADC_GAIN_1";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME_MAX>;
+        zephyr,resolution = <16>;
+    };
+
+    channel@12 {
+        reg = <12>;
+        zephyr,gain = "ADC_GAIN_1";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME_MAX>;
+        zephyr,resolution = <16>;
+    };
+};
+
+&adc2 {
+    zephyr,deferred-init;
+    pinctrl-0 = <>;
+    pinctrl-1 = <>;
+    pinctrl-2 = <&adc2_inp2_pf13>;
+    pinctrl-names = "default", "sleep", "arduino";
+    st,adc-clock-source = "SYNC";
+    st,adc-prescaler = <4>;
+    status = "okay";
+
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+    channel@2 {
+        reg = <2>;
+        zephyr,gain = "ADC_GAIN_1";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME_MAX>;
+        zephyr,resolution = <16>;
+    };
+};
+
+&adc3 {
+    zephyr,deferred-init;
+    pinctrl-0 = <>;
+    pinctrl-1 = <>;
+    pinctrl-2 = <&adc3_inp5_pf3>;
+    pinctrl-names = "default", "sleep", "arduino";
+    st,adc-clock-source = "SYNC";
+    st,adc-prescaler = <4>;
+    status = "okay";
+
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+    channel@5 {
+        reg = <5>;
+        zephyr,gain = "ADC_GAIN_1";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME_MAX>;
+        zephyr,resolution = <16>;
+    };
+};
+
+/ {
+
+    chosen {
+        zephyr,console = &lpuart1;
+        zephyr,shell-uart = &lpuart1;
+        zephyr,log-uart = &log_uarts;
+        arduino,camera-clock = &pwmclock;
+    };
+
+	log_uarts: log_uarts {
+		compatible = "zephyr,log-uart";
+		uarts = <&lpuart1 &board_cdc_acm_uart>;
+	};
+
+    /* used to overcome problems with _C analog pins */
+    gpio_invalid: gpio@deadbeef {
+        compatible = "vnd,gpio";
+        gpio-controller;
+        reg = <0xdeadbeef 0x1000>;
+        #gpio-cells = <0x2>;
+        status = "okay";
+    };
+};
+
+/*
+ * Custom partition layout for Arduino Core compatibility:
+ * - mcuboot: 256KB bootloader
+ * - image-0: 640KB loader slot
+ * - user_sketch: rest of Flash
+ */
+
+&flash0 {
+	reg = <0x8000000 DT_SIZE_K(2048)>;     /* assign all Flash to the M7 */
+	status = "okay";
+
+	partitions {
+		slot0_partition: partition@40000 {
+			label = "image-0";
+			reg = <0x00040000 0x000A0000>;
+		};
+
+		user_sketch: partition@e0000 {
+			label = "user_sketch";
+			reg = <0x000E0000 0x00120000>;
+		};
+	};
+};
+
+/ {
+    zephyr,user {
+        digital-pin-gpios = <&gpiog 12 GPIO_ACTIVE_HIGH>,   /* D0  PG12 */
+                            <&gpioa 9 GPIO_ACTIVE_HIGH>,    /* D1  PA9  */
+                            <&gpioa 10 GPIO_ACTIVE_HIGH>,   /* D2  PA10 */
+                            <&gpiog 1 GPIO_ACTIVE_HIGH>,    /* D3  PG1  */
+                            <&gpioe 3 GPIO_ACTIVE_HIGH>,    /* D4  PE3  Red LED */
+                            <&gpioc 13 GPIO_ACTIVE_HIGH>,   /* D5  PC13 Green LED */
+                            <&gpiof 4 GPIO_ACTIVE_HIGH>,    /* D6  PF4  Blue LED */
+                            <&gpiog 0 GPIO_ACTIVE_HIGH>,    /* D7  PG0  SE05X_EN */
+                            <&gpiok 1 GPIO_ACTIVE_HIGH>,    /* D8  PK1  tim1 ch1  */
+                            <&gpioj 9 GPIO_ACTIVE_HIGH>,    /* D9  PJ9  tim1 ch3  */
+                            <&gpioj 10 GPIO_ACTIVE_HIGH>,   /* D10 PJ10 tim8 ch2  */
+                            <&gpioh 15 GPIO_ACTIVE_HIGH>,   /* D11 PH15 tim8 ch3n */
+                            <&gpioh 6 GPIO_ACTIVE_HIGH>,    /* D12 PH6  tim12 ch1 */
+                            <&gpioc 4 GPIO_ACTIVE_HIGH>,    /* D13 PC4  A0 ADC1 ch4  */
+                            <&gpiof 13 GPIO_ACTIVE_HIGH>,   /* D14 PF13 A1 ADC2 ch2  */
+                            <&gpiof 3 GPIO_ACTIVE_HIGH>;    /* D15 PF3  A2 ADC3 ch5  */
+
+        adc-pin-gpios = <&gpioc 4 GPIO_ACTIVE_HIGH>,   /* A0 PC4  */
+                        <&gpiof 13 GPIO_ACTIVE_HIGH>,   /* A1 PF13 */
+                        <&gpiof 3 GPIO_ACTIVE_HIGH>;    /* A2 PF3  */
+
+        pwm-pin-gpios = <&gpiok 1 GPIO_ACTIVE_HIGH>,   /* D8  PK1  pwm1  ch1  */
+                        <&gpioj 9 GPIO_ACTIVE_HIGH>,    /* D9  PJ9  pwm1  ch3  */
+                        <&gpioj 10 GPIO_ACTIVE_HIGH>,   /* D10 PJ10 pwm8  ch2  */
+                        <&gpioh 15 GPIO_ACTIVE_HIGH>,   /* D11 PH15 pwm8  ch3n */
+                        <&gpioh 6 GPIO_ACTIVE_HIGH>;    /* D12 PH6  pwm12 ch1  */
+
+        serials = <&board_cdc_acm_uart>, <&usart1>, <&lpuart1>;
+        cdc-acm-serial = <&board_cdc_acm_uart>;
+
+        i2cs = <&i2c1>, <&i2c2>, <&i2c3>;
+        spis = <&spi4>, <&spi5>;
+
+        io-channels = <&adc1 4>,
+                  <&adc2 2>,
+                  <&adc3 5>;
+
+        builtin-led-gpios = <&gpioc 13 GPIO_ACTIVE_HIGH>, /* Green LED PC_13 (LED_BUILTIN) */
+                            <&gpioe 3 GPIO_ACTIVE_HIGH>,  /* Red LED PE_3 */
+                            <&gpiof 4 GPIO_ACTIVE_HIGH>;  /* Blue LED PF_4 */
+
+        /* PWM channels: timers1(ch1,ch3), timers8(ch2,ch3n), timers12(ch1) */
+        pwms =  <&pwm1 1 PWM_HZ(1000) PWM_POLARITY_NORMAL>,
+                <&pwm1 3 PWM_HZ(1000) PWM_POLARITY_NORMAL>,
+                <&pwm8 2 PWM_HZ(1000) PWM_POLARITY_NORMAL>,
+                <&pwm8 3 PWM_HZ(1000) PWM_POLARITY_NORMAL>,
+                <&pwm12 1 PWM_HZ(1000) PWM_POLARITY_NORMAL>;
+    };
+};
+
+&sram1 {
+	reg = <0x30000000 DT_SIZE_K(256)>;
+};
+
+/delete-node/ &sram2;
+
+/* Include common flash filesystem configuration */
+qspi_flash: &n25q128a1 {};
+#include "../common/arduino_flash_fs.dtsi"

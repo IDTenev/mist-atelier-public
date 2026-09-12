@@ -1,0 +1,62 @@
+#
+# Copyright (c) 2022 Dhruva Gole
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+config ARDUINO_API
+	bool "ARDUINO_API"
+	imply CPP
+	imply GPIO
+	imply I2C
+	imply NEWLIB_LIBC_FLOAT_PRINTF
+	imply CBPRINTF_FP_SUPPORT
+	imply RING_BUFFER
+	imply PINCTRL_KEEP_SLEEP_STATE
+	select UART_INTERRUPT_DRIVEN
+	default n
+
+if ARDUINO_API
+
+config QEMU_ICOUNT
+	bool "QEMU icount mode"
+	default n
+	depends on QEMU_TARGET
+
+config ARDUINO_API_SERIAL_BUFFER_SIZE
+	int "Buffer size for Arduino Serial API"
+	default 1024
+
+config ARDUINO_ENTRY
+	bool "Provide arduino setup and loop entry points"
+	default y
+
+config ARDUINO_MAX_TONES
+	int "Maximum number of tones that can be played simultaneously with tone()"
+	default -1
+	help
+	  Specify the maximum number of tones that can be played simultaneously with tone().
+	  If set to -1 (or any other negative value), the maximum number will be
+	  determined from the system's digital pin configuration.
+
+endif
+
+if USB_DEVICE_STACK_NEXT
+
+config USB_DEVICE_PRODUCT
+	string "USB Device Product"
+	default "Arduino Generic board"
+
+config USB_DEVICE_MANUFACTURER
+	string "USB Device Manufacturer"
+	default "Arduino"
+
+config USB_DEVICE_VID
+	hex "USB Device Vendor ID"
+	default 0x2341
+
+config USB_DEVICE_PID
+	hex "USB Device Product ID"
+	default 0x0001
+
+endif

@@ -1,0 +1,4 @@
+# Files to ignore in lang-linkcheck
+# One file path per line (relative to docs directory)
+
+*/esp32-s2-touch-devkit-1/user_guide.rst

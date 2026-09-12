@@ -1,0 +1,6 @@
+menu "MSC OTA Config"
+
+    config MSC_PRINT_DESC
+        bool "Print descriptor info"
+        default n
+endmenu

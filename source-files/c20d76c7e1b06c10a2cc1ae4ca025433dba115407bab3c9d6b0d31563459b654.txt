@@ -1,0 +1,55 @@
+# Copyright (c) 2022 Dhruva Gole <goledhruva@gmail.com>
+# SPDX-License-Identifier: Apache-2.0
+
+# NOTE: This is created to be used for CI/CD workflow. So use it only
+# if you are in the zephyrproject directory or else things may break.
+
+manifest:
+  self:
+    path: modules/lib/ArduinoCore-zephyr
+
+  remotes:
+    - name: zephyrproject-rtos
+      url-base: https://github.com/zephyrproject-rtos
+    - name: arduino
+      url-base: https://github.com/arduino
+    - name: facchinm
+      url-base: https://github.com/facchinm
+    - name: pillo79
+      url-base: https://github.com/pillo79
+
+  projects:
+    - name: zephyr
+      remote: arduino
+      revision: zephyr-arduino-v4.4.1+
+      import:
+        name-allowlist:
+          - cmsis
+          - cmsis_6
+          - littlefs
+          - tinycrypt
+          - mbedtls
+          - tf-psa-crypto
+          - segger
+          - thrift
+          - mcuboot
+          - nanopb
+          - lvgl
+          - fatfs
+        path-allowlist:
+          - modules/hal/*
+
+        # The actual list of enabled HALs is set by extra/bootstrap.sh via
+        # the 'manifest.project-filter' config. Enable all Zephyr HALs with:
+        #
+        #   west config -d manifest.project-filter
+
+    - name: cannectivity
+      path: modules/lib/cannectivity
+      url: https://github.com/CANnectivity/cannectivity.git
+      # Pinned to a known-good commit to avoid breakage from upstream `main`.
+      # This is the latest cannectivity commit as of the last successful CI
+      # build (run 29030899790, 2026-07-09), before the July USB device_next
+      # API changes broke the build. Update this SHA once a newer commit is
+      # verified against the Zephyr revision above.
+      revision: cf24edd66ab173d20f734e3f3350b1a1c053a904

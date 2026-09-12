@@ -1,0 +1,10 @@
+name=SocketWrapper
+version=1.0.0
+author=Arduino
+maintainer=Arduino <info@arduino.cc>
+sentence=TCP/UDP and TLS socket helpers used as a building block by the networking libraries.
+paragraph=Provides Client, Server, UDP and SSL Client implementations on top of the Zephyr socket API. It is mainly intended to be used internally by the WiFi and Ethernet libraries.
+category=Communication
+url=https://github.com/arduino/ArduinoCore-zephyr/tree/main/libraries/SocketWrapper
+architectures=zephyr_main,zephyr_contrib
+includes=SocketWrapper.h

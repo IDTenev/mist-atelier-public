@@ -1,0 +1,10 @@
+name=PDM
+version=1.0
+author=Arduino
+maintainer=Arduino <info@arduino.cc>
+sentence=Enables the communication with devices that use the PDM Bus
+paragraph=With this library you can capture audio from PDM microphones available on supported Arduino boards.
+category=Communication
+url=https://github.com/arduino/ArduinoCore-zephyr/tree/main/libraries/PDM
+architectures=zephyr_main
+includes=PDM.h

@@ -1,0 +1,10 @@
+name=Arduino_LED_Matrix
+version=0.1.3
+author=Arduino
+maintainer=Arduino <info@arduino.cc>
+sentence=A library for controlling UNO Q LED matrix
+paragraph=This library provides a simple interface for controlling the LED matrix on Arduino UNO Q boards.
+category=Communication
+url=https://www.arduino.cc/
+architectures=zephyr
+depends=ArduinoGraphics

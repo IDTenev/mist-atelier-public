@@ -1,0 +1,10 @@
+name=RTC
+version=1.0.0
+author=Arduino
+maintainer=Arduino <info@arduino.cc>
+sentence=Access and configure the on-board Real-Time Clock (RTC).
+paragraph=With this library you can read and set the time, manage alarms, apply calibration and register update callbacks on boards that provide a Real-Time Clock.
+category=Timing
+url=https://github.com/arduino/ArduinoCore-zephyr/tree/main/libraries/RTC
+architectures=zephyr,zephyr_main
+includes=RTC.h

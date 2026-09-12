@@ -95,5 +95,16 @@
       "body_sha256": "7ad99ea418ed4e83c025b411f066a20ac04c7090dda4e11ab0cfd44389986ddf",
       "url": "https://idtenev.github.io/mist-atelier-public/guides/arduino_uno_r3/"
     }
-  ]
+  ],
+  "source_library": {
+    "index_url": "https://idtenev.github.io/mist-atelier-public/api/sources/index.json",
+    "sources": 43531,
+    "published": 36656,
+    "held": 6875,
+    "distinct_source_files": 32942,
+    "original_bytes": 534287154,
+    "distinct_source_bytes": 430646079,
+    "approved_at": "2026-09-12",
+    "proposal_sha256": "7b4e48a196843689e02d579b1e5445cafc6e05383358bcd73af78f21aacb7fd8"
+  }
 }

@@ -1,0 +1,561 @@
+/*
+ * Copyright (c) Arduino s.r.l. and/or its affiliated companies
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+&board_cdc_acm_uart {
+	status = "okay";
+};
+
+&usart1 {
+	status = "okay";
+	/* usart1 is not set as deferred-init to catch early boot logs since it is assigned to zephyr,console */
+};
+
+&uart4 {
+	status = "okay";
+	zephyr,deferred-init;
+};
+
+&usart6 {
+	status = "okay";
+	zephyr,deferred-init;
+};
+
+&uart8 {
+	status = "okay";
+	zephyr,deferred-init;
+};
+
+&rtc {
+    status = "okay";
+
+	clocks = <&rcc STM32_CLOCK(APB4, 16U)>,
+		 	 <&rcc STM32_SRC_LSI RTC_SEL(2)>;
+};
+
+&fdcan1 {
+	status = "okay";
+	zephyr,deferred-init;
+	clocks = <&rcc STM32_CLOCK(APB1_2, 8)>,
+		 <&rcc STM32_SRC_HSE FDCAN_SEL(0)>;
+};
+
+&i2c3 {
+	status = "okay";
+	zephyr,deferred-init;
+
+	gc2145: gc2145@3c {
+		compatible = "galaxycore,gc2145";
+		reg = <0x3c>;
+		status = "okay";
+		zephyr,deferred-init;
+
+		reset-gpios = <&gpioe 3 GPIO_ACTIVE_LOW>;
+		pwdn-gpios = <&gpiod 5 GPIO_ACTIVE_LOW>;
+
+		port {
+			gc2145_ep_out: endpoint {
+				remote-endpoint-label = "dcmi_ep_in";
+			};
+		};
+	};
+
+	ov7670: ov7670@21 {
+		compatible = "ovti,ov7670";
+		reg = <0x21>;
+		zephyr,deferred-init;
+
+		reset-gpios = <&gpioe 3 GPIO_ACTIVE_LOW>;
+		pwdn-gpios = <&gpiod 5 GPIO_ACTIVE_LOW>;
+
+		port {
+			ov7670_ep_out: endpoint {
+				remote-endpoint-label = "dcmi_ep_in";
+			};
+		};
+	};
+};
+
+&i2c1 {
+	status = "okay";
+};
+
+&i2c4 {
+	status = "okay";
+	zephyr,deferred-init;
+};
+
+&spi2 {
+	status = "okay";
+	zephyr,deferred-init;
+	pinctrl-0 = <&spi2_sck_pi1
+		     &spi2_miso_pc2 &spi2_mosi_pc3>;
+	pinctrl-names = "default";
+};
+
+&timers1 {
+	status = "okay";
+	st,prescaler = <0>;
+
+	pwm1: pwm {
+		status = "okay";
+		zephyr,deferred-init;
+		pinctrl-0 = <>;
+		pinctrl-1 = <>;
+		pinctrl-2 = <&tim1_ch1_pa8 &tim1_ch2_pj11>;
+		pinctrl-names = "default", "sleep", "arduino";
+	};
+};
+
+&timers3 {
+	status = "okay";
+	st,prescaler = <100>;
+
+	pwm3: pwm {
+		status = "okay";
+		zephyr,deferred-init;
+		pinctrl-0 = <>;
+		pinctrl-1 = <>;
+		pinctrl-2 = <&tim3_ch1_pc6 &tim3_ch2_pc7>;
+		pinctrl-names = "default", "sleep", "arduino";
+	};
+};
+
+&timers8 {
+	status = "okay";
+	st,prescaler = <100>;
+
+	pwm8: pwm {
+		status = "okay";
+		zephyr,deferred-init;
+		pinctrl-0 = <>;
+		pinctrl-1 = <>;
+		pinctrl-2 = <&tim8_ch3n_ph15 &tim8_ch2_pj10 &tim8_ch2n_pj7>;
+		pinctrl-names = "default", "sleep", "arduino";
+	};
+};
+
+&timers12 {
+	status = "okay";
+	st,prescaler = <100>;
+
+	pwm12: pwm {
+		status = "okay";
+		zephyr,deferred-init;
+		pinctrl-0 = <>;
+		pinctrl-1 = <>;
+		pinctrl-2 = <&tim12_ch1_ph6>;
+		pinctrl-names = "default", "sleep", "arduino";
+	};
+};
+
+&pwm1 {
+	/* Camera source clock */
+	pwmclock: pwmclock {
+		status = "okay";
+		zephyr,deferred-init;
+		compatible = "pwm-clock";
+		clock-frequency = <0>;
+		#clock-cells = <1>;
+		pwms = <&pwm1 1 PWM_HZ(12000000) PWM_POLARITY_NORMAL>;
+		/* 12MHz for 7670, default is also 12MHz */
+	};
+};
+
+&rng {
+	status = "okay";
+};
+
+&dmamux1 {
+	status = "okay";
+};
+
+&dma1 {
+	status = "okay";
+};
+
+&dcmi {
+	status = "okay";
+	zephyr,deferred-init;
+	/* ext-sdram = <&sdram1>; */
+	pinctrl-0 = <&dcmi_hsync_pa4 &dcmi_pixclk_pa6 &dcmi_vsync_pi5
+		     &dcmi_d0_ph9 &dcmi_d1_ph10 &dcmi_d2_ph11 &dcmi_d3_ph12
+		     &dcmi_d4_ph14 &dcmi_d5_pi4 &dcmi_d6_pi6 &dcmi_d7_pi7>;
+	pinctrl-names = "default";
+	dmas = <&dma1 1 75 (STM32_DMA_PERIPH_TO_MEMORY | STM32_DMA_PERIPH_NO_INC |
+			    STM32_DMA_MEM_INC | STM32_DMA_PERIPH_32BITS | STM32_DMA_MEM_32BITS |
+			    STM32_DMA_PRIORITY_HIGH) STM32_DMA_FIFO_FULL>; //FULL for 7670, default FIFO_1_4
+
+	port {
+		dcmi_ep_in: endpoint {
+			remote-endpoint-label = "gc2145_ep_out";
+			// remote-endpoint-label = "ov7670_ep_out";
+			bus-width = <8>;
+			hsync-active = <0>;
+			vsync-active = <0>;
+			pclk-sample = <0>;
+		};
+	};
+};
+
+
+&adc1 {
+	zephyr,deferred-init;
+	pinctrl-0 = <>;
+	pinctrl-1 = <>;
+	pinctrl-2 = <&adc1_inp12_pc2
+       	     &adc1_inp13_pc3
+       	     &adc1_inp18_pa4
+       	     &adc1_inp3_pa6
+       	     &adc1_inp0_pa0_c
+       	     &adc1_inp1_pa1_c>;
+	pinctrl-names = "default", "sleep", "arduino";
+	st,adc-clock-source = "SYNC";
+	st,adc-prescaler = <4>;
+	status = "okay";
+
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	channel@c {
+		reg = <12>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_MAX>;
+		zephyr,resolution = <16>;
+	};
+	channel@d {
+		reg = <13>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_MAX>;
+		zephyr,resolution = <16>;
+	};
+	channel@12 {
+		reg = <18>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_MAX>;
+		zephyr,resolution = <16>;
+	};
+	channel@3 {
+		reg = <3>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_MAX>;
+		zephyr,resolution = <16>;
+	};
+
+	/* PA0_C and PA1_C */
+	channel@0 {
+		reg = <0>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_MAX>;
+		zephyr,resolution = <16>;
+	};
+	channel@1 {
+		reg = <1>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_MAX>;
+		zephyr,resolution = <16>;
+	};
+};
+
+&adc3 {
+	zephyr,deferred-init;
+	pinctrl-0 = <>;
+	pinctrl-1 = <>;
+	pinctrl-2 = <&adc3_inp0_pc2_c
+		     &adc3_inp1_pc3_c>;
+	pinctrl-names = "default", "sleep", "arduino";
+	st,adc-clock-source = "SYNC";
+	st,adc-prescaler = <4>;
+	status = "okay";
+
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	channel@0 {
+		reg = <0>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_MAX>;
+		zephyr,resolution = <16>;
+	};
+	channel@1 {
+		reg = <1>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_MAX>;
+		zephyr,resolution = <16>;
+	};
+};
+
+/ {
+	chosen {
+		zephyr,camera = &dcmi;
+		zephyr,display = &ltdc;
+		zephyr,mipi-dsi = &mipi_dsi;
+		zephyr,console = &usart1;
+		zephyr,shell-uart = &usart1;
+		zephyr,cdc-acm-uart0 = &usart1;
+		zephyr,log-uart = &log_uarts;
+		arduino,camera-clock = &pwmclock;
+		arduino,eth-clock = &pwmclock;
+	};
+
+	log_uarts: log_uarts {
+		compatible = "zephyr,log-uart";
+		uarts = <&usart1 &board_cdc_acm_uart>;
+	};
+
+	/* used to overcome problems with _C analog pins */
+	gpio_invalid: gpio@deadbeef {
+		compatible = "vnd,gpio";
+		gpio-controller;
+		reg = <0xdeadbeef 0x1000>;
+		#gpio-cells = <0x2>;
+		status = "okay";
+	};
+};
+
+&flash0 {
+	reg = <0x8000000 DT_SIZE_K(2048)>;     /* assign all Flash to the M7 */
+	status = "okay";
+
+	/delete-node/ partitions;
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		boot_partition: partition@0 {
+			label = "mcuboot";
+			reg = <0x00000000 0x00040000>;
+			read-only;
+		};
+
+		slot0_partition: partition@40000 {
+			label = "image-0";
+			reg = <0x00040000 0x000A0000>;
+		};
+
+		user_sketch: partition@e0000 {
+			label = "user_sketch";
+			reg = <0x000E0000 0x00120000>;
+		};
+	};
+};
+
+
+/* Include common flash filesystem configuration */
+qspi_flash: &mx25l12833f {};
+#include "../common/arduino_flash_fs.dtsi"
+
+/* PLL2_R at 48MHz for SDMMC2: HSE(25MHz) / 5 * 48 / 5 = 48MHz */
+&pll2 {
+	div-m = <5>;
+	mul-n = <48>;
+	div-p = <2>;
+	div-q = <2>;
+	div-r = <5>;
+	clocks = <&clk_hse>;
+	status = "okay";
+};
+
+&sdmmc2 {
+	status = "okay";
+	pinctrl-0 = <&sdmmc2_d0_pb14 &sdmmc2_d1_pb15
+			&sdmmc2_d2_pb3 &sdmmc2_d3_pb4
+			&sdmmc2_ck_pd6 &sdmmc2_cmd_pd7>;
+	pinctrl-names = "default";
+	clocks = <&rcc STM32_CLOCK(AHB2, 9U)>,
+		 <&rcc STM32_SRC_PLL2_R SDMMC_SEL(1)>;
+	disk-name = "SD";
+	bus-width = <4>;
+	clk-div = <1>;
+};
+
+&fstab {
+	sd_fs: sd_fs {
+		compatible = "zephyr,fstab,fatfs";
+		automount;
+		disk-access;
+		mount-point = "/SD:";
+	};
+};
+
+/ {
+	zephyr,user {
+		digital-pin-gpios = <&gpioh 15 0>,	/* D0 */
+				    <&gpiok 1 0>,		/* D1 */
+				    <&gpioj 11 0>,	/* D2 */
+				    <&gpiog 7 0>,		/* D3 */
+				    <&gpioc 7 0>,		/* D4 */
+				    <&gpioc 6 0>,		/* D5 */
+				    <&gpioa 8 0>,		/* D6 */
+				    <&gpioi 0 0>,		/* D7 */
+				    <&gpioc 3 0>,		/* D8 */
+				    <&gpioi 1 0>,		/* D9 */
+				    <&gpioc 2 0>,		/* D10 */
+				    <&gpioh 8 0>,		/* D11 */
+				    <&gpioh 7 0>,		/* D12 */
+				    <&gpioa 10 0>,	/* D13 */
+				    <&gpioa 9 0>,		/* D14 */
+
+				    <&gpio_invalid 0 0>,		/* A0	 ADC2_INP0 */
+				    <&gpio_invalid 1 0>,		/* A1	 ADC2_INP1 */
+				    <&gpio_invalid 2 0>,		/* A2	 ADC3_INP0 */
+				    <&gpio_invalid 3 0>,		/* A3	 ADC3_INP1 */
+				    <&gpio_invalid 4 0>,		/* A4 hack for duplicate PC_2 */
+				    <&gpio_invalid 5 0>,		/* A5 hack for duplicate PC_3 */
+				    /* <&gpioc 2 0>,	A4 _ALT0?   ADC1_INP12 */
+				    /* <&gpioc 3 0>,	A5 _ALT0?   ADC1_INP13 */
+				    <&gpioa 4 0>,		/* A6	 ADC1_INP18 */
+				    <&gpioa 6 0>,		/* A7	 ADC1_INP7 */
+
+				    <&gpiok 5 0>,		/* LEDR */
+				    <&gpiok 6 0>,		/* LEDG */
+				    <&gpiok 7 0>,		/* LEDB */
+				    <&gpioi 12 0>;		/* SE05X_EN */
+
+		builtin-led-gpios = <&gpiok 6 0>,
+				    <&gpiok 5 0>,
+				    <&gpiok 6 0>,
+				    <&gpiok 7 0>;
+
+		pwm-pin-gpios =	<&gpioa 8 0>,
+				<&gpioc 6 0>,
+				<&gpioc 7 0>,
+				//<&gpiog 7 0>,
+				<&gpioj 11 0>,
+				//<&gpiok 1 0>,
+				<&gpioh 15 0>,
+				<&gpioj 7 0>,
+				<&gpioj 10 0>,
+				<&gpioh 6 0>;
+
+		adc-pin-gpios =	<&gpio_invalid 0 0>,			/* analog only */
+				<&gpio_invalid 1 0>,			/* analog only */
+				<&gpio_invalid 2 0>,			/* analog only */
+				<&gpio_invalid 3 0>,			/* analog only */
+				<&gpioc 2 0>,
+				<&gpioc 3 0>,
+				<&gpioa 4 0>,
+				<&gpioa 6 0>,
+				<&gpio_invalid 4 0>,			/* Hack for D19  */
+				<&gpio_invalid 5 0>;			/* Hack for D20 */
+
+		cdc-acm-serial = <&board_cdc_acm_uart>; /* 'Serial' object is managed by SerialUSB */
+		serials = <&usart1>, <&uart7>, <&uart8>, <&usart6>, <&uart4>; /* 'Serial1' onwards */
+		i2cs = <&i2c3>, <&i2c1>, <&i2c4>;
+		spis = <&spi2>;
+		cans = <&fdcan1>;
+		pwms = <&pwm1 1 PWM_HZ(12000000) PWM_POLARITY_NORMAL>,	/* Camera */
+		       <&pwm3 1 PWM_HZ(500) PWM_POLARITY_NORMAL>,
+		       <&pwm3 2 PWM_HZ(500) PWM_POLARITY_NORMAL>,
+		       <&pwm1 2 PWM_HZ(5000) PWM_POLARITY_NORMAL>,
+		       <&pwm8 3 PWM_HZ(500) PWM_POLARITY_INVERTED>,
+		       <&pwm8 2 PWM_HZ(500) PWM_POLARITY_INVERTED>,
+		       <&pwm8 2 PWM_HZ(500) PWM_POLARITY_NORMAL>,
+		       <&pwm12 1 PWM_HZ(500) PWM_POLARITY_NORMAL>;
+
+		io-channels = <&adc1 0>,
+			      <&adc1 1>,
+			      <&adc3 0>,
+			      <&adc3 1>,
+			      <&adc1 12>,
+			      <&adc1 13>,
+			      <&adc1 18>,
+			      <&adc1 3>,
+			      <&adc1 12>, /* Hack for D19 */
+			      <&adc1 13>; /* Hack for D20 */
+	};
+};
+
+&sram1 {
+	reg = <0x30000000 DT_SIZE_K(256)>;
+};
+
+/delete-node/ &sram2;
+
+&sdram1 {
+	/* Frame buffer memory cache will cause screen flickering. */
+	zephyr,memory-attr = <( DT_MEM_ARM(ATTR_MPU_RAM_NOCACHE) )>;
+};
+
+/*
+ *PLL3 calculation for 1024x768@60Hz (57.8 MHz pixel clock)
+ * Portenta H7 uses 25 MHz HSE crystal
+ * VCO input = HSE / div-m = 25 MHz / 25 = 1 MHz
+ * VCO output = VCO input × mul-n = 1 MHz × 289 = 289 MHz
+ * Pixel clock = VCO output / div-r = 289 MHz / 5 = 57.8 MHz
+ */
+&pll3 {
+	status = "okay";
+	clocks = <&clk_hse>;
+	div-m = <25>;   /* HSE_VALUE/1MHz: 25MHz/25 = 1 MHz VCO input */
+	mul-n = <289>;  /* pixelclock/200kHz: 57800/200 = 289 */
+	div-p = <2>;
+	div-q = <7>;
+	div-r = <5>;    /* 1000/200kHz = 5 -> 289MHz/5 = 57.8 MHz */
+};
+
+&ltdc {
+	status = "okay";
+	ext-sdram = <&sdram1>;
+	width = <1024>;
+	height = <768>;
+	def-back-color-red = <0>;
+	def-back-color-green = <0>;
+	def-back-color-blue = <0>;
+	pixel-format = <PANEL_PIXEL_FORMAT_RGB_888>;
+
+	display-timings {
+		compatible = "zephyr,panel-timing";
+		hsync-active = <0>;
+		vsync-active = <0>;
+		de-active = <0>;
+		pixelclk-active = <0>;
+		hsync-len = <68>;
+		hfront-porch = <24>;
+		hback-porch = <80>;
+		vsync-len = <6>;
+		vfront-porch = <3>;
+		vback-porch = <29>;
+	};
+};
+
+&mipi_dsi {
+	status = "okay";
+
+	pll-ndiv = <40>;
+	pll-idf = <2>;
+	pll-odf = <0>;
+
+	de-active-high;
+	bta-ack-disable;  /* ANX7625 bridge doesn't respond to BTA requests */
+	largest-packet-size = <16>;
+
+	phy-timings = <35 35 35 35 0 10>;
+
+	/*
+	 * This binding allows adding child node with with data-lanes property
+	 * as required by STM32 MIPI-DSI driver.
+	 */
+	anx7625: anx7625@0 {
+		status = "okay";
+		compatible = "analogix,anx7625";
+		reg = <0>;  /* Virtual channel 0 */
+		pixel-format = <0>;  /* Not used */
+		data-lanes = <2>;  /* 2 data lanes */
+		i2c-bus = <&i2c1>;
+		video-on-gpios = <&gpiok 2 GPIO_ACTIVE_HIGH>;
+		video-rst-gpios = <&gpioj 3 GPIO_ACTIVE_HIGH>;
+		otg-on-gpios = <&gpioj 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+	};
+};

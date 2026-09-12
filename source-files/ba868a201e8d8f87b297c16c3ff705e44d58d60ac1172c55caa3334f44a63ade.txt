@@ -1,0 +1,10 @@
+name=CAN
+version=1.0.0
+author=Arduino
+maintainer=Arduino <info@arduino.cc>
+sentence=Send and receive messages over the CAN bus.
+paragraph=With this library you can send and receive Classic and CAN FD frames on boards that provide a CAN controller.
+category=Communication
+url=https://github.com/arduino/ArduinoCore-zephyr/tree/main/libraries/CAN
+architectures=zephyr,zephyr_main
+includes=CAN.h

@@ -1,0 +1,160 @@
+Related Documentation and Resources
+=======================================
+:link_to_translation:`zh_CN:[中文]`
+
+.. _hardware-development-modules:
+
+{IDF_TARGET_NAME} Modules
+------------------------------
+
+For a list of {IDF_TARGET_NAME} modules please check the `Modules <https://www.espressif.com/en/products/modules>`_ section on Espressif's official website.
+
+.. only:: not esp32p4
+
+    For module reference designs please refer to:
+
+.. only:: latex and not esp32p4
+
+    - `Download links <https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/{IDF_TARGET_PATH_NAME}/related-documentation-and-resources.html>`_
+
+.. only:: esp32
+
+    .. only:: html
+
+        - :download:`ESP32-MINI-1 reference design <../_static/{IDF_TARGET_PATH_NAME}/esp32-mini-1_reference_design.zip>`
+        - :download:`ESP32-WROOM-32E reference design <../_static/{IDF_TARGET_PATH_NAME}/esp32-wroom-32e_reference_design.zip>`
+        - :download:`ESP32-WROVER-E reference design <../_static/{IDF_TARGET_PATH_NAME}/esp32-wrover-e_reference_design.zip>`
+
+.. only:: esp32s3
+
+    .. only:: html
+
+        - :download:`ESP32-S3-MINI-1 reference design <../_static/{IDF_TARGET_PATH_NAME}/esp32-s3-mini-1_reference_design.zip>`
+        - :download:`ESP32-S3-WROOM-1 reference design <../_static/{IDF_TARGET_PATH_NAME}/esp32-s3-wroom-1_reference_design.zip>`
+
+.. only:: esp32c3
+
+    .. only:: html
+
+        - :download:`ESP32-C3-MINI-1 reference design <../_static/{IDF_TARGET_PATH_NAME}/esp32-c3-mini-1_reference_design.zip>`
+        - :download:`ESP32-C3-WROOM-02 reference design <../_static/{IDF_TARGET_PATH_NAME}/esp32-c3-wroom-02_reference_design.zip>`
+
+.. only:: esp32c6
+
+    .. only:: html
+
+        - :download:`ESP32-C6-MINI-1 reference design <../_static/{IDF_TARGET_PATH_NAME}/esp32-c6-mini-1_reference_design.zip>`
+        - :download:`ESP32-C6-WROOM-1 reference design <../_static/{IDF_TARGET_PATH_NAME}/esp32-c6-wroom-1_reference_design.zip>`
+
+.. only:: esp32h2
+
+    .. only:: html
+
+        - :download:`ESP32-H2-MINI-1 reference design <../_static/{IDF_TARGET_PATH_NAME}/esp32-h2-mini-1_reference_design.zip>`
+        - :download:`ESP32-H2-WROOM-02C reference design <../_static/{IDF_TARGET_PATH_NAME}/esp32-h2-wroom-02c_reference_design.zip>`
+
+.. only:: esp32c2
+
+    .. only:: html
+
+        - :download:`ESP8684-MINI-1 reference design <../_static/{IDF_TARGET_PATH_NAME}/esp8684-mini-1_reference_design.zip>`
+        - :download:`ESP8684-WROOM-02C reference design <../_static/{IDF_TARGET_PATH_NAME}/esp8684-wroom-02c_reference_design.zip>`
+
+.. only:: esp32c5
+
+    .. only:: html
+
+        - :download:`ESP32-C5-MINI-1-N4 Reference Design <../_static/{IDF_TARGET_PATH_NAME}/esp32-c5-mini-1-n4_reference_design.zip>`
+        - :download:`ESP32-C5-WROOM-1-N8R8 Reference Design <../_static/{IDF_TARGET_PATH_NAME}/esp32-c5-wroom-1-n8r8_reference_design.zip>`
+
+.. only:: esp32c61
+
+    .. only:: html
+
+        - :download:`ESP32-C61-MINI-1-N4 Reference Design <../_static/{IDF_TARGET_PATH_NAME}/esp32-c61-mini-1-n4_v1.1_reference_design.zip>`
+        - :download:`ESP32-C61-WROOM-1-N8R8 Reference Design <../_static/{IDF_TARGET_PATH_NAME}/esp32-c61-wroom-1-n8r8_v1.3_reference_design.zip>`
+
+.. only:: esp32s31
+
+    .. only:: html
+
+        - :download:`ESP32-S31-WROOM-3-N8R16V Reference Design <../_static/{IDF_TARGET_PATH_NAME}/esp32-s31-wroom-3-n8r16v_v1.2_reference_design.zip>`
+
+.. only:: esp32c5 or esp32c61 or esp32s31
+
+    The above reference design applies only to the specified MPN. If a different MPN is used, the corresponding BOM and schematic may vary. Please refer to the relevant datasheet and design guide to obtain the correct design information.
+
+    The antenna design is for reference only. For actual projects, perform antenna simulations based on the PCB layout.
+
+.. only:: not esp32p4
+
+    .. note::
+
+        Use the following tools to open the files in module reference designs:
+
+            - .DSN files: OrCAD Capture V16.6
+            - .pcb files: Pads Layout VX.2. If you cannot open the .pcb files, please try importing the .asc files into your software to view the PCB layout.
+
+        For the terms applicable to the use of these reference designs, please refer to :ref:`terms-of-use-for-reference-designs` in :doc:`disclaimer-and-copyright`.
+
+{IDF_TARGET_NAME} Development Boards
+--------------------------------------------
+
+For a list of the latest designs of {IDF_TARGET_NAME} boards please check the `Development Boards <https://www.espressif.com/en/products/hardware/development-boards>`_ section on Espressif's official website.
+
+.. only:: esp32p4
+
+    For development board reference designs please refer to:
+
+    .. only:: html
+
+        - :download:`ESP32-P4X-Function-EV-Board Reference Design (ZIP) <../_static/{IDF_TARGET_PATH_NAME}/ESP32-P4X-Function-EV-Board-EN.zip>`
+        - :download:`ESP32-P4X-EYE Reference Design (ZIP) <../_static/{IDF_TARGET_PATH_NAME}/ESP32-P4X-EYE-EN.zip>`
+
+    .. note::
+
+        Use the following tools to open the files in development board reference designs:
+
+            - .DSN files: OrCAD Capture V16.6
+            - .brd files: Allegro 16.6
+
+        For the terms applicable to the use of these reference designs, please refer to :ref:`terms-of-use-for-reference-designs` in :doc:`disclaimer-and-copyright`.
+
+.. only:: esp32s31
+
+    For development board reference designs please refer to:
+
+        - `ESP32-S31-Function-CoreBoard-1 Reference Design (ZIP) <https://documentation.espressif.com/ESP32-S31-Function-CoreBoard-1_Reference_Design_EN.zip>`__
+        - `ESP32-S31-Korvo-1 Reference Design (ZIP) <https://documentation.espressif.com/ESP32-S31-Korvo-1_Reference_Design_EN.zip>`__
+
+    .. note::
+
+        Use the following tools to open the files in development board reference designs:
+
+            - .DSN files: OrCAD Capture V16.6
+            - .brd files: Allegro 16.6
+
+        For the terms applicable to the use of these reference designs, please refer to :ref:`terms-of-use-for-reference-designs` in :doc:`disclaimer-and-copyright`.
+
+Other Related Documentation and Resources
+---------------------------------------------
+
+.. list::
+
+    - `Chip Datasheet (PDF) <{IDF_TARGET_DATASHEET_EN_URL}>`__
+    :not esp32s31: - `Technical Reference Manual (PDF) <{IDF_TARGET_TRM_EN_URL}>`__
+    :esp32: - `Chip Errata <https://espressif.com/sites/default/files/documentation/eco_and_workarounds_for_bugs_in_esp32_en.pdf>`_
+    :esp32s2: - `Chip Errata <https://www.espressif.com/sites/default/files/documentation/esp32-s2_errata_en.pdf>`_
+    :esp32s3: - `Chip Errata <https://www.espressif.com/sites/default/files/documentation/esp32-s3_errata_en.pdf>`_
+    :esp32c3: - `Chip Errata <https://www.espressif.com/sites/default/files/documentation/esp32-c3_errata_en.pdf>`_
+    :esp32c2: - `Chip Errata <https://www.espressif.com/sites/default/files/documentation/esp8684_errata_en.pdf>`_
+    :esp32c5: - `Chip Errata <https://docs.espressif.com/projects/esp-chip-errata/en/latest/esp32c5/index.html>`_
+    :esp32p4: - `Chip Errata <https://docs.espressif.com/projects/esp-chip-errata/en/latest/esp32p4/index.html>`_
+    :esp32p4: - `Consolidated Pin Overview Excel <https://documentation.espressif.com/ESP32-P4%20Appendix%20Consolidated%20Pin%20Overview.xlsx>`_
+    - `{IDF_TARGET_NAME} Chip Variants <https://espressif.com/en/products/socs?id={IDF_TARGET_NAME}>`__
+    - `Espressif KiCad Library <https://github.com/espressif/kicad-libraries>`__
+    - `ESP Product Selector <https://products.espressif.com/#/product-selector?names=>`__
+    - `Regulatory Certificates <https://documentation.espressif.com/en/documentList?t=Certificate>`__
+    - `User Forum (Hardware) <https://esp32.com/viewforum.php?f=12>`__
+    - `Technical Support <https://www.espressif.com/en/contact-us/technical-inquiries>`__
+    - `ESP-FAQ <https://docs.espressif.com/projects/esp-faq/en/latest/index.html>`__
