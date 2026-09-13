@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "document_id": "seed_zero_pinout",
+  "title": "Arduino ZERO 핀아웃",
+  "source": {
+    "sha256": "131eed2243dd2e039a25035cde0a070a3eaadd259d4c6d22d3d0822478023b31",
+    "bytes": 306234,
+    "url": "https://raw.githubusercontent.com/arduino/docs-content/20d1c1c179703cc10ece612f3e4be223fcd02590/content/hardware/12.hero/boards/zero/downloads/ABX00003-full-pinout.pdf",
+    "author": "Arduino and documentation contributors",
+    "retrieved_at": "2026-09-11T08:50:19.793Z",
+    "commit": "20d1c1c179703cc10ece612f3e4be223fcd02590",
+    "repository": "arduino/docs-content",
+    "source_path": "content/hardware/12.hero/boards/zero/downloads/ABX00003-full-pinout.pdf"
+  },
+  "total_pages": 3,
+  "license": "CC-BY-SA-4.0",
+  "publication_status": "approved_derivative",
+  "processing": "automatic_structuring_not_technical_validation",
+  "notice": "원본을 보존한 자동 재구성본입니다. 표·기호·그림의 기술 의미와 회로 안전성은 전수 검증하지 않았습니다.",
+  "offset_unit": "unicode_code_points",
+  "page": 1,
+  "width": 1190.55,
+  "height": 841.89,
+  "section_path": [],
+  "text": "This work is licensed under the Creative Commons \nAttribution-ShareAlike 4.0 International License. To view \na copy of this license, visit http://creativecommons.\norg/licenses/by-sa/4.0/ or send a letter to Creative \nCommons, PO Box 1866, Mountain View, CA 94042, USA.\nGround\nPower\nLED\nInternal Pin\nSWD Pin\nDigital Pin\nAnalog Pin\nOther Pin\nMicrocontroller’s Port\nDefault\nLast update: 17/12/2021\nSTORE.ARDUINO.CC/ZERO\nRESET\nADC[0]\nADC[1]\nADC[2]\nADC[3]\nADC[4]\nADC[5]\nPA02\nPB08\nPB09\nPA04\nPA05\nPB02 A5\nA2\nA1\nA0D14\nD15\nD16A2\nD17\nD18\nD19\nA0\nA1\nA3\nA4\nA5\nIOREF\nATN\n+3V3\n+5V\nGND\nGND\nVIN\n~D12\n~D11\n~D10\n ~D9\n ~D8\n D7\n~D6\n~D5\n~D4\n~D3\n D2\nD1/TX\nD0/RX\nD21/SCL\nD20/SDA\nAREF\nGND\n~D13\nPA23 SCL\nSDA\nSCK\nCIPO\nCOPI\nSS\nPA22\nPA03\nPA17\nPA19\nPA16\nPA18\nPA07\nPA06\nPA21\nPA20\nPA15\nPA08\nPA09\nPA14\nPA10\nPA11\nLED_BUILTIN\nTX LED\nRX LED\nPower\nAT32UC3A4256HHB\nPA17\nPA27\nPB03\nSTATUS LEDPX19\nPX15\nMAXIMUM source \ncurrent is 46mA\nMAXIMUM sink current  \nis 65mA per pin group\nMAXIMUM current   \nper pin is 7mA\nVIN Input voltage to the board.\nNOTE: CIPO/COPI have previously \nbeen referred to as MISO/MOSI",
+  "reading_text": "STORE.ARDUINO.CC/ZERO\nAT32UC3A4256HHB\nPX19 STATUS LED\nPX15 Power\nPA17 LED_BUILTIN D21/SCL PA23 SCL\nPA27 TX LED D20/SDA PA22 SDA\nPB03 RX LED AREF PA03\nGND\nATN\n~D13 PA17 SCK\nIOREF\n~D12 PA19 CIPO\nRESET\n~D11 PA16 COPI\n+3V3\n~D10 PA18 SS\n+5V\n~D9 PA07\nGND\n~D8 PA06\nGND\nVIN D7 PA21\n~D6 PA20\nADC[0] PA02 A0A0D14 ~D5 PA15\nADC[1] PB08 A1A1D15 ~D4 PA08\nADC[2] PB09 A2A2D16 ~D3 PA09\nADC[3] PA04 A3 D17 D2 PA14\nADC[4] PA05 A4 D18 D1/TX PA10\nADC[5] PB02 A5A5D19 D0/RX PA11\nLast update: 17/12/2021\nGround Digital Pin MAXIMUM current VIN Input voltage to the board.\nper pin is 7mA\nPower Analog Pin\nNOTE: CIPO/COPI have previously\nMAXIMUM source\nbeen referred to as MISO/MOSI\nLED Other Pin current is 46mA\nInternal Pin Microcontroller’s Port MAXIMUM sink current This work is licensed under the Creative Commons\nis 65mA per pin group Attribution-ShareAlike 4.0 International License. To view\na copy of this license, visit http://creativecommons.\nSWD Pin Default org/licenses/by-sa/4.0/ or send a letter to Creative\nCommons, PO Box 1866, Mountain View, CA 94042, USA.",
+  "chunks": [
+    {
+      "id": "seed_zero_pinout:131eed2243dd:p1:c1",
+      "start": 0,
+      "end": 1067,
+      "text": "This work is licensed under the Creative Commons \nAttribution-ShareAlike 4.0 International License. To view \na copy of this license, visit http://creativecommons.\norg/licenses/by-sa/4.0/ or send a letter to Creative \nCommons, PO Box 1866, Mountain View, CA 94042, USA.\nGround\nPower\nLED\nInternal Pin\nSWD Pin\nDigital Pin\nAnalog Pin\nOther Pin\nMicrocontroller’s Port\nDefault\nLast update: 17/12/2021\nSTORE.ARDUINO.CC/ZERO\nRESET\nADC[0]\nADC[1]\nADC[2]\nADC[3]\nADC[4]\nADC[5]\nPA02\nPB08\nPB09\nPA04\nPA05\nPB02 A5\nA2\nA1\nA0D14\nD15\nD16A2\nD17\nD18\nD19\nA0\nA1\nA3\nA4\nA5\nIOREF\nATN\n+3V3\n+5V\nGND\nGND\nVIN\n~D12\n~D11\n~D10\n ~D9\n ~D8\n D7\n~D6\n~D5\n~D4\n~D3\n D2\nD1/TX\nD0/RX\nD21/SCL\nD20/SDA\nAREF\nGND\n~D13\nPA23 SCL\nSDA\nSCK\nCIPO\nCOPI\nSS\nPA22\nPA03\nPA17\nPA19\nPA16\nPA18\nPA07\nPA06\nPA21\nPA20\nPA15\nPA08\nPA09\nPA14\nPA10\nPA11\nLED_BUILTIN\nTX LED\nRX LED\nPower\nAT32UC3A4256HHB\nPA17\nPA27\nPB03\nSTATUS LEDPX19\nPX15\nMAXIMUM source \ncurrent is 46mA\nMAXIMUM sink current  \nis 65mA per pin group\nMAXIMUM current   \nper pin is 7mA\nVIN Input voltage to the board.\nNOTE: CIPO/COPI have previously \nbeen referred to as MISO/MOSI",
+      "source_page": 1
+    }
+  ],
+  "table_candidates": [],
+  "rejected_grid_regions": 2,
+  "visuals": {
+    "raster_regions": [],
+    "vector_objects": 1296,
+    "caption_candidates": [],
+    "interpretation": "not_transcribed"
+  },
+  "empty_text": false,
+  "technical_review": "not_reviewed",
+  "warnings": [
+    "table_cells_units_footnotes_require_review",
+    "figures_and_formulas_not_semantically_transcribed"
+  ]
+}

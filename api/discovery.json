@@ -99,12 +99,20 @@
   "source_library": {
     "index_url": "https://idtenev.github.io/mist-atelier-public/api/sources/index.json",
     "sources": 43531,
-    "published": 36656,
+    "published": 36654,
     "held": 6875,
-    "distinct_source_files": 32942,
-    "original_bytes": 534287154,
-    "distinct_source_bytes": 430646079,
+    "distinct_source_files": 32940,
+    "original_bytes": 533635148,
+    "distinct_source_bytes": 429994073,
     "approved_at": "2026-09-12",
-    "proposal_sha256": "7b4e48a196843689e02d579b1e5445cafc6e05383358bcd73af78f21aacb7fd8"
+    "proposal_sha256": "7b4e48a196843689e02d579b1e5445cafc6e05383358bcd73af78f21aacb7fd8",
+    "pdfs_omitted": 2
+  },
+  "datasheet_library": {
+    "index_url": "https://idtenev.github.io/mist-atelier-public/api/datasheets/index.json",
+    "documents": 2,
+    "pages": 8,
+    "chunks": 8,
+    "raw_pdf_files": 0
   }
 }

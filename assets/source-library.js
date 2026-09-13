@@ -1,3 +1,5 @@
+import { record_reading } from './reading-counter.js';
+
 const MAX_RECORDS = 50000;
 const RESULT_PAGE_SIZE = 100;
 const MAX_JSON_BYTES = 8 * 1024 * 1024;
@@ -117,7 +119,7 @@ async function enable_source_search(form) {
                 source_link.search = new URLSearchParams(params).toString();
                 title.append(source_link);
                 card.append(element('span', item.repository, 'type-label'), title,
-                    element('p', item.role + ' · ' + item.commit.slice(0, 7) + ' · ' + item.licenses.join(' AND ')), link(item.format === 'pdf' ? '원본 PDF' : '원문 텍스트', item.raw_url, 'source-files/'));
+                    element('p', item.role + ' · ' + item.commit.slice(0, 7) + ' · ' + item.licenses.join(' AND ')), link('원문 텍스트', item.raw_url, 'source-files/'));
                 grid.append(card);
             }
             const navigation = element('nav', undefined, 'pagination');
@@ -178,7 +180,7 @@ async function enable_source_view(container) {
         const data = await fetch_json(new URL('../api/sources/groups/' + group + '.json', import.meta.url));
         if (data.schema_version !== 1 || !Array.isArray(data.records) || data.records.length > 1000) throw new Error('원문 색인 형식 오류');
         const record = data.records.find(item => item.id === id);
-        if (!record || !/^[a-f0-9]{64}$/.test(record.sha256) || !Number.isSafeInteger(record.bytes) || record.bytes > MAX_SOURCE_BYTES) throw new Error('공개 원문을 찾을 수 없습니다.');
+        if (!record || record.format !== 'text' || !/^[a-f0-9]{64}$/.test(record.sha256) || !Number.isSafeInteger(record.bytes) || record.bytes > MAX_SOURCE_BYTES) throw new Error('공개 텍스트 원문을 찾을 수 없습니다. PDF 대신 데이터시트 가공본을 이용하세요.');
         const heading = element('h1', record.source_path);
         const metadata = element('section', undefined, 'prose source-metadata');
         const upstream = new URL(record.source_url);
@@ -186,8 +188,8 @@ async function enable_source_view(container) {
             !/^[a-f0-9]{40}$/.test(record.commit) || !upstream.pathname.includes(record.commit)) throw new Error('고정 출처 주소 오류');
         const citation = element('a', '고정 원출처');
         citation.href = upstream.href;
-        const download = link(record.format === 'pdf' ? '원본 PDF 다운로드' : '원문 텍스트 다운로드', record.raw_url, 'source-files/');
-        download.download = record.source_path.split('/').at(-1) + (record.format === 'pdf' ? '' : '.txt');
+        const download = link('원문 텍스트 다운로드', record.raw_url, 'source-files/');
+        download.download = record.source_path.split('/').at(-1) + '.txt';
         metadata.append(element('p', record.repository + ' · ' + record.role), element('p', '판본: ' + record.commit, 'file-path'),
             element('p', 'SHA-256: ' + record.sha256, 'file-path'), element('p', '원문 변경 없음 · ' + record.bytes.toLocaleString('en-US') + ' bytes · 빌드·실기 미검증'), citation, document.createTextNode(' · '), download,
             element('h2', '라이선스와 원저작 고지'), element('p', '적용 조건: ' + record.licenses.join(' AND ')));
@@ -206,17 +208,12 @@ async function enable_source_view(container) {
         const bytes = await fetch_bytes(data_url(record.raw_url, 'source-files/'), MAX_SOURCE_BYTES);
         const digest = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(value => value.toString(16).padStart(2, '0')).join('');
         if (bytes.length !== record.bytes || digest !== record.sha256) throw new Error('원문 무결성 확인에 실패했습니다. 본문을 표시하지 않습니다.');
-        if (record.format === 'pdf') {
-            const description = element('p', '원본 PDF의 SHA-256을 확인했습니다. PDF 자체의 저작자·라이선스·안전 고지를 유지한 파일입니다.');
-            description.dataset.pdfVerified = 'true';
-            loading.replaceWith(description, link('원본 PDF 열기', record.raw_url, 'source-files/'));
-            return;
-        }
         const pre = element('pre', undefined, 'public-source-text');
         pre.tabIndex = 0;
         pre.setAttribute('aria-label', '변경하지 않은 원문 텍스트');
         pre.append(element('code', new TextDecoder('utf-8', { fatal: true }).decode(bytes)));
         loading.replaceWith(element('h2', '원문'), pre);
+        void record_reading(container, 'source', record.id);
     } catch (error) {
         const current = container.querySelector('[role="status"]') || status;
         current.textContent = error.message + ' 자료실의 원문 텍스트 링크를 확인해 주세요.';

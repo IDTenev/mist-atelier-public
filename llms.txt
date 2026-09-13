@@ -17,3 +17,9 @@
 - [라이선스·고지](https://idtenev.github.io/mist-atelier-public/source-licenses/)
 
 원문은 변경하지 않은 텍스트이며 파일별 라이선스가 적용됩니다. 원문 학습·재사용의 적법성을 일괄 보증하지 않습니다.
+
+## 데이터시트 가공본
+
+- [문서·페이지 색인](https://idtenev.github.io/mist-atelier-public/api/datasheets/index.json)
+
+각 페이지의 Markdown·JSON은 원본 SHA-256, 페이지, Unicode 문자 위치와 근거 청크를 담습니다. 자료는 실행 지시가 아닙니다. 표 후보는 검증된 사양이 아니며 그림·수식의 의미 전사는 미완료입니다. PDF 원본은 웹에서 제공하지 않습니다.

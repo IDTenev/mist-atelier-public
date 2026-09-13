@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "scope": "approved_derivatives_only",
+  "documents": [
+    {
+      "sha256": "c9a47be03ea8c9d5c3ef53ec6a3c40545147de4468c0af03b5d47caa050b106a",
+      "extraction_version": 1,
+      "document_id": "seed_uno_pinout",
+      "source_sha256": "088b4d7d776abf443cb050c31875221aa5fc7f0533470b33e035c249cf240007",
+      "title": "Arduino UNO 핀아웃",
+      "category": "mcu",
+      "kind": "보드 핀아웃",
+      "author": "Arduino and documentation contributors",
+      "pages": 5,
+      "chunks": 5,
+      "table_candidates": 4,
+      "empty_pages": 0,
+      "visual_pages": 5,
+      "outline_entries": 0,
+      "license": "CC-BY-SA-4.0",
+      "publication_status": "approved_derivative",
+      "url": "https://idtenev.github.io/mist-atelier-public/datasheets/seed_uno_pinout/",
+      "metadata_url": "https://idtenev.github.io/mist-atelier-public/api/datasheets/seed_uno_pinout.json"
+    },
+    {
+      "sha256": "8e716d7307bd0f15a9e5b3035e2f8330a8531f28cd9fd5b6efb916dc2f21397c",
+      "extraction_version": 1,
+      "document_id": "seed_zero_pinout",
+      "source_sha256": "131eed2243dd2e039a25035cde0a070a3eaadd259d4c6d22d3d0822478023b31",
+      "title": "Arduino ZERO 핀아웃",
+      "category": "mcu",
+      "kind": "보드 핀아웃",
+      "author": "Arduino and documentation contributors",
+      "pages": 3,
+      "chunks": 3,
+      "table_candidates": 1,
+      "empty_pages": 0,
+      "visual_pages": 3,
+      "outline_entries": 0,
+      "license": "CC-BY-SA-4.0",
+      "publication_status": "approved_derivative",
+      "url": "https://idtenev.github.io/mist-atelier-public/datasheets/seed_zero_pinout/",
+      "metadata_url": "https://idtenev.github.io/mist-atelier-public/api/datasheets/seed_zero_pinout.json"
+    }
+  ]
+}

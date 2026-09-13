@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "document_id": "seed_uno_pinout",
+  "title": "Arduino UNO 핀아웃",
+  "source": {
+    "sha256": "088b4d7d776abf443cb050c31875221aa5fc7f0533470b33e035c249cf240007",
+    "bytes": 345772,
+    "url": "https://raw.githubusercontent.com/arduino/docs-content/20d1c1c179703cc10ece612f3e4be223fcd02590/content/hardware/02.uno/boards/uno-rev3/downloads/A000066-full-pinout.pdf",
+    "author": "Arduino and documentation contributors",
+    "retrieved_at": "2026-09-11T08:50:16.950Z",
+    "commit": "20d1c1c179703cc10ece612f3e4be223fcd02590",
+    "repository": "arduino/docs-content",
+    "source_path": "content/hardware/02.uno/boards/uno-rev3/downloads/A000066-full-pinout.pdf"
+  },
+  "total_pages": 5,
+  "license": "CC-BY-SA-4.0",
+  "publication_status": "approved_derivative",
+  "processing": "automatic_structuring_not_technical_validation",
+  "notice": "원본을 보존한 자동 재구성본입니다. 표·기호·그림의 기술 의미와 회로 안전성은 전수 검증하지 않았습니다.",
+  "offset_unit": "unicode_code_points",
+  "page": 3,
+  "width": 1190.55,
+  "height": 841.89,
+  "section_path": [],
+  "text": "This work is licensed under \nthe Creative Commons \nAttribution-ShareAlike 4.0 \nInternational License. To view a \ncopy of this license, visit http://\ncreativecommons.org/licenses/\nby-sa/4.0/ or send a letter to \nCreative Commons, PO Box 1866, \nMountain View, CA 94042, USA.\nSKU code: A000066\nFull Pinout - Page 3 of 5\nLast update: 6 Oct, 2022\nVIN 6-20V input to the board\nCIPO/COPI have previously been \nreferred to as MISO/MOSI\nMAXIMUM current per  \nI/O pin is 20mA\nMAXIMUM current per  \n+3.3V pin is 50mA\nLegend:\n Power      Power Input\n            Power Output\n Ground\n GPIO Digital External\n Analog External\n Main Part\n Secondary Part\n Internal Component\n Other Pins (Reset, System \nControl, Debugging)\n I2C            Default\n SPI            Default\n UART/USART     Default\n Other SERIAL Communication\n Analog         Default\n PWM/Timer\n LED\n RGB LED\n Other\nTOP VIEW\nTXD\nRXD\nRESET\nSDA\nSCL\nPCINT[14]\nPCINT[8] \nPCINT[9] \nPCINT[10]\nPCINT[11]\nPCINT[12]\nPCINT[13]\nADC[5]\nADC[4]\nAIN[1]\nAIN[0]\nOC2A\nOC1B\nOC1A\nCLKO/ICP1\nOC0A\nOC0B/T1\nT0/XCK\nOC2B\nPCINT[13]\nPCINT[12]\nPCINT[5]\nPCINT[4]\nPCINT[3]\nPCINT[2]\nPCINT[1]\nPCINT[0]\nPCINT[23]\nPCINT[22]\nPCINT[21]\nPCINT[20]\nPCINT[19]/INT[1]\nPCINT[18]/INT[0]\nPCINT[17]\nPCINT[16]\n D12\n~D11\n~D10\n ~D9\n  D8\n D7\n~D6\n~D5\n D4\n~D3\n D2\nD1/TX\nD0/RX\nRESETPC6\nADC[0]\nADC[1]\nADC[2]\nADC[3]\nADC[4]\nADC[5]\nPC0\nPC1\nPC2\nPC3\nPC4\nPC5\nD19/SCL\nD18/SDA\nAREF\nGND\n D13\nPC5\nPC4\nPB5\nPB4\nPB3\nPB2\nPB1\nPB0\nPD7\nPD6\nPD5\nPD4\nPD3\nPD2\nPD1\nPD0\nSCL\nSDA\nSCK\nCIPO\nCOPI\nSS\nA5\nA2\nA1\nA0D14\nD15\nD16A2\nD17\nD18\nD19\nA0\nA1\nA3\nA4\nA5\nIOREF\nNC\n+3V3\n+5V\nGND\nGND\nVIN\nLED_BUILTIN\nTX LED\nRX LED\nPower\nPB5\nPD5\nPD4\nMicroI2CInterrupt\nMicro I2C SPI UART Interrupt Analog\nTimer\nAnalog\nATMEGA328P",
+  "reading_text": "Micro I2C SPI UART Interrupt Analog\nD19/SCL PC5 SCL PCINT[13] ADC[5]\nD18/SDA PC4 SDA PCINT[12] ADC[4]\nAREF\nGND\nNC\nD13 PB5 SCK PCINT[5]\nInterrupt I2C Micro IOREF D12 PB4 CIPO PCINT[4] Timer\nPCINT[14] RESET PC6 RESET\n~D11 PB3 COPI PCINT[3] OC2A\n+3V3\n~D10 PB2 SS PCINT[2] OC1B\n+5V\n~D9 PB1 PCINT[1] OC1A\nGND\nD8 PB0 PCINT[0] CLKO/ICP1\nGND\nVIN D7 PD7 PCINT[23] AIN[1]\nATMEGA328P\nAnalog ~D6 PD6 PCINT[22] AIN[0] OC0A\nPCINT[8] ADC[0] PC0 A0A0D14 ~D5 PD5 PCINT[21] OC0B/T1\nPCINT[9] ADC[1] PC1 A1A1D15 D4 PD4 PCINT[20] T0/XCK\nPCINT[10] ADC[2] PC2 A2A2D16 ~D3 PD3 PCINT[19]/INT[1] OC2B\nPCINT[11] ADC[3] PC3 A3 D17 D2 PD2 PCINT[18]/INT[0]\nPCINT[12] SDA ADC[4] PC4 A4 D18 D1/TX PD1 TXD PCINT[17]\nPCINT[13] SCL ADC[5] PC5 A5A5D19 D0/RX PD0 RXD PCINT[16]\nLED_BUILTIN PB5\nTOP VIEW\nTX LED PD5\nRX LED PD4\nPower\nLegend: MAXIMUM current per\nI/O pin is 20mA\nPower Power Input GPIO Digital External I2C Default LED\nMAXIMUM current per\n+3.3V pin is 50mA\nPower Output Analog External SPI Default RGB LED\nVIN 6-20V input to the board SKU code: A000066\nGround Main Part UART/USART Default Other Full Pinout - Page 3 of 5\nLast update: 6 Oct, 2022\nSecondary Part Other SERIAL Communication CIPO/COPI have previously been\nreferred to as MISO/MOSI This work is licensed under\nthe Creative Commons\nInternal Component Analog Default Attribution-ShareAlike 4.0\nInternational License. To view a\ncopy of this license, visit http://\ncreativecommons.org/licenses/\nOther Pins (Reset, System PWM/Timer by-sa/4.0/ or send a letter to\nControl, Debugging) Creative Commons, PO Box 1866,\nMountain View, CA 94042, USA.",
+  "chunks": [
+    {
+      "id": "seed_uno_pinout:088b4d7d776a:p3:c1",
+      "start": 0,
+      "end": 1667,
+      "text": "This work is licensed under \nthe Creative Commons \nAttribution-ShareAlike 4.0 \nInternational License. To view a \ncopy of this license, visit http://\ncreativecommons.org/licenses/\nby-sa/4.0/ or send a letter to \nCreative Commons, PO Box 1866, \nMountain View, CA 94042, USA.\nSKU code: A000066\nFull Pinout - Page 3 of 5\nLast update: 6 Oct, 2022\nVIN 6-20V input to the board\nCIPO/COPI have previously been \nreferred to as MISO/MOSI\nMAXIMUM current per  \nI/O pin is 20mA\nMAXIMUM current per  \n+3.3V pin is 50mA\nLegend:\n Power      Power Input\n            Power Output\n Ground\n GPIO Digital External\n Analog External\n Main Part\n Secondary Part\n Internal Component\n Other Pins (Reset, System \nControl, Debugging)\n I2C            Default\n SPI            Default\n UART/USART     Default\n Other SERIAL Communication\n Analog         Default\n PWM/Timer\n LED\n RGB LED\n Other\nTOP VIEW\nTXD\nRXD\nRESET\nSDA\nSCL\nPCINT[14]\nPCINT[8] \nPCINT[9] \nPCINT[10]\nPCINT[11]\nPCINT[12]\nPCINT[13]\nADC[5]\nADC[4]\nAIN[1]\nAIN[0]\nOC2A\nOC1B\nOC1A\nCLKO/ICP1\nOC0A\nOC0B/T1\nT0/XCK\nOC2B\nPCINT[13]\nPCINT[12]\nPCINT[5]\nPCINT[4]\nPCINT[3]\nPCINT[2]\nPCINT[1]\nPCINT[0]\nPCINT[23]\nPCINT[22]\nPCINT[21]\nPCINT[20]\nPCINT[19]/INT[1]\nPCINT[18]/INT[0]\nPCINT[17]\nPCINT[16]\n D12\n~D11\n~D10\n ~D9\n  D8\n D7\n~D6\n~D5\n D4\n~D3\n D2\nD1/TX\nD0/RX\nRESETPC6\nADC[0]\nADC[1]\nADC[2]\nADC[3]\nADC[4]\nADC[5]\nPC0\nPC1\nPC2\nPC3\nPC4\nPC5\nD19/SCL\nD18/SDA\nAREF\nGND\n D13\nPC5\nPC4\nPB5\nPB4\nPB3\nPB2\nPB1\nPB0\nPD7\nPD6\nPD5\nPD4\nPD3\nPD2\nPD1\nPD0\nSCL\nSDA\nSCK\nCIPO\nCOPI\nSS\nA5\nA2\nA1\nA0D14\nD15\nD16A2\nD17\nD18\nD19\nA0\nA1\nA3\nA4\nA5\nIOREF\nNC\n+3V3\n+5V\nGND\nGND\nVIN\nLED_BUILTIN\nTX LED\nRX LED\nPower\nPB5\nPD5\nPD4\nMicroI2CInterrupt\nMicro I2C SPI UART Interrupt Analog\nTimer\nAnalog\nATMEGA328P",
+      "source_page": 3
+    }
+  ],
+  "table_candidates": [
+    {
+      "id": "seed_uno_pinout:p3:grid1",
+      "bbox": [
+        13.01,
+        678.189,
+        1177.541,
+        829.38
+      ],
+      "rows": [
+        [
+          "Legend:\nPower Power Input GPIO Digital External I2C Default LED\nPower Output Analog External SPI Default RGB LED\nGround Main Part UART/USART Default Other\nSecondary Part Other SERIAL Communication\nInternal Component Analog Default\nOther Pins (Reset, System PWM/Timer\nControl, Debugging)",
+          "MAXIMUM current per\nI/O pin is 20mA\nMAXIMUM current per\n+3.3V pin is 50mA\nVIN 6-20V input to the board\nCIPO/COPI have previously been\nreferred to as MISO/MOSI",
+          ""
+        ],
+        [
+          null,
+          null,
+          "SKU code: A000066\nFull Pinout - Page 3 of 5\nLast update: 6 Oct, 2022"
+        ],
+        [
+          null,
+          null,
+          "This work is licensed under\nthe Creative Commons\nAttribution-ShareAlike 4.0\nInternational License. To view a\ncopy of this license, visit http://\ncreativecommons.org/licenses/\nby-sa/4.0/ or send a letter to\nCreative Commons, PO Box 1866,\nMountain View, CA 94042, USA."
+        ]
+      ],
+      "status": "automatic_candidate",
+      "header_status": "not_interpreted"
+    }
+  ],
+  "rejected_grid_regions": 2,
+  "visuals": {
+    "raster_regions": [],
+    "vector_objects": 1131,
+    "caption_candidates": [],
+    "interpretation": "not_transcribed"
+  },
+  "empty_text": false,
+  "technical_review": "not_reviewed",
+  "warnings": [
+    "table_cells_units_footnotes_require_review",
+    "figures_and_formulas_not_semantically_transcribed"
+  ]
+}

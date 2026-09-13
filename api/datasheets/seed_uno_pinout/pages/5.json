@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "document_id": "seed_uno_pinout",
+  "title": "Arduino UNO 핀아웃",
+  "source": {
+    "sha256": "088b4d7d776abf443cb050c31875221aa5fc7f0533470b33e035c249cf240007",
+    "bytes": 345772,
+    "url": "https://raw.githubusercontent.com/arduino/docs-content/20d1c1c179703cc10ece612f3e4be223fcd02590/content/hardware/02.uno/boards/uno-rev3/downloads/A000066-full-pinout.pdf",
+    "author": "Arduino and documentation contributors",
+    "retrieved_at": "2026-09-11T08:50:16.950Z",
+    "commit": "20d1c1c179703cc10ece612f3e4be223fcd02590",
+    "repository": "arduino/docs-content",
+    "source_path": "content/hardware/02.uno/boards/uno-rev3/downloads/A000066-full-pinout.pdf"
+  },
+  "total_pages": 5,
+  "license": "CC-BY-SA-4.0",
+  "publication_status": "approved_derivative",
+  "processing": "automatic_structuring_not_technical_validation",
+  "notice": "원본을 보존한 자동 재구성본입니다. 표·기호·그림의 기술 의미와 회로 안전성은 전수 검증하지 않았습니다.",
+  "offset_unit": "unicode_code_points",
+  "page": 5,
+  "width": 1190.55,
+  "height": 841.89,
+  "section_path": [],
+  "text": "This work is licensed under \nthe Creative Commons \nAttribution-ShareAlike 4.0 \nInternational License. To view a \ncopy of this license, visit http://\ncreativecommons.org/licenses/\nby-sa/4.0/ or send a letter to \nCreative Commons, PO Box 1866, \nMountain View, CA 94042, USA.\nSKU code: A000066\nFull Pinout - Page 5 of 5\nLast update: 6 Oct, 2022\nVIN 6-20V input to the board\nCIPO/COPI have previously been \nreferred to as MISO/MOSI\nMAXIMUM current per  \nI/O pin is 20mA\nMAXIMUM current per  \n+3.3V pin is 50mA\nLegend:\n Power      Power Input\n            Power Output\n Ground\n GPIO Digital External\n Analog External\n Main Part\n Secondary Part\n Internal Component\n Other Pins (Reset, System \nControl, Debugging)\n LED\n RGB LED\n Other\nTOP VIEW\nCut the solder jumper\nto disable auto-reset\nATMEGA16U2\nPB4\nPB6\nPB5\nPB7\n1\n2\n3\n4\n3\n1\n42\n6-20 V\nRESET",
+  "reading_text": "6-20 V\nATMEGA16U2\nPB4 1\nPB6 2 2 4\nPB5 3 1 3\nPB7 4\nCut the solder jumper\nRESET\nto disable auto-reset\nTOP VIEW\nLegend: MAXIMUM current per\nI/O pin is 20mA\nPower Power Input GPIO Digital External LED\nMAXIMUM current per\n+3.3V pin is 50mA\nPower Output Analog External RGB LED\nVIN 6-20V input to the board SKU code: A000066\nGround Main Part Other Full Pinout - Page 5 of 5\nLast update: 6 Oct, 2022\nSecondary Part CIPO/COPI have previously been\nreferred to as MISO/MOSI This work is licensed under\nthe Creative Commons\nInternal Component Attribution-ShareAlike 4.0\nInternational License. To view a\ncopy of this license, visit http://\ncreativecommons.org/licenses/\nOther Pins (Reset, System by-sa/4.0/ or send a letter to\nControl, Debugging) Creative Commons, PO Box 1866,\nMountain View, CA 94042, USA.",
+  "chunks": [
+    {
+      "id": "seed_uno_pinout:088b4d7d776a:p5:c1",
+      "start": 0,
+      "end": 834,
+      "text": "This work is licensed under \nthe Creative Commons \nAttribution-ShareAlike 4.0 \nInternational License. To view a \ncopy of this license, visit http://\ncreativecommons.org/licenses/\nby-sa/4.0/ or send a letter to \nCreative Commons, PO Box 1866, \nMountain View, CA 94042, USA.\nSKU code: A000066\nFull Pinout - Page 5 of 5\nLast update: 6 Oct, 2022\nVIN 6-20V input to the board\nCIPO/COPI have previously been \nreferred to as MISO/MOSI\nMAXIMUM current per  \nI/O pin is 20mA\nMAXIMUM current per  \n+3.3V pin is 50mA\nLegend:\n Power      Power Input\n            Power Output\n Ground\n GPIO Digital External\n Analog External\n Main Part\n Secondary Part\n Internal Component\n Other Pins (Reset, System \nControl, Debugging)\n LED\n RGB LED\n Other\nTOP VIEW\nCut the solder jumper\nto disable auto-reset\nATMEGA16U2\nPB4\nPB6\nPB5\nPB7\n1\n2\n3\n4\n3\n1\n42\n6-20 V\nRESET",
+      "source_page": 5
+    }
+  ],
+  "table_candidates": [
+    {
+      "id": "seed_uno_pinout:p5:grid1",
+      "bbox": [
+        13.01,
+        678.189,
+        1177.541,
+        829.38
+      ],
+      "rows": [
+        [
+          "Legend:\nPower Power Input GPIO Digital External LED\nPower Output Analog External RGB LED\nGround Main Part Other\nSecondary Part\nInternal Component\nOther Pins (Reset, System\nControl, Debugging)",
+          "MAXIMUM current per\nI/O pin is 20mA\nMAXIMUM current per\n+3.3V pin is 50mA\nVIN 6-20V input to the board\nCIPO/COPI have previously been\nreferred to as MISO/MOSI",
+          ""
+        ],
+        [
+          null,
+          null,
+          "SKU code: A000066\nFull Pinout - Page 5 of 5\nLast update: 6 Oct, 2022"
+        ],
+        [
+          null,
+          null,
+          "This work is licensed under\nthe Creative Commons\nAttribution-ShareAlike 4.0\nInternational License. To view a\ncopy of this license, visit http://\ncreativecommons.org/licenses/\nby-sa/4.0/ or send a letter to\nCreative Commons, PO Box 1866,\nMountain View, CA 94042, USA."
+        ]
+      ],
+      "status": "automatic_candidate",
+      "header_status": "not_interpreted"
+    }
+  ],
+  "rejected_grid_regions": 5,
+  "visuals": {
+    "raster_regions": [],
+    "vector_objects": 745,
+    "caption_candidates": [],
+    "interpretation": "not_transcribed"
+  },
+  "empty_text": false,
+  "technical_review": "not_reviewed",
+  "warnings": [
+    "table_cells_units_footnotes_require_review",
+    "figures_and_formulas_not_semantically_transcribed"
+  ]
+}

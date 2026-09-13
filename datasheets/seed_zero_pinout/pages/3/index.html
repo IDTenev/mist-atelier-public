@@ -1,0 +1,262 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src &#39;none&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; img-src &#39;self&#39; data: https://hits.sh; connect-src &#39;self&#39;; base-uri &#39;none&#39;; form-action &#39;self&#39;"><meta name="referrer" content="no-referrer"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="description" content="승인된 한국어 MCU 안내를 보드·SDK·본문으로 검색하는 공개 프리뷰">
+<title>Arduino ZERO 핀아웃 · 3쪽 — Mist Atelier</title><link rel="icon" type="image/png" href="/mist-atelier-public/assets/mist_atelier_logo.png"><link rel="stylesheet" href="/mist-atelier-public/assets/site.css"><link rel="alternate" type="application/atom+xml" title="로컬 안내 변경" href="/mist-atelier-public/changes.atom"><script type="module" src="/mist-atelier-public/assets/site.js"></script><link rel="canonical" href="https://idtenev.github.io/mist-atelier-public/datasheets/seed_zero_pinout/pages/3/"></head>
+<body class="public-preview" data-static-site="true" data-reading-source="seed_zero_pinout" data-reading-site="https://idtenev.github.io/mist-atelier-public/"><a class="skip-link" href="#main">본문으로 건너뛰기</a><header class="topbar"><div class="mobile-brand"><a class="brand" href="/mist-atelier-public/" aria-label="Mist Atelier 홈"><img class="brand-image" src="/mist-atelier-public/assets/mist_atelier_logo.png" width="1024" height="936" alt="Mist Atelier"></a></div><div class="topbar-main"><span class="library-label">기술 지식 도서관</span><a class="view-counter" href="/mist-atelier-public/statistics/" title="공개 자료별 열람의 합계입니다. 마지막 수집·배포 기준이며 실시간이 아닙니다."><span>총 자료 열람</span><span data-reading-total>미집계</span></a><nav aria-label="주 메뉴"><a href="/mist-atelier-public/library/">자료실</a><a href="/mist-atelier-public/datasheets/" aria-current="page">데이터시트</a><a href="/mist-atelier-public/guides/">한국어 안내</a><a href="/mist-atelier-public/policy/">출처·범위</a></nav><span class="local-label">공개 프리뷰 · GitHub Pages</span></div></header>
+<div class="workspace"><aside class="sidebar"><div class="sidebar-brand"><a class="brand" href="/mist-atelier-public/" aria-label="Mist Atelier 홈"><img class="brand-image" src="/mist-atelier-public/assets/mist_atelier_logo.png" width="1024" height="936" alt="Mist Atelier"></a></div><p class="nav-heading">BOARD GUIDES <span>4</span></p><nav aria-label="보드 안내"><a class="family-nav" href="/mist-atelier-public/library/">공개 원문 자료실</a><a class="family-nav" href="/mist-atelier-public/guides/arduino_uno_r3/">Arduino UNO R3 (A000066)</a><a class="family-nav" href="/mist-atelier-public/guides/arduino_zero_samd21/">Arduino Zero (ABX00003)</a><a class="family-nav" href="/mist-atelier-public/guides/stm32_nucleo_f401re/">NUCLEO-F401RE</a><a class="family-nav" href="/mist-atelier-public/guides/esp32_p4_function_ev/">ESP32-P4-Function-EV-Board</a></nav><div class="sidebar-note"><strong>원문·안내 함께 열람</strong><p>칩과 SDK 판본을 확인하세요. 실기 검증은 별도입니다.</p><a href="/mist-atelier-public/policy/">출처와 이용 범위</a></div><nav class="discovery-nav" aria-label="발견과 변경"><a href="/mist-atelier-public/discovery/">발견 색인</a><a href="/mist-atelier-public/changes/">변경 이력</a><a class="reading-nav" href="/mist-atelier-public/statistics/">열람 통계</a></nav></aside><main id="main"><nav class="breadcrumb"><a href="/mist-atelier-public/datasheets/">데이터시트 서가</a> / <a href="/mist-atelier-public/datasheets/seed_zero_pinout/">Arduino ZERO 핀아웃</a></nav><p class="eyebrow">SOURCE PAGE 3 / 3</p><h1>Arduino ZERO 핀아웃 · 3쪽</h1>
+<p>페이지 단위 가공본</p><div class="source-toolbar"><a href="/mist-atelier-public/api/datasheets/seed_zero_pinout/pages/3.json">이 페이지 JSON·청크</a><a href="/mist-atelier-public/datasheets/seed_zero_pinout/pages/3/index.md">Markdown</a></div>
+<div class="notice"><strong>단위·정격·핀 매핑은 검토 후 사용</strong><span>추출 표는 자동 후보이고 도식·수식은 의미 전사가 끝나지 않았습니다. 원본은 보관하지만 이 화면에서 PDF를 직접 열지 않습니다.</span></div>
+<article class="prose document-body"><h2>읽기용 재배열 텍스트</h2><pre class="datasheet-text">AT32UC3A4256HHB USB2 STORE.ARDUINO.CC/ZERO
++5V
+DMHS USB D-
+DPHS USB D+ USB1
+GND
+USB ID
+USB ID PA28
+GND
+USB D+ PA25
+USB D- PA24
+6-20 V
++5V
+AT32UC3A4256HHB JTAG
+TCK 1
+GND 2
+TDO 3
+1 2
++3V3 4
+3 4 AT32UC3A4256HHB
+TMS 5
+5 6 PA02 PB22 TX TC7/WO[0] INT[6] SC5 P2A
+RESET 6
+7 8 PA04 PB23 RX TC7/WO[1] INT[7] SC5 P3A
+7
+9 10 PA08 PA13 TCC2/WO[1] TCC0/WO[7] INT[13] SC2 P1/SC4 P1A
+8
+PA09 PA21 TC7/WO[1] TCC0/WO[7] INT[5] SC5 P3/SC3 P3A
+TDI 9
+PA10 PA06 AIN[6] TCC1/WO[0] INT[6] SC0 P2A
+GND 10
+PA11 PA07 AIN[7] I2S_SD0 TCC1/WO[1] INT[7] SC0 P3A
+PA12 PA22 TC4/WO[0] TCC0/WO[4] INT[6] SC3 P0/SC5 P0A
+PA26 PA23 TC4/WO[1] TCC0/WO[5] INT[7] SC3 P1/SC5 P1A
+PA29 RESET
+PX27 PA18 TC3/WO[0] TCC0/WO[2] INT[2] SC1 P2/SC3 P2A
+PX28 PA16 COPI TCC2/WO[0] TCC0/WO[6] INT[0] SC1 P0/SC3 P0A
+SWD
++3V3 1 PX29 PA17 SCK TCC2/WO[1] TCC0/WO[7] INT[1] SC1 P1/SC3 P1A
+SC1 P3A INT[11] TCC1/WO[1] PA31 2 PX30 PA18 TC3/WO[0] TCC0/WO[2] INT[2] SC1 P2/SC3 P2A
+GND 3 ATSAMD21G18 PB07 PA30 TCC1/WO[0] INT[10] SC1 P2A
+SC1 P2A INT[10] TCC1/WO[0] PA30 4 9 7 5 3 1 PB09 PA31 TCC1/WO[1] INT[11] SC1 P3A
+GND 5
+SPI
+6
+1 CIPO PA12 TCC2/WO[0] TCC0/WO[6] INT[12] SC2 P0/SC4 P0A
+7 10 8 6 4 2
+5 3 1 2 +5V
+8
+3 SCK PB11 TC5/WO[1] TC5/WO[1] INT[11]
+GND 9
+4 COPI PB10 TC5/WO[0] TCC0/WO[4] INT[10] SC4 P2A
+RESET 10
+6 4 2 5 RESET
+6 GND
+Last update: 17/12/2021
+Ground Digital Pin Analog MAXIMUM current VIN Input voltage to the board.
+per pin is 7mA
+Power Analog Pin Communication
+NOTE: CIPO/COPI have previously
+MAXIMUM source
+been referred to as MISO/MOSI
+LED Other Pin Timer current is 46mA
+Internal Pin Microcontroller’s Port Interrupt MAXIMUM sink current This work is licensed under the Creative Commons
+is 65mA per pin group Attribution-ShareAlike 4.0 International License. To view
+a copy of this license, visit http://creativecommons.
+SWD Pin Default Sercom org/licenses/by-sa/4.0/ or send a letter to Creative
+Commons, PO Box 1866, Mountain View, CA 94042, USA.</pre>
+<h2>표 후보 1개</h2><p>빈 셀과 병합 셀은 확정하지 않습니다. 헤더·단위·각주는 같은 페이지의 본문과 함께 확인하세요.</p><section id="grid-1"><h3>자동 표 후보 1</h3><div class="datasheet-table" tabindex="0" role="region" aria-label="표 후보 1"><table><caption>원본 3쪽 · 헤더 의미 미검증</caption><tbody><tr><td>2</td><td><span class="cell-unknown" title="추출되지 않은 셀 또는 병합 셀">미확정</span></td><td><span class="cell-unknown" title="추출되지 않은 셀 또는 병합 셀">미확정</span></td><td><span class="cell-unknown" title="추출되지 않은 셀 또는 병합 셀">미확정</span></td><td><span class="cell-unknown" title="추출되지 않은 셀 또는 병합 셀">미확정</span></td></tr><tr><td>3
+4</td><td>SCK
+COPI</td><td>PB11
+PB10</td><td></td><td>TC5/WO[1] TC5/WO[1]
+TC5/WO[0] TCC0/WO[4]</td></tr></tbody></table></div></section>
+<h2>AI 근거 청크 1개</h2><details class="datasheet-chunk" id="chunk-0"><summary>seed_zero_pinout:131eed2243dd:p3:c1 · 문자 0–1939</summary><pre class="datasheet-text">Analog
+Communication
+Timer
+Interrupt
+Sercom
+This work is licensed under the Creative Commons 
+Attribution-ShareAlike 4.0 International License. To view 
+a copy of this license, visit http://creativecommons.
+org/licenses/by-sa/4.0/ or send a letter to Creative 
+Commons, PO Box 1866, Mountain View, CA 94042, USA.
+Ground
+Power
+LED
+Internal Pin
+SWD Pin
+Digital Pin
+Analog Pin
+Other Pin
+Microcontroller’s Port
+Default
+Last update: 17/12/2021
+ATSAMD21G18
+AT32UC3A4256HHB
+5 3 1
+6 4 2
+6-20 V
+9 7 5 3 1
+8 6 4 210
+USB D-
++5V
+USB D+
+USB ID
+GND
+PA24
+PA25
+PA28
+USB1
+AT32UC3A4256HHB
+JTAG
+1TCK
+2GND
+3TDO
+4+3V3
+5TMS
+6RESET
+7
+8
+GND
+9TDI
+10
+AT32UC3A4256HHB
+SWD
+USB D-
++5V
+USB D+
+USB ID
+GND
+DMHS
+DPHS
+USB2
+SPI
+PA12
+PB11
+PB10
+1 CIPO
+2 +5V
+3 SCK
+4 COPI
+5 RESET
+6 GND
+TCC2/WO [0] TCC0/WO[ 6]
+TC5/WO [1]  TC5/WO[ 1] 
+TC5/WO [0]  TCC0/WO[ 4]
+INT[12] SC2 P0/SC4 P0A
+INT[11]
+INT[10] SC4 P2A
+1+3V3
+2PA31
+3GND
+4PA30
+5GND
+6
+7
+8
+RESET
+9GND
+10
+TCC1/WO [1]INT[11]SC1 P3A
+TCC1/WO [0]INT[10]SC1 P2A
+9
+7
+5
+3
+1
+8
+6
+4
+2
+10
+TX TC7/WO [0]
+TC7/WO [1]
+TCC2/WO [1] TCC0/WO[ 7]
+TC7/WO [1]  TCC0/WO[ 7]
+TCC1/WO [0]
+TCC1/WO [1]
+TC4/WO [0] TCC0/WO[ 4]
+TC4/WO [1] TCC0/WO[ 5]
+TC3/WO [0]  TCC0/WO[ 2]
+TCC2/WO [0] TCC0/WO[ 6]
+TCC2/WO [1] TCC0/WO[ 7]
+TC3/WO [0]  TCC0/WO[ 2]
+TCC1/WO [0]
+TCC1/WO [1]
+INT[6] 
+INT[7] 
+INT[13]
+INT[5] 
+INT[6] 
+INT[7] 
+INT[6] 
+INT[7] 
+INT[2] 
+INT[0] 
+INT[1] 
+INT[2] 
+INT[10]
+INT[11]
+SC5 P2A
+SC5 P3A
+SC2 P1/SC4 P1A
+SC5 P3/SC3 P3A
+SC0 P2A
+SC0 P3A
+SC3 P0/SC5 P0A
+SC3 P1/SC5 P1A
+SC1 P2/SC3 P2A
+SC1 P0/SC3 P0A
+SC1 P1/SC3 P1A
+SC1 P2/SC3 P2A
+SC1 P2A
+SC1 P3A
+PB22
+RXPB23
+PA13
+PA21
+PA06 AIN[6]
+I2S_SD0PA07 AIN[7]
+PA22
+PA23
+RESET
+PA18
+COPIPA16
+SCKPA17
+PA18
+PA30
+PA31
+PA02
+PA04
+PA08
+PA09
+PA10
+PA11
+PA12
+PA26
+PA29
+PX27
+PX28
+PX29
+PX30
+PB07
+PB09
+STORE.ARDUINO.CC/ZERO
+MAXIMUM source 
+current is 46mA
+MAXIMUM sink current  
+is 65mA per pin group
+MAXIMUM current   
+per pin is 7mA
+VIN Input voltage to the board.
+NOTE: CIPO/COPI have previously 
+been referred to as MISO/MOSI</pre></details>
+<h2>미해석 시각 정보</h2><p>래스터 영역 0개 · 선/곡선/사각형 객체 1687개. 객체 수는 그림 개수가 아닙니다. 그래프 좌표·회로 연결·핀 배치·수식 의미는 자동 확정하지 않았습니다.</p></article>
+<nav class="pagination" aria-label="데이터시트 페이지"><a href="/mist-atelier-public/datasheets/seed_zero_pinout/pages/2/">이전 페이지</a><span>3 / 3</span><span></span></nav><div class="notice"><strong>공개 가공본</strong><span>원본을 보존한 자동 재구성본입니다. 표·기호·그림의 기술 의미와 회로 안전성은 전수 검증하지 않았습니다.</span></div><section class="prose datasheet-provenance"><h2>출처와 변경</h2><p>원저작자: Arduino and documentation contributors · 재구성: Mist Atelier</p><p>변경: 페이지별 텍스트, 목차, 자동 표 후보와 AI 청크로 재구성. 원본 파일은 수정하지 않았습니다. 도식·수식의 의미 해석과 실기는 미검증입니다.</p><p>원출처 식별자: <code>https://raw.githubusercontent.com/arduino/docs-content/20d1c1c179703cc10ece612f3e4be223fcd02590/content/hardware/12.hero/boards/zero/downloads/ABX00003-full-pinout.pdf</code></p><p>원본 SHA-256: <code>131eed2243dd2e039a25035cde0a070a3eaadd259d4c6d22d3d0822478023b31</code></p><p>취득: 2026-09-11T08:50:19.793Z · 발행일과 다름</p><p>가공본의 적용 조건: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. 원저작자의 제휴·검증·보증을 뜻하지 않습니다.</p></section></main></div><footer>Mist Atelier <span>v0.12.0 · 권리 확인 원문·안내 · 광고 없음 · <a href="https://github.com/IDTenev/mist-atelier-public">공개 저장소</a></span></footer></body></html>

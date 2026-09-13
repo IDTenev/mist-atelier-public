@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "document_id": "seed_uno_pinout",
+  "title": "Arduino UNO 핀아웃",
+  "source": {
+    "sha256": "088b4d7d776abf443cb050c31875221aa5fc7f0533470b33e035c249cf240007",
+    "bytes": 345772,
+    "url": "https://raw.githubusercontent.com/arduino/docs-content/20d1c1c179703cc10ece612f3e4be223fcd02590/content/hardware/02.uno/boards/uno-rev3/downloads/A000066-full-pinout.pdf",
+    "author": "Arduino and documentation contributors",
+    "retrieved_at": "2026-09-11T08:50:16.950Z",
+    "commit": "20d1c1c179703cc10ece612f3e4be223fcd02590",
+    "repository": "arduino/docs-content",
+    "source_path": "content/hardware/02.uno/boards/uno-rev3/downloads/A000066-full-pinout.pdf"
+  },
+  "total_pages": 5,
+  "license": "CC-BY-SA-4.0",
+  "publication_status": "approved_derivative",
+  "processing": "automatic_structuring_not_technical_validation",
+  "notice": "원본을 보존한 자동 재구성본입니다. 표·기호·그림의 기술 의미와 회로 안전성은 전수 검증하지 않았습니다.",
+  "offset_unit": "unicode_code_points",
+  "page": 2,
+  "width": 1190.55,
+  "height": 841.89,
+  "section_path": [],
+  "text": "WARNING!\nAdvanced Section\nThe following information is for advanced use only and \nmay not be officially supported by Arduino software",
+  "reading_text": "W A R N I N G !\nA d v a n c e d S e c t i o n\nThe following information is for advanced use only and\nmay not be officially supported by Arduino software",
+  "chunks": [
+    {
+      "id": "seed_uno_pinout:088b4d7d776a:p2:c1",
+      "start": 0,
+      "end": 133,
+      "text": "WARNING!\nAdvanced Section\nThe following information is for advanced use only and \nmay not be officially supported by Arduino software",
+      "source_page": 2
+    }
+  ],
+  "table_candidates": [],
+  "rejected_grid_regions": 0,
+  "visuals": {
+    "raster_regions": [],
+    "vector_objects": 20,
+    "caption_candidates": [],
+    "interpretation": "not_transcribed"
+  },
+  "empty_text": false,
+  "technical_review": "not_reviewed",
+  "warnings": [
+    "table_cells_units_footnotes_require_review",
+    "figures_and_formulas_not_semantically_transcribed"
+  ]
+}

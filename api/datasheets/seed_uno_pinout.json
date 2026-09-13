@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "sha256": "c9a47be03ea8c9d5c3ef53ec6a3c40545147de4468c0af03b5d47caa050b106a",
+  "extraction_version": 1,
+  "document_id": "seed_uno_pinout",
+  "source_sha256": "088b4d7d776abf443cb050c31875221aa5fc7f0533470b33e035c249cf240007",
+  "title": "Arduino UNO 핀아웃",
+  "category": "mcu",
+  "kind": "보드 핀아웃",
+  "author": "Arduino and documentation contributors",
+  "pages": 5,
+  "chunks": 5,
+  "table_candidates": 4,
+  "empty_pages": 0,
+  "visual_pages": 5,
+  "outline_entries": 0,
+  "license": "CC-BY-SA-4.0",
+  "publication_status": "approved_derivative",
+  "source": {
+    "sha256": "088b4d7d776abf443cb050c31875221aa5fc7f0533470b33e035c249cf240007",
+    "bytes": 345772,
+    "url": "https://raw.githubusercontent.com/arduino/docs-content/20d1c1c179703cc10ece612f3e4be223fcd02590/content/hardware/02.uno/boards/uno-rev3/downloads/A000066-full-pinout.pdf",
+    "author": "Arduino and documentation contributors",
+    "retrieved_at": "2026-09-11T08:50:16.950Z",
+    "commit": "20d1c1c179703cc10ece612f3e4be223fcd02590",
+    "repository": "arduino/docs-content",
+    "source_path": "content/hardware/02.uno/boards/uno-rev3/downloads/A000066-full-pinout.pdf"
+  },
+  "outline": [],
+  "parser": "pdfplumber 0.11.9",
+  "processing": "automatic_structuring_not_technical_validation",
+  "notice": "원본을 보존한 자동 재구성본입니다. 표·기호·그림의 기술 의미와 회로 안전성은 전수 검증하지 않았습니다.",
+  "page_status": [
+    {
+      "page": 1,
+      "chunks": 1,
+      "table_candidates": 1,
+      "empty_text": false,
+      "visuals_untranscribed": true,
+      "html_url": "/mist-atelier-public/datasheets/seed_uno_pinout/pages/1/",
+      "json_url": "/mist-atelier-public/api/datasheets/seed_uno_pinout/pages/1.json",
+      "markdown_url": "/mist-atelier-public/datasheets/seed_uno_pinout/pages/1/index.md"
+    },
+    {
+      "page": 2,
+      "chunks": 1,
+      "table_candidates": 0,
+      "empty_text": false,
+      "visuals_untranscribed": true,
+      "html_url": "/mist-atelier-public/datasheets/seed_uno_pinout/pages/2/",
+      "json_url": "/mist-atelier-public/api/datasheets/seed_uno_pinout/pages/2.json",
+      "markdown_url": "/mist-atelier-public/datasheets/seed_uno_pinout/pages/2/index.md"
+    },
+    {
+      "page": 3,
+      "chunks": 1,
+      "table_candidates": 1,
+      "empty_text": false,
+      "visuals_untranscribed": true,
+      "html_url": "/mist-atelier-public/datasheets/seed_uno_pinout/pages/3/",
+      "json_url": "/mist-atelier-public/api/datasheets/seed_uno_pinout/pages/3.json",
+      "markdown_url": "/mist-atelier-public/datasheets/seed_uno_pinout/pages/3/index.md"
+    },
+    {
+      "page": 4,
+      "chunks": 1,
+      "table_candidates": 1,
+      "empty_text": false,
+      "visuals_untranscribed": true,
+      "html_url": "/mist-atelier-public/datasheets/seed_uno_pinout/pages/4/",
+      "json_url": "/mist-atelier-public/api/datasheets/seed_uno_pinout/pages/4.json",
+      "markdown_url": "/mist-atelier-public/datasheets/seed_uno_pinout/pages/4/index.md"
+    },
+    {
+      "page": 5,
+      "chunks": 1,
+      "table_candidates": 1,
+      "empty_text": false,
+      "visuals_untranscribed": true,
+      "html_url": "/mist-atelier-public/datasheets/seed_uno_pinout/pages/5/",
+      "json_url": "/mist-atelier-public/api/datasheets/seed_uno_pinout/pages/5.json",
+      "markdown_url": "/mist-atelier-public/datasheets/seed_uno_pinout/pages/5/index.md"
+    }
+  ]
+}

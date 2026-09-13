@@ -1,3 +1,5 @@
+import { record_reading } from './reading-counter.js';
+
 // Match the approved-only server search contract without sending a search request.
 export function filter_public_guides(documents, params) {
     if (!Array.isArray(documents) || documents.length > 1000 || [...params.keys()].some(key =>
@@ -97,35 +99,11 @@ function enable_history(form) {
     addEventListener('popstate', () => apply(new URLSearchParams(location.search), false));
 }
 
-// One public-site key survives navigation and deployment; previews never increment it.
-export function public_counter_url(site_url, current_url) {
-    const site = new URL(site_url);
-    const current = new URL(current_url);
-    if (site.protocol !== 'https:' || !/^[a-z0-9-]+\.github\.io$/.test(site.hostname) ||
-        !/^\/[a-zA-Z0-9_-]+\/$/.test(site.pathname) || site.search || site.hash || site.username || site.password || site.port) throw new Error('Invalid counter site');
-    if (current.origin !== site.origin || !current.pathname.startsWith(site.pathname)) return null;
-    return 'https://hits.sh/' + site.hostname + site.pathname.slice(0, -1) + '.svg?style=flat-square&label=views&color=69e7e8&labelColor=09212b';
-}
-
-// A failed or blocked image has an honest fallback; no retries inflate the shared count.
-function enable_view_counter(element) {
-    const value = element.querySelector('[data-view-value]');
-    try {
-        const url = public_counter_url(element.dataset.viewCounter, location.href);
-        if (!url) { value.textContent = '공개 사이트에서 집계'; return; }
-        const badge = new Image();
-        badge.alt = '사이트 누적 조회수 (Hits)';
-        badge.referrerPolicy = 'no-referrer';
-        const timeout = setTimeout(() => { value.textContent = '집계 지연'; }, 10000);
-        badge.addEventListener('load', () => { clearTimeout(timeout); value.replaceChildren(badge); }, { once: true });
-        badge.addEventListener('error', () => { clearTimeout(timeout); value.textContent = '집계 불가'; }, { once: true });
-        badge.src = url;
-    } catch { value.textContent = '집계 불가'; }
-}
-
 if (typeof document !== 'undefined') {
-    const counter = document.querySelector('[data-view-counter]');
-    if (counter) enable_view_counter(counter);
+    const guide = document.body.dataset.readingGuide;
+    if (guide) void record_reading(document.querySelector('#main'), 'guide', guide);
+    const datasheet = document.body.dataset.readingSource;
+    if (datasheet) void record_reading(document.querySelector('#main'), 'source', datasheet);
     const search = document.querySelector('[data-guide-search]');
     if (search) void enable_search(search);
     const history_form = document.querySelector('.history-filter');

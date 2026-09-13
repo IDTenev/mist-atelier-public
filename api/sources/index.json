@@ -3,13 +3,14 @@
   "scope": "approved_unchanged_sources",
   "site_url": "https://idtenev.github.io/mist-atelier-public/",
   "sources": 43531,
-  "published": 36656,
+  "published": 36654,
   "held": 6875,
-  "distinct_source_files": 32942,
-  "original_bytes": 534287154,
-  "distinct_source_bytes": 430646079,
+  "distinct_source_files": 32940,
+  "original_bytes": 533635148,
+  "distinct_source_bytes": 429994073,
   "approved_at": "2026-09-12",
   "proposal_sha256": "7b4e48a196843689e02d579b1e5445cafc6e05383358bcd73af78f21aacb7fd8",
+  "pdfs_omitted": 2,
   "repositories": [
     {
       "repository": "adafruit/Adafruit_ADS1X15",
@@ -307,9 +308,9 @@
     },
     {
       "repository": "arduino/docs-content",
-      "count": 2153,
+      "count": 2151,
       "search_url": "/mist-atelier-public/api/sources/repositories/2b3ee95a74bba2a9.json",
-      "bytes": 1053078,
+      "bytes": 1052174,
       "browse_url": "/mist-atelier-public/catalog/2b3ee95a74bba2a9/1/"
     },
     {
