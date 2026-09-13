@@ -36,7 +36,7 @@ small { font-size:.8125rem; }
 .sidebar-brand { min-height:12.5rem; display:flex; align-items:center; justify-content:center; padding:.65rem 0; }
 .topbar-main { min-height:78px; display:flex; flex-wrap:wrap; align-items:center; gap:1rem 2rem; padding:1rem clamp(1.5rem,3vw,3rem); border-bottom:1px solid var(--border); }
 .library-label { font-size:.875rem; letter-spacing:.08em; color:var(--muted); }
-.view-counter { display:flex; align-items:center; flex-wrap:wrap; gap:.5rem; font-size:.75rem; color:var(--muted); }
+.view-counter { display:flex; align-items:center; flex-wrap:wrap; gap:.5rem; font-size:.875rem; color:var(--muted); }
 .view-counter [data-view-value] { display:inline-flex; min-height:20px; align-items:center; color:var(--accent); font-variant-numeric:tabular-nums; }
 .view-counter img { display:block; max-width:160px; height:20px; }
 .topbar nav { display:flex; flex-wrap:wrap; gap:1.8rem; margin-left:auto; font-size:.875rem; }

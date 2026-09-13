@@ -1,5 +1,8 @@
 import { record_reading } from './reading-counter.js';
 
+const VIEW_COUNTER_TIMEOUT_MS = 10000;
+const g_counted_page_elements = new WeakSet();
+
 // Match the approved-only server search contract without sending a search request.
 export function filter_public_guides(documents, params) {
     if (!Array.isArray(documents) || documents.length > 1000 || [...params.keys()].some(key =>
@@ -99,7 +102,46 @@ function enable_history(form) {
     addEventListener('popstate', () => apply(new URLSearchParams(location.search), false));
 }
 
+// Keep the original 0.10.0 site key: releases, routes and search terms never create a new counter.
+export function public_counter_url(site_url, current_url) {
+    const site = new URL(site_url);
+    const current = new URL(current_url);
+    if (site.protocol !== 'https:' || !/^[a-z0-9-]+\.github\.io$/.test(site.hostname) ||
+        !/^\/[a-zA-Z0-9_-]+\/$/.test(site.pathname) || site.search || site.hash || site.username || site.password || site.port) throw new Error('Invalid counter site');
+    if (current.origin !== site.origin || !current.pathname.startsWith(site.pathname)) return null;
+    return 'https://hits.sh/' + site.hostname + site.pathname.slice(0, -1) + '.svg?style=flat-square&label=views&color=69e7e8&labelColor=09212b';
+}
+
+// Resume the existing count once per visible page; failed requests are never retried or shown as zero.
+export async function enable_view_counter(element) {
+    if (g_counted_page_elements.has(element)) return;
+    g_counted_page_elements.add(element);
+    const value = element.querySelector('[data-view-value]');
+    try {
+        const url = public_counter_url(element.dataset.viewCounter, location.href);
+        if (!url) { value.textContent = '공개 사이트에서 집계'; return; }
+        if (document.visibilityState !== 'visible') await new Promise(resolve => {
+            // Background and pre-rendered pages must not increment until brought into view.
+            function on_visible() {
+                if (document.visibilityState !== 'visible') return;
+                document.removeEventListener('visibilitychange', on_visible);
+                resolve();
+            }
+            document.addEventListener('visibilitychange', on_visible);
+        });
+        const badge = new Image();
+        badge.alt = '사이트 누적 조회수 (Hits)';
+        badge.referrerPolicy = 'no-referrer';
+        const timeout = setTimeout(() => { value.textContent = '집계 지연'; }, VIEW_COUNTER_TIMEOUT_MS);
+        badge.addEventListener('load', () => { clearTimeout(timeout); value.replaceChildren(badge); }, { once: true });
+        badge.addEventListener('error', () => { clearTimeout(timeout); value.textContent = '집계 불가'; }, { once: true });
+        badge.src = url;
+    } catch { value.textContent = '집계 불가'; }
+}
+
 if (typeof document !== 'undefined') {
+    const counter = document.querySelector('[data-view-counter]');
+    if (counter) void enable_view_counter(counter);
     const guide = document.body.dataset.readingGuide;
     if (guide) void record_reading(document.querySelector('#main'), 'guide', guide);
     const datasheet = document.body.dataset.readingSource;
