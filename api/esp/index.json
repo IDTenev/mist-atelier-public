@@ -1,0 +1,1136 @@
+{
+  "schema_version": 1,
+  "scope": "public_esp_navigation",
+  "classification": "explicit_path_tokens_not_hardware_support",
+  "summary": {
+    "families": 15,
+    "part_numbers": 55,
+    "boards": 47,
+    "modules": 46,
+    "published_sources": 25068,
+    "common_sources": 16497,
+    "repositories": 7
+  },
+  "families": [
+    {
+      "id": "esp32",
+      "name": "ESP32",
+      "part_numbers": [
+        "ESP32-D0WD-V3",
+        "ESP32-D0WDRH2-V3",
+        "ESP32-U4WDH",
+        "ESP32-PICO-V3",
+        "ESP32-PICO-V3-02",
+        "ESP32-PICO-D4",
+        "ESP32-S0WD",
+        "ESP32-D0WDQ6-V3",
+        "ESP32-D0WDQ6",
+        "ESP32-D0WD"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "supported_target_list",
+        "arduino_3_3_11": "stable_listed"
+      },
+      "source_count": 741,
+      "url": "/mist-atelier-public/esp/families/esp32/",
+      "source_url": "/mist-atelier-public/esp/families/esp32/sources/1/"
+    },
+    {
+      "id": "esp32s2",
+      "name": "ESP32-S2",
+      "part_numbers": [
+        "ESP32-S2",
+        "ESP32-S2R2",
+        "ESP32-S2FH4",
+        "ESP32-S2FN4R2"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "supported_target_list",
+        "arduino_3_3_11": "stable_listed"
+      },
+      "source_count": 805,
+      "url": "/mist-atelier-public/esp/families/esp32s2/",
+      "source_url": "/mist-atelier-public/esp/families/esp32s2/sources/1/"
+    },
+    {
+      "id": "esp32s3",
+      "name": "ESP32-S3",
+      "part_numbers": [
+        "ESP32-S3",
+        "ESP32-S3R8",
+        "ESP32-S3FN8",
+        "ESP32-S3FH4R2",
+        "ESP32-S3R16V",
+        "ESP32-S3RH2",
+        "ESP32-S3-PICO-1-N8R2",
+        "ESP32-S3-PICO-1-N8R8"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "supported_target_list",
+        "arduino_3_3_11": "stable_listed"
+      },
+      "source_count": 1101,
+      "url": "/mist-atelier-public/esp/families/esp32s3/",
+      "source_url": "/mist-atelier-public/esp/families/esp32s3/sources/1/"
+    },
+    {
+      "id": "esp32s31",
+      "name": "ESP32-S31",
+      "part_numbers": [
+        "ESP32-S31NRV16",
+        "ESP32-S31NRV32"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "preview_target_list",
+        "arduino_3_3_11": "not_listed_in_selected_baseline"
+      },
+      "source_count": 1166,
+      "url": "/mist-atelier-public/esp/families/esp32s31/",
+      "source_url": "/mist-atelier-public/esp/families/esp32s31/sources/1/"
+    },
+    {
+      "id": "esp32p4",
+      "name": "ESP32-P4",
+      "part_numbers": [
+        "ESP32-P4NRW16X",
+        "ESP32-P4NRW32X",
+        "ESP32-P4NRW16",
+        "ESP32-P4NRW32"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "supported_target_list",
+        "arduino_3_3_11": "stable_listed"
+      },
+      "source_count": 1066,
+      "url": "/mist-atelier-public/esp/families/esp32p4/",
+      "source_url": "/mist-atelier-public/esp/families/esp32p4/sources/1/"
+    },
+    {
+      "id": "esp32c2",
+      "name": "ESP32-C2",
+      "part_numbers": [
+        "ESP8684H2X",
+        "ESP8684H4X"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "supported_target_list",
+        "arduino_3_3_11": "conditional_component_or_rebuilt_libraries"
+      },
+      "source_count": 357,
+      "url": "/mist-atelier-public/esp/families/esp32c2/",
+      "source_url": "/mist-atelier-public/esp/families/esp32c2/sources/1/"
+    },
+    {
+      "id": "esp32c3",
+      "name": "ESP32-C3",
+      "part_numbers": [
+        "ESP32-C3",
+        "ESP32-C3FH4",
+        "ESP32-C3FH4X",
+        "ESP32-C3FN4",
+        "ESP32-C3FH8X",
+        "ESP8685H4"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "supported_target_list",
+        "arduino_3_3_11": "stable_listed"
+      },
+      "source_count": 458,
+      "url": "/mist-atelier-public/esp/families/esp32c3/",
+      "source_url": "/mist-atelier-public/esp/families/esp32c3/sources/1/"
+    },
+    {
+      "id": "esp32c5",
+      "name": "ESP32-C5",
+      "part_numbers": [
+        "ESP32-C5HR8",
+        "ESP32-C5HF4",
+        "ESP32-C5HR2"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "supported_target_list",
+        "arduino_3_3_11": "stable_listed"
+      },
+      "source_count": 519,
+      "url": "/mist-atelier-public/esp/families/esp32c5/",
+      "source_url": "/mist-atelier-public/esp/families/esp32c5/sources/1/"
+    },
+    {
+      "id": "esp32c6",
+      "name": "ESP32-C6",
+      "part_numbers": [
+        "ESP32-C6",
+        "ESP32-C6FH4",
+        "ESP32-C6FH8"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "supported_target_list",
+        "arduino_3_3_11": "stable_listed"
+      },
+      "source_count": 504,
+      "url": "/mist-atelier-public/esp/families/esp32c6/",
+      "source_url": "/mist-atelier-public/esp/families/esp32c6/sources/1/"
+    },
+    {
+      "id": "esp32c61",
+      "name": "ESP32-C61",
+      "part_numbers": [
+        "ESP32-C61HR2",
+        "ESP32-C61HF4",
+        "ESP32-C61HR8",
+        "ESP32-C61NF8R8LA"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "supported_target_list",
+        "arduino_3_3_11": "conditional_component_or_rebuilt_libraries"
+      },
+      "source_count": 416,
+      "url": "/mist-atelier-public/esp/families/esp32c61/",
+      "source_url": "/mist-atelier-public/esp/families/esp32c61/sources/1/"
+    },
+    {
+      "id": "esp32h2",
+      "name": "ESP32-H2",
+      "part_numbers": [
+        "ESP32-H2FH2S",
+        "ESP32-H2FH4S"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "supported_target_list",
+        "arduino_3_3_11": "stable_listed"
+      },
+      "source_count": 456,
+      "url": "/mist-atelier-public/esp/families/esp32h2/",
+      "source_url": "/mist-atelier-public/esp/families/esp32h2/sources/1/"
+    },
+    {
+      "id": "esp32h21",
+      "name": "ESP32-H21",
+      "part_numbers": [
+        "ESP32-H21HF4"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "preview_target_list",
+        "arduino_3_3_11": "not_listed_in_selected_baseline"
+      },
+      "source_count": 367,
+      "url": "/mist-atelier-public/esp/families/esp32h21/",
+      "source_url": "/mist-atelier-public/esp/families/esp32h21/sources/1/"
+    },
+    {
+      "id": "esp32h4",
+      "name": "ESP32-H4",
+      "part_numbers": [
+        "ESP32-H4HR2",
+        "ESP32-H4HF4"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "preview_target_list",
+        "arduino_3_3_11": "not_listed_in_selected_baseline"
+      },
+      "source_count": 459,
+      "url": "/mist-atelier-public/esp/families/esp32h4/",
+      "source_url": "/mist-atelier-public/esp/families/esp32h4/sources/1/"
+    },
+    {
+      "id": "esp32e22",
+      "name": "ESP32-E22",
+      "part_numbers": [
+        "ESP32-E22"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "not_in_target_lists",
+        "arduino_3_3_11": "not_listed_in_selected_baseline"
+      },
+      "source_count": 0,
+      "url": "/mist-atelier-public/esp/families/esp32e22/",
+      "source_url": "/mist-atelier-public/esp/families/esp32e22/sources/1/"
+    },
+    {
+      "id": "esp8266",
+      "name": "ESP8266 / ESP8285",
+      "part_numbers": [
+        "ESP8266EX",
+        "ESP8285N08",
+        "ESP8285H16"
+      ],
+      "checked_at": "2026-09-11",
+      "sdk_support": {
+        "esp_idf_6_1": "legacy_separate_sdk",
+        "arduino_3_3_11": "not_listed_in_selected_baseline"
+      },
+      "source_count": 170,
+      "url": "/mist-atelier-public/esp/families/esp8266/",
+      "source_url": "/mist-atelier-public/esp/families/esp8266/sources/1/"
+    }
+  ],
+  "boards": [
+    {
+      "id": "esp-dualkey",
+      "name": "ESP-DUALKEY",
+      "family_ids": [],
+      "source_count": 106,
+      "url": "/mist-atelier-public/esp/boards/esp-dualkey/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=52&id=embedded_1410b0263f59d6f07ea1ea5a"
+    },
+    {
+      "id": "esp-module-prog-1-r",
+      "name": "ESP-MODULE-PROG-1-R",
+      "family_ids": [],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp-module-prog-1-r/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=58&id=embedded_1c9d724391245321a72fcbec"
+    },
+    {
+      "id": "esp-module-prog-sub-02",
+      "name": "ESP-MODULE-PROG-SUB-02",
+      "family_ids": [],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp-module-prog-sub-02/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=17&id=embedded_375128d41dbad4bfca2c6f9f"
+    },
+    {
+      "id": "esp-mosaico",
+      "name": "ESP-MOSAICO",
+      "family_ids": [],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp-mosaico/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=76&id=embedded_2a3e7c3220782d334c79a025"
+    },
+    {
+      "id": "esp-prog",
+      "name": "ESP-PROG",
+      "family_ids": [],
+      "source_count": 3,
+      "url": "/mist-atelier-public/esp/boards/esp-prog/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=96&id=embedded_b34f6f223c9b48daa2b6a51f"
+    },
+    {
+      "id": "esp-prog-2",
+      "name": "ESP-PROG-2",
+      "family_ids": [],
+      "source_count": 3,
+      "url": "/mist-atelier-public/esp/boards/esp-prog-2/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=13&id=embedded_3ea63a274b718a9a67d25995"
+    },
+    {
+      "id": "esp-sensairshuttle",
+      "name": "ESP-SENSAIRSHUTTLE",
+      "family_ids": [],
+      "source_count": 295,
+      "url": "/mist-atelier-public/esp/boards/esp-sensairshuttle/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=ec&id=embedded_f8bd0ac72e901c691c47ca9e"
+    },
+    {
+      "id": "esp-vocat",
+      "name": "ESP-VOCAT",
+      "family_ids": [],
+      "source_count": 5,
+      "url": "/mist-atelier-public/esp/boards/esp-vocat/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=50&id=embedded_b401789eb115bf3ab428b29e"
+    },
+    {
+      "id": "esp-wrover-kit",
+      "name": "ESP-WROVER-KIT",
+      "family_ids": [],
+      "source_count": 4,
+      "url": "/mist-atelier-public/esp/boards/esp-wrover-kit/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=8b&id=embedded_e7a85e0446a13311b6ca9c98"
+    },
+    {
+      "id": "esp32-c3-devkit-rust-2",
+      "name": "ESP32-C3-DEVKIT-RUST-2",
+      "family_ids": [
+        "esp32c3"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-c3-devkit-rust-2/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=b1&id=embedded_a6077ed6d939394d9993da78"
+    },
+    {
+      "id": "esp32-c3-devkitc-02",
+      "name": "ESP32-C3-DEVKITC-02",
+      "family_ids": [
+        "esp32c3"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-c3-devkitc-02/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=ee&id=embedded_a38c8c117575e35c144f194e"
+    },
+    {
+      "id": "esp32-c3-devkitm-1",
+      "name": "ESP32-C3-DEVKITM-1",
+      "family_ids": [
+        "esp32c3"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-c3-devkitm-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=89&id=embedded_9846151f4ccb8b55949ffe05"
+    },
+    {
+      "id": "esp32-c3-lcdkit",
+      "name": "ESP32-C3-LCDKIT",
+      "family_ids": [
+        "esp32c3"
+      ],
+      "source_count": 42,
+      "url": "/mist-atelier-public/esp/boards/esp32-c3-lcdkit/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=8c&id=embedded_b22efd3673318bede95e7527"
+    },
+    {
+      "id": "esp32-c5-devkitc-1",
+      "name": "ESP32-C5-DEVKITC-1",
+      "family_ids": [
+        "esp32c5"
+      ],
+      "source_count": 3,
+      "url": "/mist-atelier-public/esp/boards/esp32-c5-devkitc-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=cd&id=embedded_e1f70855ff6d2e2035198465"
+    },
+    {
+      "id": "esp32-c6-devkitc-1",
+      "name": "ESP32-C6-DEVKITC-1",
+      "family_ids": [
+        "esp32c6"
+      ],
+      "source_count": 3,
+      "url": "/mist-atelier-public/esp/boards/esp32-c6-devkitc-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=12&id=embedded_e9670ee532fa90eb6a4567fb"
+    },
+    {
+      "id": "esp32-c6-devkitm-1",
+      "name": "ESP32-C6-DEVKITM-1",
+      "family_ids": [
+        "esp32c6"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-c6-devkitm-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=86&id=embedded_a4def9279f36df8c71b1ca03"
+    },
+    {
+      "id": "esp32-c61-devkitc-1",
+      "name": "ESP32-C61-DEVKITC-1",
+      "family_ids": [
+        "esp32c61"
+      ],
+      "source_count": 3,
+      "url": "/mist-atelier-public/esp/boards/esp32-c61-devkitc-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=7e&id=embedded_8061b273ff1d3cd303919437"
+    },
+    {
+      "id": "esp32-devkitc",
+      "name": "ESP32-DEVKITC",
+      "family_ids": [
+        "esp32"
+      ],
+      "source_count": 3,
+      "url": "/mist-atelier-public/esp/boards/esp32-devkitc/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=bd&id=embedded_d643f1605638da965da6c27f"
+    },
+    {
+      "id": "esp32-devkitm-1",
+      "name": "ESP32-DEVKITM-1",
+      "family_ids": [
+        "esp32"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-devkitm-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=b5&id=embedded_3d2ff12fd1bda81020b34917"
+    },
+    {
+      "id": "esp32-ethernet-kit",
+      "name": "ESP32-ETHERNET-KIT",
+      "family_ids": [
+        "esp32"
+      ],
+      "source_count": 4,
+      "url": "/mist-atelier-public/esp/boards/esp32-ethernet-kit/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=bb&id=embedded_bdc5d17779f83e28a57afcf2"
+    },
+    {
+      "id": "esp32-h2-devkitm-1",
+      "name": "ESP32-H2-DEVKITM-1",
+      "family_ids": [
+        "esp32h2"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-h2-devkitm-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=aa&id=embedded_17e8c2cc191a9ce4e533bbe1"
+    },
+    {
+      "id": "esp32-lcdkit",
+      "name": "ESP32-LCDKIT",
+      "family_ids": [
+        "esp32"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-lcdkit/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=98&id=embedded_6d4df76f152f400dc2c40240"
+    },
+    {
+      "id": "esp32-meshkit-sensor",
+      "name": "ESP32-MESHKIT-SENSOR",
+      "family_ids": [
+        "esp32"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-meshkit-sensor/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=2c&id=embedded_96864c32929fc37ff39278a2"
+    },
+    {
+      "id": "esp32-p4-eye",
+      "name": "ESP32-P4-EYE",
+      "family_ids": [
+        "esp32p4"
+      ],
+      "source_count": 97,
+      "url": "/mist-atelier-public/esp/boards/esp32-p4-eye/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=52&id=embedded_3adfb141f65856d8767fa5bf"
+    },
+    {
+      "id": "esp32-p4-function-ev-board",
+      "name": "ESP32-P4-FUNCTION-EV-BOARD",
+      "family_ids": [
+        "esp32p4"
+      ],
+      "source_count": 112,
+      "url": "/mist-atelier-public/esp/boards/esp32-p4-function-ev-board/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=cb&id=embedded_b3f6e56a8bab219e7de29c21"
+    },
+    {
+      "id": "esp32-p4x-c5-function-ev-board",
+      "name": "ESP32-P4X-C5-FUNCTION-EV-BOARD",
+      "family_ids": [],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-p4x-c5-function-ev-board/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=4d&id=embedded_ec2a0e3d24df1194f70b08e3"
+    },
+    {
+      "id": "esp32-p4x-eye",
+      "name": "ESP32-P4X-EYE",
+      "family_ids": [],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-p4x-eye/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=0b&id=embedded_a3fd4f8bca94d841b0e7e72c"
+    },
+    {
+      "id": "esp32-p4x-function-ev-board",
+      "name": "ESP32-P4X-FUNCTION-EV-BOARD",
+      "family_ids": [],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-p4x-function-ev-board/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=f4&id=embedded_e4355a0e8ea6d3cb5671adce"
+    },
+    {
+      "id": "esp32-pico-devkitm-2",
+      "name": "ESP32-PICO-DEVKITM-2",
+      "family_ids": [
+        "esp32"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-pico-devkitm-2/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=cb&id=embedded_14345dd620ceee36c3fd7a19"
+    },
+    {
+      "id": "esp32-pico-kit",
+      "name": "ESP32-PICO-KIT",
+      "family_ids": [
+        "esp32"
+      ],
+      "source_count": 3,
+      "url": "/mist-atelier-public/esp/boards/esp32-pico-kit/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=13&id=embedded_acbd32cb03348be230ecf140"
+    },
+    {
+      "id": "esp32-pico-kit-1",
+      "name": "ESP32-PICO-KIT-1",
+      "family_ids": [
+        "esp32"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-pico-kit-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=78&id=embedded_f29200423567bc2b0b035f53"
+    },
+    {
+      "id": "esp32-s2-devkitc-1",
+      "name": "ESP32-S2-DEVKITC-1",
+      "family_ids": [
+        "esp32s2"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-s2-devkitc-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=0f&id=embedded_4a2272019f441b636540d2ac"
+    },
+    {
+      "id": "esp32-s2-devkitm-1",
+      "name": "ESP32-S2-DEVKITM-1",
+      "family_ids": [
+        "esp32s2"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-s2-devkitm-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=9c&id=embedded_fe9f398838d71612ccdd0b68"
+    },
+    {
+      "id": "esp32-s2-hmi-devkit-1",
+      "name": "ESP32-S2-HMI-DEVKIT-1",
+      "family_ids": [
+        "esp32s2"
+      ],
+      "source_count": 248,
+      "url": "/mist-atelier-public/esp/boards/esp32-s2-hmi-devkit-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=e9&id=embedded_d1dfc810e6e1efb908024a53"
+    },
+    {
+      "id": "esp32-s2-kaluga-1",
+      "name": "ESP32-S2-KALUGA-1",
+      "family_ids": [
+        "esp32s2"
+      ],
+      "source_count": 98,
+      "url": "/mist-atelier-public/esp/boards/esp32-s2-kaluga-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=79&id=embedded_ddadf2f04a8d3cefe340d17b"
+    },
+    {
+      "id": "esp32-s2-saola-1",
+      "name": "ESP32-S2-SAOLA-1",
+      "family_ids": [
+        "esp32s2"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-s2-saola-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=4b&id=embedded_d1e948432ebffdd9a4864036"
+    },
+    {
+      "id": "esp32-s2-touch-devkit-1",
+      "name": "ESP32-S2-TOUCH-DEVKIT-1",
+      "family_ids": [
+        "esp32s2"
+      ],
+      "source_count": 44,
+      "url": "/mist-atelier-public/esp/boards/esp32-s2-touch-devkit-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=56&id=embedded_6296837373a8ccbe9a040a14"
+    },
+    {
+      "id": "esp32-s3-devkitc-1",
+      "name": "ESP32-S3-DEVKITC-1",
+      "family_ids": [
+        "esp32s3"
+      ],
+      "source_count": 3,
+      "url": "/mist-atelier-public/esp/boards/esp32-s3-devkitc-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=d2&id=embedded_8f5f46891c6fe645c8c7c7e1"
+    },
+    {
+      "id": "esp32-s3-devkitm-1",
+      "name": "ESP32-S3-DEVKITM-1",
+      "family_ids": [
+        "esp32s3"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-s3-devkitm-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=97&id=embedded_a39fddfaa27aaa5c513f7306"
+    },
+    {
+      "id": "esp32-s3-lcd-ev-board",
+      "name": "ESP32-S3-LCD-EV-BOARD",
+      "family_ids": [
+        "esp32s3"
+      ],
+      "source_count": 236,
+      "url": "/mist-atelier-public/esp/boards/esp32-s3-lcd-ev-board/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=c9&id=embedded_484a9c8ba56fac58e9e6201d"
+    },
+    {
+      "id": "esp32-s3-usb-bridge",
+      "name": "ESP32-S3-USB-BRIDGE",
+      "family_ids": [
+        "esp32s3"
+      ],
+      "source_count": 39,
+      "url": "/mist-atelier-public/esp/boards/esp32-s3-usb-bridge/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=a7&id=embedded_52ed388e8a45f2e9c2663f72"
+    },
+    {
+      "id": "esp32-s3-usb-otg",
+      "name": "ESP32-S3-USB-OTG",
+      "family_ids": [
+        "esp32s3"
+      ],
+      "source_count": 200,
+      "url": "/mist-atelier-public/esp/boards/esp32-s3-usb-otg/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=a4&id=embedded_14ea54d7a189edf6753d378a"
+    },
+    {
+      "id": "esp32-s31-function-coreboard-1",
+      "name": "ESP32-S31-FUNCTION-COREBOARD-1",
+      "family_ids": [
+        "esp32s31"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-s31-function-coreboard-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=8c&id=embedded_31f3efec1e4561c9f29e06ed"
+    },
+    {
+      "id": "esp32-s31-korvo-1",
+      "name": "ESP32-S31-KORVO-1",
+      "family_ids": [
+        "esp32s31"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-s31-korvo-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=80&id=embedded_e7a3fb044fbaa061451dde34"
+    },
+    {
+      "id": "esp32-sense-kit",
+      "name": "ESP32-SENSE-KIT",
+      "family_ids": [
+        "esp32"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp32-sense-kit/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=c6&id=embedded_7a8954a2f3bf596f0b1e75e9"
+    },
+    {
+      "id": "esp8684-devkitc-02",
+      "name": "ESP8684-DEVKITC-02",
+      "family_ids": [
+        "esp32c2"
+      ],
+      "source_count": 2,
+      "url": "/mist-atelier-public/esp/boards/esp8684-devkitc-02/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=b0&id=embedded_a600a12dac52faaaa1e196ff"
+    },
+    {
+      "id": "esp8684-devkitm-1",
+      "name": "ESP8684-DEVKITM-1",
+      "family_ids": [
+        "esp32c2"
+      ],
+      "source_count": 3,
+      "url": "/mist-atelier-public/esp/boards/esp8684-devkitm-1/1/",
+      "primary_url": "/mist-atelier-public/sources/view/?group=11&id=embedded_0fd5fe100c2d968b5f0b93ef"
+    }
+  ],
+  "modules": [
+    {
+      "id": "module_esp32_c3_mini_1",
+      "name": "ESP32-C3-MINI-1",
+      "family_ids": [
+        "esp32c3"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_c3_wroom_02",
+      "name": "ESP32-C3-WROOM-02",
+      "family_ids": [
+        "esp32c3"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_c5_mini_1_mini_1u",
+      "name": "ESP32-C5-MINI-1 MINI-1U",
+      "family_ids": [
+        "esp32c5"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_c5_wroom_1_wroom_1u",
+      "name": "ESP32-C5-WROOM-1 WROOM-1U",
+      "family_ids": [
+        "esp32c5"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_c6_mini_1_mini_1u",
+      "name": "ESP32-C6-MINI-1 MINI-1U",
+      "family_ids": [
+        "esp32c6"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_c6_wroom_1_wroom_1u",
+      "name": "ESP32-C6-WROOM-1 WROOM-1U",
+      "family_ids": [
+        "esp32c6"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_c61_mini_1_mini_1u",
+      "name": "ESP32-C61-MINI-1 MINI-1U",
+      "family_ids": [
+        "esp32c61"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_c61_wroom_1_wroom_1u",
+      "name": "ESP32-C61-WROOM-1 WROOM-1U",
+      "family_ids": [
+        "esp32c61"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_h2_mini_1_mini_1u",
+      "name": "ESP32-H2-MINI-1 MINI-1U",
+      "family_ids": [
+        "esp32h2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_h2_wroom_02c",
+      "name": "ESP32-H2-WROOM-02C",
+      "family_ids": [
+        "esp32h2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_mini_1",
+      "name": "ESP32-MINI-1",
+      "family_ids": [
+        "esp32"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_pico_series",
+      "name": "ESP32-PICO SERIES",
+      "family_ids": [
+        "esp32"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_pico_mini_02",
+      "name": "ESP32-PICO-MINI-02",
+      "family_ids": [
+        "esp32"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_pico_v3_zero",
+      "name": "ESP32-PICO-V3-ZERO",
+      "family_ids": [
+        "esp32"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_s2_mini_1_esp32_s2_mini_1u",
+      "name": "ESP32-S2-MINI-1 ESP32-S2-MINI-1U",
+      "family_ids": [
+        "esp32s2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_s2_mini_2_esp32_s2_mini_2u",
+      "name": "ESP32-S2-MINI-2 ESP32-S2-MINI-2U",
+      "family_ids": [
+        "esp32s2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_s2_solo_esp32_s2_solo_u",
+      "name": "ESP32-S2-SOLO ESP32-S2-SOLO-U",
+      "family_ids": [
+        "esp32s2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_s2_solo_2_esp32_s2_solo_2u",
+      "name": "ESP32-S2-SOLO-2 ESP32-S2-SOLO-2U",
+      "family_ids": [
+        "esp32s2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_s2_wroom_esp32_s2_wroom_i",
+      "name": "ESP32-S2-WROOM ESP32-S2-WROOM-I",
+      "family_ids": [
+        "esp32s2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_s2_wrover_esp32_s2_wrover_i",
+      "name": "ESP32-S2-WROVER ESP32-S2-WROVER-I",
+      "family_ids": [
+        "esp32s2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_s3_mini_1_mini_1u",
+      "name": "ESP32-S3-MINI-1 MINI-1U",
+      "family_ids": [
+        "esp32s3"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_s3_pico_1",
+      "name": "ESP32-S3-PICO-1",
+      "family_ids": [
+        "esp32s3"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_s3_wroom_1_wroom_1u",
+      "name": "ESP32-S3-WROOM-1 WROOM-1U",
+      "family_ids": [
+        "esp32s3"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_s3_wroom_2",
+      "name": "ESP32-S3-WROOM-2",
+      "family_ids": [
+        "esp32s3"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_s31_wroom_3_wroom_3u",
+      "name": "ESP32-S31-WROOM-3 WROOM-3U",
+      "family_ids": [
+        "esp32s31"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_solo_1",
+      "name": "ESP32-SOLO-1",
+      "family_ids": [
+        "esp32"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_wroom_32",
+      "name": "ESP32-WROOM-32",
+      "family_ids": [
+        "esp32"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_wroom_32d_esp32_wroom_32u",
+      "name": "ESP32-WROOM-32D ESP32-WROOM-32U",
+      "family_ids": [
+        "esp32"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_wroom_32e_esp32_wroom_32ue",
+      "name": "ESP32-WROOM-32E ESP32-WROOM-32UE",
+      "family_ids": [
+        "esp32"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_wroom_da",
+      "name": "ESP32-WROOM-DA",
+      "family_ids": [
+        "esp32"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_wrover_b",
+      "name": "ESP32-WROVER-B",
+      "family_ids": [
+        "esp32"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp32_wrover_e_esp32_wrover_ie",
+      "name": "ESP32-WROVER-E ESP32-WROVER-IE",
+      "family_ids": [
+        "esp32"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp8684_mini_1_mini_1u",
+      "name": "ESP8684-MINI-1 MINI-1U",
+      "family_ids": [
+        "esp32c2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp8684_wroom_01c",
+      "name": "ESP8684-WROOM-01C",
+      "family_ids": [
+        "esp32c2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp8684_wroom_02c",
+      "name": "ESP8684-WROOM-02C",
+      "family_ids": [
+        "esp32c2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp8684_wroom_03",
+      "name": "ESP8684-WROOM-03",
+      "family_ids": [
+        "esp32c2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp8684_wroom_04c",
+      "name": "ESP8684-WROOM-04C",
+      "family_ids": [
+        "esp32c2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp8684_wroom_05",
+      "name": "ESP8684-WROOM-05",
+      "family_ids": [
+        "esp32c2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp8684_wroom_06c",
+      "name": "ESP8684-WROOM-06C",
+      "family_ids": [
+        "esp32c2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp8684_wroom_07",
+      "name": "ESP8684-WROOM-07",
+      "family_ids": [
+        "esp32c2"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp8685_wroom_01",
+      "name": "ESP8685-WROOM-01",
+      "family_ids": [
+        "esp32c3"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp8685_wroom_03",
+      "name": "ESP8685-WROOM-03",
+      "family_ids": [
+        "esp32c3"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp8685_wroom_04",
+      "name": "ESP8685-WROOM-04",
+      "family_ids": [
+        "esp32c3"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp8685_wroom_05",
+      "name": "ESP8685-WROOM-05",
+      "family_ids": [
+        "esp32c3"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp8685_wroom_06",
+      "name": "ESP8685-WROOM-06",
+      "family_ids": [
+        "esp32c3"
+      ],
+      "publication_status": "full_text_held"
+    },
+    {
+      "id": "module_esp8685_wroom_07",
+      "name": "ESP8685-WROOM-07",
+      "family_ids": [
+        "esp32c3"
+      ],
+      "publication_status": "full_text_held"
+    }
+  ],
+  "repositories": [
+    {
+      "repository": "espressif/arduino-esp32",
+      "count": 1821,
+      "url": "/mist-atelier-public/catalog/216176cbcd42520e/1/"
+    },
+    {
+      "repository": "espressif/esp-dev-kits",
+      "count": 2162,
+      "url": "/mist-atelier-public/catalog/98668eff0b81370d/1/"
+    },
+    {
+      "repository": "espressif/esp-iot-solution",
+      "count": 4012,
+      "url": "/mist-atelier-public/catalog/bbdf55010c0f7705/1/"
+    },
+    {
+      "repository": "espressif/esp-chip-errata",
+      "count": 147,
+      "url": "/mist-atelier-public/catalog/b5439a8af2e56ba5/1/"
+    },
+    {
+      "repository": "espressif/esp-idf",
+      "count": 15042,
+      "url": "/mist-atelier-public/catalog/c77b025c91a4fc76/1/"
+    },
+    {
+      "repository": "espressif/ESP8266_RTOS_SDK",
+      "count": 1749,
+      "url": "/mist-atelier-public/catalog/4fd5e398a3b5de4c/1/"
+    },
+    {
+      "repository": "espressif/esp-hardware-design-guidelines",
+      "count": 135,
+      "url": "/mist-atelier-public/catalog/5d616fcdef6d53db/1/"
+    }
+  ]
+}

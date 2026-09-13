@@ -114,5 +114,15 @@
     "pages": 8,
     "chunks": 8,
     "raw_pdf_files": 0
+  },
+  "esp_navigation": {
+    "index_url": "https://idtenev.github.io/mist-atelier-public/api/esp/index.json",
+    "families": 15,
+    "part_numbers": 55,
+    "boards": 47,
+    "modules": 46,
+    "published_sources": 25068,
+    "common_sources": 16497,
+    "repositories": 7
   }
 }

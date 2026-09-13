@@ -33,3 +33,9 @@ HTML은 noindex 요청 중이지만 공개 접근 보호가 아닙니다. 철회
 ## 데이터시트 재구성
 
 공개 승인 가공본 2개 / 8쪽을 datasheets/와 api/datasheets/에서 제공합니다. 원저작자·원본 해시·변경·CC BY-SA 4.0 조건을 표시합니다. 제조사 전문 가공본은 공개 권한 확인 전까지 로컬에만 보관합니다. 본문·표 후보·청크는 자동 구조화 결과이며 그래프·도식·수식의 의미 전사와 전수 기술 검증은 미완료입니다. PDF는 이 빌드에서 제공하지 않습니다. 원본 로컬 파일과 과거 공개 저장소 이력·캐시의 파일은 삭제하지 않습니다.
+
+## ESP 탐색
+
+[전체 계열](https://idtenev.github.io/mist-atelier-public/esp/) · [보드·도구](https://idtenev.github.io/mist-atelier-public/esp/boards/) · [모듈·SiP](https://idtenev.github.io/mist-atelier-public/esp/modules/)
+
+15계열, 55개 품번, 보드·도구 47개, 모듈 자료 46개를 고정 보유 목록에서 연결합니다. 전 SKU 목록·최신 SDK 지원·전문 공개를 뜻하지 않습니다.

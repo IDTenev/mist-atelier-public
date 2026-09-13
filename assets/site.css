@@ -56,6 +56,11 @@ small { font-size:.8125rem; }
 .family-nav span { font-size:.8125rem; color:var(--muted); }
 .family-nav.selected { border-left-color:var(--accent); color:var(--accent); background:#143947; }
 .family-nav:hover { background:var(--surface-high); }
+.sidebar nav + .nav-heading { margin-top:1.7rem; }
+.esp-introduction { margin:1.25rem 0; padding:1rem 1.2rem; background:#0b2634; border:1px solid var(--border); border-radius:6px; }
+.esp-introduction h2 { margin-top:0; }
+.esp-part-numbers { display:flex; flex-wrap:wrap; gap:.6rem 1.8rem; padding-left:1.2rem; }
+.esp-part-numbers code { overflow-wrap:anywhere; }
 .sidebar-note { border-top:1px solid var(--border); margin:1.8rem .5rem 0; padding-top:1.25rem; font-size:.875rem; }
 .sidebar-note p { color:var(--muted); margin:.5rem 0 .8rem; }
 .sidebar-note a { text-decoration:underline; text-underline-offset:4px; }
