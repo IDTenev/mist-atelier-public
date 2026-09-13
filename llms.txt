@@ -29,3 +29,10 @@
 - [공개 ESP 탐색 색인](https://idtenev.github.io/mist-atelier-public/api/esp/index.json)
 
 고정 목록이며 명칭·경로 분류를 실제 하드웨어 지원으로 해석하지 마세요. 모듈 전문은 공개 보류입니다.
+
+## Arduino·데이터시트 탐색
+
+- [Arduino 제품·코어 색인](https://idtenev.github.io/mist-atelier-public/api/arduino/index.json)
+- [데이터시트 자료명·공개 상태 목록](https://idtenev.github.io/mist-atelier-public/api/datasheets/inventory.json)
+
+제품 문서의 분류를 최신 판매·지원 상태로 단정하지 마세요. 자료명 공개는 전문 이용 권한이 아닙니다.

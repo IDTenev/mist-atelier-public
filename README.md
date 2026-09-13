@@ -39,3 +39,7 @@ HTML은 noindex 요청 중이지만 공개 접근 보호가 아닙니다. 철회
 [전체 계열](https://idtenev.github.io/mist-atelier-public/esp/) · [보드·도구](https://idtenev.github.io/mist-atelier-public/esp/boards/) · [모듈·SiP](https://idtenev.github.io/mist-atelier-public/esp/modules/)
 
 15계열, 55개 품번, 보드·도구 47개, 모듈 자료 46개를 고정 보유 목록에서 연결합니다. 전 SKU 목록·최신 SDK 지원·전문 공개를 뜻하지 않습니다.
+
+## Arduino·데이터시트 탐색
+
+[Arduino 보드·제품](https://idtenev.github.io/mist-atelier-public/arduino/) 235개와 코어 7개의 공개 자료를 연결합니다. 동일 제품 경로의 원문 판본은 각 commit으로 구분합니다. [데이터시트 서가](https://idtenev.github.io/mist-atelier-public/datasheets/)는 승인 가공본과 전체 자료명·공개 보류 상태를 구분합니다. 보류 전문·PDF·로컬 경로는 포함하지 않습니다.

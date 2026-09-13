@@ -1,0 +1,1042 @@
+{
+  "schema_version": 1,
+  "scope": "factual_bibliography_not_full_text",
+  "summary": {
+    "documents": 103,
+    "pages": 21303,
+    "published": 2,
+    "held": 101
+  },
+  "documents": [
+    {
+      "id": "book_d4c43e18ac51cdb1",
+      "title": "ESP8266EX",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 31,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_6edf36235c39cffb",
+      "title": "ESP8285",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 30,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_41513dd997d11abd",
+      "title": "ADS1113 / ADS1114 / ADS1115",
+      "author": "Texas Instruments",
+      "kind": "외장 ADC",
+      "category": "converter",
+      "pages": 57,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_f2c8c493dbd6dc2f",
+      "title": "CD74HC4067",
+      "author": "Texas Instruments",
+      "kind": "아날로그 멀티플렉서",
+      "category": "converter",
+      "pages": 29,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_d6272e28c81a0ae2",
+      "title": "DRV8833",
+      "author": "Texas Instruments",
+      "kind": "듀얼 H-브리지 모터 드라이버",
+      "category": "output",
+      "pages": 30,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_572c16ae9e9c0ec2",
+      "title": "ESP32-C3-MINI-1",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 48,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_83b616001416f1ce",
+      "title": "ESP32-C3-WROOM-02",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 47,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_866761037f769ce9",
+      "title": "ESP32-C3",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 76,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_89bdebac7f67bdce",
+      "title": "ESP32-C3",
+      "author": "Espressif",
+      "kind": "ESP TRM",
+      "category": "mcu",
+      "pages": 903,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_f9f91a762d9a7277",
+      "title": "ESP32-C5-MINI-1 MINI-1U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 62,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_ab03615f69bbb25c",
+      "title": "ESP32-C5-WROOM-1 WROOM-1U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 62,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_a8fc3f37d8dae528",
+      "title": "ESP32-C5",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 96,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_827fa3ea60e5c3be",
+      "title": "ESP32-C5",
+      "author": "Espressif",
+      "kind": "ESP TRM",
+      "category": "mcu",
+      "pages": 1746,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_8ac13e53bdb031d7",
+      "title": "ESP32-C6-MINI-1 MINI-1U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 53,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_f4f03321c8644c08",
+      "title": "ESP32-C6-WROOM-1 WROOM-1U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 52,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_964a489ee29ae0d2",
+      "title": "ESP32-C61-MINI-1 MINI-1U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 48,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_8b8ffe1ec06cf849",
+      "title": "ESP32-C61-WROOM-1 WROOM-1U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 48,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_1d53d00208efa6ed",
+      "title": "ESP32-C61",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 73,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_d8f9453b4a6fafa1",
+      "title": "ESP32-C61",
+      "author": "Espressif",
+      "kind": "ESP TRM",
+      "category": "mcu",
+      "pages": 1232,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_6448301a177dedbf",
+      "title": "ESP32-C6",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 86,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_c4cbeb8573b18fde",
+      "title": "ESP32-C6",
+      "author": "Espressif",
+      "kind": "ESP TRM",
+      "category": "mcu",
+      "pages": 1394,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_001a225470da61c9",
+      "title": "ESP32-H2-MINI-1 MINI-1U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 45,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_488d573bd566dd70",
+      "title": "ESP32-H2-WROOM-02C",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 41,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_c8f1b30180e489b3",
+      "title": "ESP32-H2",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 69,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_00ca433bde5fa0a4",
+      "title": "ESP32-H2",
+      "author": "Espressif",
+      "kind": "ESP TRM",
+      "category": "mcu",
+      "pages": 1269,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_8b3ae14dc405e40d",
+      "title": "ESP32-MINI-1",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 52,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_a0156a8984490cd5",
+      "title": "ESP32-P4-CHIP-REVISION-V1.3",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 94,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_4e60fd005a99f298",
+      "title": "ESP32-P4-CHIP-REVISION-V1.3",
+      "author": "Espressif",
+      "kind": "ESP TRM",
+      "category": "mcu",
+      "pages": 2975,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_821b9f051ce1838b",
+      "title": "ESP32-P4",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 102,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_819b88d5b643b5b9",
+      "title": "ESP32-P4",
+      "author": "Espressif",
+      "kind": "ESP TRM",
+      "category": "mcu",
+      "pages": 3701,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_755bb29b458740b4",
+      "title": "ESP32-PICO-MINI-02",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 53,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_a1b4e9a104885c43",
+      "title": "ESP32-PICO-V3-ZERO",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 49,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_2fdc1863c3952a92",
+      "title": "ESP32-PICO SERIES",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 65,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_4d7985109f50893c",
+      "title": "ESP32-S2-MINI-1 ESP32-S2-MINI-1U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 34,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_7897314506536801",
+      "title": "ESP32-S2-MINI-2 ESP32-S2-MINI-2U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 39,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_ab6df4645726825d",
+      "title": "ESP32-S2-SOLO-2 ESP32-S2-SOLO-2U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 39,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_9a2d1ddbce918219",
+      "title": "ESP32-S2-SOLO ESP32-S2-SOLO-U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 34,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_36ddd9a1ab97bb70",
+      "title": "ESP32-S2-WROOM ESP32-S2-WROOM-I",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 32,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_eb3628f72ae30e9c",
+      "title": "ESP32-S2-WROVER ESP32-S2-WROVER-I",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 32,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_cfd6de849dc971fa",
+      "title": "ESP32-S2",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 65,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_1b21b37143bccf89",
+      "title": "ESP32-S2",
+      "author": "Espressif",
+      "kind": "ESP TRM",
+      "category": "mcu",
+      "pages": 877,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_0d6f3d6671005fb6",
+      "title": "ESP32-S3-MINI-1 MINI-1U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 53,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_119aaaedeedd4480",
+      "title": "ESP32-S3-PICO-1",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 34,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_e9e2c1ed99a18b78",
+      "title": "ESP32-S3-WROOM-1 WROOM-1U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 53,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_9beb0569bfcbaa84",
+      "title": "ESP32-S3-WROOM-2",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 50,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_86a7cf89c4d34c83",
+      "title": "ESP32-S31-WROOM-3 WROOM-3U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 73,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_bef37d9e4fb7a3ca",
+      "title": "ESP32-S31",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 110,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_3c3c446a636bb194",
+      "title": "ESP32-S3",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 87,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_350d6caa6f560b2a",
+      "title": "ESP32-S3",
+      "author": "Espressif",
+      "kind": "ESP TRM",
+      "category": "mcu",
+      "pages": 1531,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_de9cbfbeb8c95e6b",
+      "title": "ESP32-SOLO-1",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 44,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_a46600ac378f39b2",
+      "title": "ESP32-WROOM-32",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 46,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_9669808d4626f4f1",
+      "title": "ESP32-WROOM-32D ESP32-WROOM-32U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 49,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_4a6e0602bb161a31",
+      "title": "ESP32-WROOM-32E ESP32-WROOM-32UE",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 52,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_c2a6b103541ace52",
+      "title": "ESP32-WROOM-DA",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 31,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_1212392c81cc692f",
+      "title": "ESP32-WROVER-B",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 49,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_bd65271b5f42e2b0",
+      "title": "ESP32-WROVER-E ESP32-WROVER-IE",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 53,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_f8650fc2c96d43a2",
+      "title": "ESP32",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 78,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_aebc4c46d1278f9a",
+      "title": "ESP32",
+      "author": "Espressif",
+      "kind": "ESP TRM",
+      "category": "mcu",
+      "pages": 784,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_47ced185377f1d28",
+      "title": "ESP8266",
+      "author": "Espressif",
+      "kind": "ESP TRM",
+      "category": "mcu",
+      "pages": 111,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_cfd9d181592caf10",
+      "title": "ESP8684-MINI-1 MINI-1U",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 40,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_0bd61dd170ae359e",
+      "title": "ESP8684-WROOM-01C",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 36,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_d16ea4d5a54b00fb",
+      "title": "ESP8684-WROOM-02C",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 41,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_03e3e3803f5428ec",
+      "title": "ESP8684-WROOM-03",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 35,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_534423c0e55ac1b0",
+      "title": "ESP8684-WROOM-04C",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 36,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_4bf59ba98e704c11",
+      "title": "ESP8684-WROOM-05",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 36,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_5f1a2a71a82e37ac",
+      "title": "ESP8684-WROOM-06C",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 36,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_c419cfcad41491c4",
+      "title": "ESP8684-WROOM-07",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 35,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_e08f28d1c47db04b",
+      "title": "ESP8684",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 60,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_e23796f76c9338b3",
+      "title": "ESP8684",
+      "author": "Espressif",
+      "kind": "ESP TRM",
+      "category": "mcu",
+      "pages": 523,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_2c5337921511199e",
+      "title": "ESP8685-WROOM-01",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 40,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_5d8783ea6e1397fc",
+      "title": "ESP8685-WROOM-03",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 39,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_a711cdfe9defadd6",
+      "title": "ESP8685-WROOM-04",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 41,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_75eb328aa8d97ab4",
+      "title": "ESP8685-WROOM-05",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 40,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_6849161751999c0b",
+      "title": "ESP8685-WROOM-06",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 40,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_a85a2446fb67a0b5",
+      "title": "ESP8685-WROOM-07",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 40,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_8cb08011aaa4c98a",
+      "title": "ESP8685",
+      "author": "Espressif",
+      "kind": "ESP 데이터시트",
+      "category": "mcu",
+      "pages": 66,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_8ea13ae38c69473b",
+      "title": "INA219",
+      "author": "Texas Instruments",
+      "kind": "전류·전압 센서",
+      "category": "input",
+      "pages": 38,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_f9a6dca59fc3e0b4",
+      "title": "ISO1042",
+      "author": "Texas Instruments",
+      "kind": "절연 CAN 트랜시버",
+      "category": "transceiver",
+      "pages": 48,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_3ae698cc3584bab8",
+      "title": "ISO3082",
+      "author": "Texas Instruments",
+      "kind": "절연 RS-485 트랜시버",
+      "category": "transceiver",
+      "pages": 34,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_14c39cf165354f4c",
+      "title": "MAX3232 (TI)",
+      "author": "Texas Instruments",
+      "kind": "RS-232 트랜시버",
+      "category": "transceiver",
+      "pages": 30,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_6ae8a8c27dfbd549",
+      "title": "MAX3483 / MAX3485 / MAX3486 / MAX3488 / MAX3490 / MAX3491",
+      "author": "Analog Devices",
+      "kind": "RS-485/422 트랜시버 계열",
+      "category": "transceiver",
+      "pages": 17,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_08cb39955dcc6d88",
+      "title": "MAX481 / MAX483 / MAX485 / MAX487 / MAX488 / MAX489 / MAX490 / MAX491 / MAX1487",
+      "author": "Analog Devices",
+      "kind": "RS-485/422 트랜시버 계열",
+      "category": "transceiver",
+      "pages": 17,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_7117c3e1c67e1c18",
+      "title": "PCA9548A",
+      "author": "NXP",
+      "kind": "I2C 스위치 / 멀티플렉서",
+      "category": "converter",
+      "pages": 30,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_2b789abc928eb479",
+      "title": "PCA9685",
+      "author": "NXP",
+      "kind": "PWM LED 드라이버",
+      "category": "output",
+      "pages": 52,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_3d132dd8a7776ac8",
+      "title": "PCF8574 / PCF8574A",
+      "author": "NXP",
+      "kind": "GPIO 확장",
+      "category": "converter",
+      "pages": 33,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_5960bd9ac5aac31a",
+      "title": "SC16IS740 / SC16IS750 / SC16IS760",
+      "author": "NXP",
+      "kind": "I2C/SPI UART 브리지",
+      "category": "converter",
+      "pages": 61,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_3a15f5bb53ff6fc6",
+      "title": "SN65HVD1781",
+      "author": "Texas Instruments",
+      "kind": "RS-485 트랜시버",
+      "category": "transceiver",
+      "pages": 34,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_e7dcf827a973be07",
+      "title": "SN65HVD230 / SN65HVD231 / SN65HVD232",
+      "author": "Texas Instruments",
+      "kind": "CAN 트랜시버",
+      "category": "transceiver",
+      "pages": 43,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_5c3d65f1d00cfe02",
+      "title": "SN74HC165",
+      "author": "Texas Instruments",
+      "kind": "병렬 입력 직렬 출력 시프트 레지스터",
+      "category": "converter",
+      "pages": 37,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_bd4e4075d20c0801",
+      "title": "SN74HC595",
+      "author": "Texas Instruments",
+      "kind": "직렬 입력 병렬 출력 시프트 레지스터",
+      "category": "converter",
+      "pages": 41,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_7577d6265389bd03",
+      "title": "TCAN1042-Q1",
+      "author": "Texas Instruments",
+      "kind": "CAN FD 트랜시버",
+      "category": "transceiver",
+      "pages": 51,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_3be5924c8438c763",
+      "title": "TCAN1051-Q1",
+      "author": "Texas Instruments",
+      "kind": "CAN FD 트랜시버",
+      "category": "transceiver",
+      "pages": 51,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_98cdebcb33ac756d",
+      "title": "TCAN332",
+      "author": "Texas Instruments",
+      "kind": "CAN 트랜시버",
+      "category": "transceiver",
+      "pages": 47,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_d5173321ea704053",
+      "title": "THVD1450",
+      "author": "Texas Instruments",
+      "kind": "RS-485 트랜시버",
+      "category": "transceiver",
+      "pages": 54,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_48e3b2bcaf249b31",
+      "title": "TJA1021",
+      "author": "NXP",
+      "kind": "LIN 트랜시버",
+      "category": "transceiver",
+      "pages": 25,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_f9cfff2adc863f45",
+      "title": "TJA1042",
+      "author": "NXP",
+      "kind": "CAN 트랜시버",
+      "category": "transceiver",
+      "pages": 27,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_a5e1aa1a204c6797",
+      "title": "TJA1050",
+      "author": "NXP",
+      "kind": "CAN 트랜시버",
+      "category": "transceiver",
+      "pages": 18,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_53ea5e05fc07f84e",
+      "title": "TJA1051",
+      "author": "NXP",
+      "kind": "CAN 트랜시버",
+      "category": "transceiver",
+      "pages": 25,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_f88511264a9aeab8",
+      "title": "TLIN1029-Q1",
+      "author": "Texas Instruments",
+      "kind": "LIN 트랜시버",
+      "category": "transceiver",
+      "pages": 51,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_4b0e6b2df38b41f8",
+      "title": "TXB0108",
+      "author": "Texas Instruments",
+      "kind": "양방향 레벨 변환",
+      "category": "converter",
+      "pages": 47,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_3a54c7ec9319942a",
+      "title": "TXS0108E",
+      "author": "Texas Instruments",
+      "kind": "양방향 레벨 변환",
+      "category": "converter",
+      "pages": 42,
+      "publication_status": "full_text_held",
+      "url": null
+    },
+    {
+      "id": "book_37940c7e326b977f",
+      "title": "Arduino UNO 핀아웃",
+      "author": "Arduino and documentation contributors",
+      "kind": "보드 핀아웃",
+      "category": "mcu",
+      "pages": 5,
+      "publication_status": "approved_derivative",
+      "url": "/mist-atelier-public/datasheets/seed_uno_pinout/"
+    },
+    {
+      "id": "book_23c33426fe531588",
+      "title": "Arduino ZERO 핀아웃",
+      "author": "Arduino and documentation contributors",
+      "kind": "보드 핀아웃",
+      "category": "mcu",
+      "pages": 3,
+      "publication_status": "approved_derivative",
+      "url": "/mist-atelier-public/datasheets/seed_zero_pinout/"
+    }
+  ]
+}
