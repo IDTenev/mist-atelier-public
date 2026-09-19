@@ -6,14 +6,16 @@ const g_counted_page_elements = new WeakSet();
 // Match the approved-only server search contract without sending a search request.
 export function filter_public_guides(documents, params) {
     if (!Array.isArray(documents) || documents.length > 1000 || [...params.keys()].some(key =>
-        !['q', 'manufacturer'].includes(key) || params.getAll(key).length !== 1)) throw new Error('검색 조건을 확인해 주세요.');
-    const filters = { q: (params.get('q') || '').trim(), manufacturer: params.get('manufacturer') || 'all' };
+        !['q', 'manufacturer', 'category'].includes(key) || params.getAll(key).length !== 1)) throw new Error('검색 조건을 확인해 주세요.');
+    const filters = { q: (params.get('q') || '').trim(), manufacturer: params.get('manufacturer') || 'all', category: params.get('category') || 'all' };
     const manufacturers = [...new Set(documents.map(item => item.target.manufacturer))].sort();
     if (filters.q.length > 200 || /[\u0000-\u001f\u007f]/.test(filters.q) ||
-        filters.manufacturer !== 'all' && !manufacturers.includes(filters.manufacturer)) throw new Error('검색 조건을 확인해 주세요.');
+        filters.manufacturer !== 'all' && !manufacturers.includes(filters.manufacturer) ||
+        !['all', 'board', 'practice', 'architecture'].includes(filters.category)) throw new Error('검색 조건을 확인해 주세요.');
     const terms = filters.q.toLocaleLowerCase('ko').split(/\s+/).filter(Boolean);
     const items = documents.filter(item => (filters.manufacturer === 'all' || item.target.manufacturer === filters.manufacturer) &&
-        terms.every(term => [item.title, ...Object.values(item.target), item.text].join('\n').toLocaleLowerCase('ko').includes(term)));
+        (filters.category === 'all' || (item.category || 'board') === filters.category) &&
+        terms.every(term => [item.title, item.summary || '', ...Object.values(item.target), item.text].join('\n').toLocaleLowerCase('ko').includes(term)));
     return { filters, items };
 }
 
@@ -50,6 +52,7 @@ async function enable_search(form) {
                 cards.forEach((card, index) => { card.hidden = !ids.has(card_ids[index]); });
                 form.elements.q.value = result.filters.q;
                 form.elements.manufacturer.value = result.filters.manufacturer;
+                form.elements.category.value = result.filters.category;
                 heading.textContent = '안내 검색 결과 ' + result.items.length;
                 empty.hidden = result.items.length > 0;
                 status.textContent = '승인 안내 ' + result.items.length + '개 · 브라우저에서 검색했습니다.';

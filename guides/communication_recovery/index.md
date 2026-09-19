@@ -1,0 +1,113 @@
+# 통신 실패를 설계에 넣기: 타임아웃·재시도·복구 상태
+
+문서 0.1.0 · 검토 2026-09-19 · 아키텍처 가이드
+
+## 언제 이 가이드를 쓰나
+
+응답을 기다리는 동안 전체 실행이 멈추거나, 장치가 끊겼을 때 요청을 끝없이 반복하는 문제를 다룬다. 아래 추천은 재전송해도 외부 동작을 중복 실행하지 않는 읽기 요청을 전제로 한다. 운동·가열·결제·저장처럼 부작용이 있는 명령에는 그대로 적용하지 않는다.
+
+특정 보드 SDK가 아닌 애플리케이션 상태 모델이다. 실행 환경은 Node.js 24 이상이다. 하드웨어 복구·watchdog reset·전원 제어는 포함하지 않는다. MCU 이식 시 드라이버의 실제 timeout/취소 계약을 먼저 확인해야 한다.
+
+## 무엇을 선택하나
+
+- 단발성 진단은 유한 timeout 뒤 사용자에게 실패를 돌려주는 방식으로 충분할 수 있다.
+- 반복 상태 조회는 명확한 시도 횟수·간격·종료 상태를 가진 상태 머신을 검토한다.
+- 명령의 실행 여부가 불명확하면 무조건 재시도하지 않는다. 요청 ID와 장치의 중복 억제 지원, 상태 조회로 실행 여부를 판별할 수 있는지부터 확인한다.
+
+추천은 `WAIT → BACKOFF → WAIT`에 상한을 두고, 성공은 `DONE`, 소진은 `FAULT`로 종료하는 구조다. 3회·100 ms 같은 수치는 아래 시험용 정책이며 실제 장치의 권장값이 아니다.
+
+## 책임과 동작 흐름
+
+```text
+start → WAIT(요청 ID, timeout 기준 저장)
+WAIT + 일치 응답 → DONE
+WAIT + 기한 초과 → BACKOFF → 새 요청 ID로 WAIT
+WAIT + 마지막 시도 실패 → FAULT
+DONE / FAULT → 자동 재시작 없음
+```
+
+Service가 상태·시도 횟수·기한을 소유하고, Driver는 실제 전송 결과와 응답을 전달한다. UI는 실패를 표시하고 명시적인 재시작을 요청한다. 오래된 응답을 새 시도의 성공으로 처리하지 않도록 ID를 비교한다.
+
+## 실행 예제: 가상 시각으로 복구 경로 재현
+
+아래 전체 코드를 `recovery_demo.mjs`로 저장하고 `node recovery_demo.mjs`로 실행한다. 외부 장치나 타이머를 사용하지 않고 한 단계씩 입력을 넣는다. `attempt` 이벤트는 모의 송신 의도일 뿐 전송 성공 통보가 아니다.
+
+```javascript
+import assert from 'node:assert/strict';
+
+const MAX_ATTEMPTS = 3;
+const RESPONSE_TIMEOUT_MS = 100;
+const RETRY_DELAY_MS = 50;
+
+// 단일 읽기 요청의 수명을 만들며 완료 뒤 암묵적으로 재시작하지 않는다.
+function recovery_create() {
+    return { state: 'IDLE', attempt: 0, changed_ms: 0, last_ms: 0 };
+}
+
+// 단조 증가 가상 시각에서 만료를 먼저 판정하고 늦거나 다른 ID의 응답을 버린다.
+function recovery_step(session, now_ms, response_id = null) {
+    if (!Number.isSafeInteger(now_ms) || now_ms < session.last_ms ||
+        (response_id !== null && (!Number.isSafeInteger(response_id) || response_id < 1))) {
+        throw new TypeError('Invalid recovery input');
+    }
+    session.last_ms = now_ms;
+    if (session.state === 'DONE' || session.state === 'FAULT') return null;
+    if (session.state === 'IDLE' ||
+        (session.state === 'BACKOFF' && now_ms - session.changed_ms >= RETRY_DELAY_MS)) {
+        session.attempt++;
+        session.changed_ms = now_ms;
+        session.state = 'WAIT';
+        return { type: 'attempt', id: session.attempt };
+    }
+    if (session.state === 'WAIT') {
+        if (now_ms - session.changed_ms >= RESPONSE_TIMEOUT_MS) {
+            session.state = session.attempt >= MAX_ATTEMPTS ? 'FAULT' : 'BACKOFF';
+            session.changed_ms = now_ms;
+            return { type: session.state.toLowerCase() };
+        }
+        if (response_id === session.attempt) {
+            session.state = 'DONE';
+            return { type: 'done', id: response_id };
+        }
+    }
+    return null;
+}
+
+const g_success = recovery_create();
+assert.deepEqual(recovery_step(g_success, 0), { type: 'attempt', id: 1 });
+assert.deepEqual(recovery_step(g_success, 100), { type: 'backoff' });
+assert.equal(recovery_step(g_success, 149, 1), null);
+assert.deepEqual(recovery_step(g_success, 150), { type: 'attempt', id: 2 });
+assert.equal(recovery_step(g_success, 151, 1), null);
+assert.deepEqual(recovery_step(g_success, 152, 2), { type: 'done', id: 2 });
+assert.equal(recovery_step(g_success, 1000), null);
+
+const g_failure = recovery_create();
+for (const now_ms of [0, 100, 150, 250, 300, 400]) recovery_step(g_failure, now_ms);
+assert.equal(g_failure.state, 'FAULT');
+assert.equal(g_failure.attempt, MAX_ATTEMPTS);
+assert.equal(recovery_step(g_failure, 1000, 3), null);
+assert.throws(() => recovery_step(g_failure, 999), TypeError);
+console.log('PASS: retry, stale_response, done, fault, monotonic_time');
+```
+
+예상 출력은 다음 한 줄이다.
+
+`PASS: retry, stale_response, done, fault, monotonic_time`
+
+시각은 JavaScript의 안전한 정수 범위로 제한한다. MCU에서 순환하는 tick 값을 이 비교에 그대로 대입하지 않는다. 위 코드는 실제 통신을 하지 않으므로 송신 실패·응답 손상·실제 지연 시험은 별도로 필요하다.
+
+## 실패와 복구 정책
+
+- 총 시도는 최초 1회 + 재시도 2회다. 마지막 실패에서 `FAULT`에 머물고 자동으로 초기화하지 않는다.
+- 이 모델은 기한과 같은 시각의 응답을 만료로 본다. 실제 구현은 수신 타임스탬프와 스케줄링 지연을 고려해 경계 규칙을 명시한다.
+- 전송 실패는 유효 응답으로 처리하지 않는다. 실제 Driver의 송신 오류 이벤트를 상태 전이 입력에 추가하고 오류 종류별 재시도 가능 여부를 정한다.
+- 이 예제의 ID는 한 세션 내부에서만 유효하다. 제품에서는 이전 세션의 지연 응답까지 구별할 세션/요청 식별자와 수명 규칙이 필요하다.
+- 재시도 간격 동안 락을 잡고 잠들지 않는다. 다른 서비스가 처리되도록 상태를 저장하고 반환하거나 해당 태스크만 유한 대기한다.
+- 재연결되었다고 장치가 안전한 상태로 돌아왔다고 가정하지 않는다. 상태 조회·설정 검증·사용자 승인처럼 장치에 맞는 복귀 조건을 둔다.
+
+## 검증 상태와 출처
+
+자동 테스트는 위 Node.js 코드블록을 실행해 재시도·오래된 응답·성공/실패 종료를 검사한다. 이는 실제 전송, 회로 안전, RTOS 시간 보장이 아니다. MCU 빌드·실기는 `not_tested`다.
+
+이 상태 모델은 Mist Atelier의 독자적인 설계 예시이며 특정 프로토콜의 공식 복구 알고리즘이 아니다. 일반 재배포 라이선스는 별도 부여하지 않는다. 드라이버 경계 확인에는 [ESP-IDF 5.5.1 I2C 문서의 timeout/반환값](https://github.com/espressif/esp-idf/blob/v5.5.1/docs/en/api-reference/peripherals/i2c.rst)을 참고할 수 있으나, 그 사실만으로 위 재시도 정책이 모든 장치에 적합해지는 것은 아니다.

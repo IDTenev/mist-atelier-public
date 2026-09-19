@@ -366,5 +366,13 @@ footer { max-width:1800px; margin:auto; display:flex; flex-wrap:wrap; justify-co
 .datasheet-chunk{margin:.8rem 0;border:1px solid #284757;padding:.75rem}
 .cell-unknown{color:#ddc995;font-size:.875rem}
 
+/* Guide decisions and section navigation stay readable without client-side scripts. */
+.guide-introduction,.guide-toc{padding:1.1rem 1.3rem;margin:1.2rem 0;border:1px solid var(--border);background:#0b2231}
+.guide-introduction h2,.guide-toc h2{margin-top:0;font-size:1.15rem}
+.guide-toc ol{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.5rem 2rem;padding-left:1.4rem}
+.guide-summary{max-width:75ch;font-size:1.1rem;line-height:1.8}
+.related-guides{margin:2rem 0}
+.guide-body h2{scroll-margin-top:1rem}
+
 [data-static-site] [hidden]{display:none!important}
 [data-search-controls]{border:0;padding:0;margin:0;min-width:0}

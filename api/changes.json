@@ -1,9 +1,49 @@
 {
   "schema_version": 1,
   "scope": "public_approved_guides_only",
-  "observed_at": "2026-09-11T11:50:59.317Z",
+  "observed_at": "2026-09-19T02:13:11.967Z",
   "pending_changes": 0,
   "events": [
+    {
+      "event_id": "urn:sha256:35b6af527eb81e1d6dee5289627b1bd118649ab68f600699dc149dff47cfaa0c",
+      "document_id": "uart_receive_flow",
+      "title": "UART 데이터가 끊겨 들어올 때 처리하기",
+      "kind": "added",
+      "observed_at": "2026-09-19T02:13:11.967Z",
+      "document_version": "0.1.0",
+      "body_sha256": "2cf090a3cb68a7fe1b68749767a92fb7e84d331b9fe3d32ff7bd6d6969bee581",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/uart_receive_flow/"
+    },
+    {
+      "event_id": "urn:sha256:34d3d3d79848ed214682321a780457dfa72131e9fef80b01b19eec10d390198b",
+      "document_id": "shared_bus_ownership",
+      "title": "여러 장치가 한 버스를 쓸 때: 소유권과 계층 나누기",
+      "kind": "added",
+      "observed_at": "2026-09-19T02:13:11.967Z",
+      "document_version": "0.1.0",
+      "body_sha256": "55de974ad25cc0e1765669825f5bd6b80b08d3b7153cce6d610281e6f3013dbb",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/shared_bus_ownership/"
+    },
+    {
+      "event_id": "urn:sha256:b99d805324ee285e54ae1eed559f7c6b5b720e0987cd2bd8f88589c3d98e8f99",
+      "document_id": "main_loop_or_rtos",
+      "title": "메인 루프로 충분한가, RTOS가 필요한가?",
+      "kind": "added",
+      "observed_at": "2026-09-19T02:13:11.967Z",
+      "document_version": "0.1.0",
+      "body_sha256": "ee21306ef60b0af162345b5485c3eab0fa04a10e275cd61a0986e09963e1feed",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/main_loop_or_rtos/"
+    },
+    {
+      "event_id": "urn:sha256:05c4787f3bb5b99f7cc60e06fb3dfbaa84ff7a7e3551757a0855f98b2de8fe2c",
+      "document_id": "communication_recovery",
+      "title": "통신 실패를 설계에 넣기: 타임아웃·재시도·복구 상태",
+      "kind": "added",
+      "observed_at": "2026-09-19T02:13:11.967Z",
+      "document_version": "0.1.0",
+      "body_sha256": "c4eedeabf6b14d06d74dfaa7f1e2ea7f7d99b80d3b181e78a31e8ee7052d2032",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/communication_recovery/"
+    },
     {
       "event_id": "urn:sha256:debf95d607c1b7e820e18042279e8ace2185afd5268b35dacf910cb844b2eb2e",
       "document_id": "stm32_nucleo_f401re",
