@@ -1,9 +1,679 @@
 {
   "schema_version": 1,
   "scope": "public_approved_guides_only",
-  "observed_at": "2026-09-19T04:03:54.717Z",
+  "observed_at": "2026-09-19T18:09:25.705Z",
   "pending_changes": 0,
   "events": [
+    {
+      "event_id": "urn:sha256:b645ff6b4f0d39bc1c35f406f775480ee66e8bd7ae9a200ca9153304fe27ae33",
+      "document_id": "worker_pool",
+      "title": "워커 풀 · 동시 실행 수를 예산으로 관리",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "812ac69f9d547d6dfc1e3e05c31f85494440656a12de287e9e8e463d9c0b7444",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/worker_pool/"
+    },
+    {
+      "event_id": "urn:sha256:fc2588e38d976b46d81b0e6bf9b7202858daca1b6cc9290f75ce62ae43f9ceb3",
+      "document_id": "watchdog_health",
+      "title": "워치독·헬스 체크 · 살아 있음과 정상 진행 구분",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "6563bce4faecdaee2cfb83a45af9df8bb5cbabbc831a55160e1f541bab956829",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/watchdog_health/"
+    },
+    {
+      "event_id": "urn:sha256:90fef2023553b01bc140497a251df6c615d492ea41994bdb3de1327a63c5071b",
+      "document_id": "wal",
+      "title": "WAL · 데이터보다 먼저 남기는 복구 기록",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "833c98a5ab425c650a0d27a9eafd12c1d664b269ce35eda2d4c5e0a88f5a04b1",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/wal/"
+    },
+    {
+      "event_id": "urn:sha256:33dfacca8d7c648a428345893f1b2e035981a42ee00b1c6dde04b2ce08ebd195",
+      "document_id": "token_bucket",
+      "title": "토큰 버킷 · 평균 유입률과 순간 burst 분리",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "6c2f4a5445ce7b6c42052737c1b210f135cd4f33edfc66589f82f3d8f402dd60",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/token_bucket/"
+    },
+    {
+      "event_id": "urn:sha256:b36db810a9fa947a848ea52a3968699379eeb67609fb107af45e4c7e4d9195b5",
+      "document_id": "ring_buffer",
+      "title": "링버퍼 · 순서를 지키는 유한 순환 저장소",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "fb728164af34025bd4865487bef7209b9d0be01534a309428b80e728ff7a944d",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/ring_buffer/"
+    },
+    {
+      "event_id": "urn:sha256:1fe62feae77306ea1679c4131fb9a885cba92917a11d9240807be2cb2da39fc9",
+      "document_id": "retry_idempotency",
+      "title": "재시도·멱등성 · 응답 유실과 중복 실행 분리",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "29de1d417784aada64648e7fe43c7f48638c692f30835dc57020fcab59b7e95c",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/retry_idempotency/"
+    },
+    {
+      "event_id": "urn:sha256:6833dbd1a08702003c33704f4fdec66378ad5e88bf4b1664e1fdfaf235d398ab",
+      "document_id": "pid_antiwindup",
+      "title": "PID 안티윈드업 · 출력 포화 때 적분 관리",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "6e139c5a52f6f7854f62c65b0d9db9cca95684aa7f09806a6f319af310503a8a",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/pid_antiwindup/"
+    },
+    {
+      "event_id": "urn:sha256:244a9d0e493469a149231d89ca630ef9cee17fc690d055d7dc4b6f94655f5229",
+      "document_id": "ownership_raii",
+      "title": "소유권·RAII · 자원 반환을 수명에 묶기",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "692e53a3a7a8020b25704efd0bb074919f8caf7641b23d9fd09d614524ca9ef9",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/ownership_raii/"
+    },
+    {
+      "event_id": "urn:sha256:80f13425b7efb195d63a1769d0ba19ca1303f350b4870a1548908b8978106161",
+      "document_id": "moving_average",
+      "title": "이동 평균·EMA · 부드러움과 지연의 교환",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "22784a3fdde5b05f70461af00c9d4ae17c4fd4ea9e8d5c41fbb9af52efc77af3",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/moving_average/"
+    },
+    {
+      "event_id": "urn:sha256:c1721b1f932c08af3f2dcfcd82cafc557887d50428a82a84dacfd42a0cf93cba",
+      "document_id": "mailbox",
+      "title": "메일박스 · 최신 상태와 명령을 구분하기",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "17390e100cf0aa7d5e443d1691cfd7e670f881f9c931c2fc8cda65d96d2c17e6",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/mailbox/"
+    },
+    {
+      "event_id": "urn:sha256:56a7c18026891e3610dde6de0c8631899eee657d7e8c123a75e4723d34ec0b9a",
+      "document_id": "lru_cache",
+      "title": "LRU 캐시 · 최근 사용과 데이터 유효성은 별개",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "6e38827f27fa47778f7155f506d2da49f7775bf0a823d617ec9664ac7429c58f",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/lru_cache/"
+    },
+    {
+      "event_id": "urn:sha256:77b87ed032f82df886562a5122692a6c9bb22009c76e6ff428bcfcdd8646c36c",
+      "document_id": "input_validation",
+      "title": "입력·권한 경계 · 파싱 성공이 실행 허가는 아니다",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "c572886347aa7d9af83fed15b6aab90b579772754ed396e066e6d0b293a6bcc2",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/input_validation/"
+    },
+    {
+      "event_id": "urn:sha256:446cfbda8a333a41cdecd008afb5e2ced8bf37f19990462ffff4a30cca54ad3c",
+      "document_id": "incremental_parser",
+      "title": "점진 파서 · 조각난 바이트에서 프레임 복원",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "03d60e17c8077914291b3c83af8fa5609618b85c0adbfd43686bf3ef634b8020",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/incremental_parser/"
+    },
+    {
+      "event_id": "urn:sha256:09298c5b7e481dfb246a95ff896c502816eb946a9b114eb8bcd48c8001bee4cf",
+      "document_id": "double_buffer",
+      "title": "더블 버퍼 · 읽기와 쓰기의 작업장 분리",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "482d0efba9d45961e411daff6bd4c84080e9dce394a50b0125588337dc91c0c9",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/double_buffer/"
+    },
+    {
+      "event_id": "urn:sha256:9b72a51b434c189074549fefab8faad079f559791a477942083e7fcd3cb74051",
+      "document_id": "debounce_throttle",
+      "title": "디바운스·스로틀 · UI 호출 빈도 줄이기",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "c3ee52bcc1ea51ebf5f16d9a49459210835877562eb3a51bb63f03209dcf2852",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/debounce_throttle/"
+    },
+    {
+      "event_id": "urn:sha256:55351c24fcf1baa2a1c109edbdeb05a16032fa41d7b868ba5b464b16652f6844",
+      "document_id": "debounce_hysteresis",
+      "title": "디바운스·히스테리시스 · 전환이 흔들리지 않게",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "b06c76c2c2ad4e324ccea993f2a441bf940312e942cb8c241edfcd76638b2d1c",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/debounce_hysteresis/"
+    },
+    {
+      "event_id": "urn:sha256:ccd0bc5aa2810e9c9a122ca8f3db08457950cad2f5327c83d1e745fc2f28197a",
+      "document_id": "cancellation_generation",
+      "title": "취소·세대 번호 · 늦은 응답이 현재 상태를 덮지 않게",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "de687b0e4c8505e6f192aa523d83b998b1fd9310a03f7eee85c40cb8daed8c9a",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/cancellation_generation/"
+    },
+    {
+      "event_id": "urn:sha256:99b885efe28a9c92ba4736577771eb1cb37184c96bf37a6e3c6c2c0b9c6ef24b",
+      "document_id": "bounded_queue",
+      "title": "유한 큐 · 생산자–소비자의 속도 조정",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "c9743e127c0cc5dd75aee4c1dedcedbfdb6064ab198d7f1f0c8ea1906f9570a3",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/bounded_queue/"
+    },
+    {
+      "event_id": "urn:sha256:a30076c1f99dc358a567d22280fa5b75e06067ce11ba10c738b16c0e509e5f43",
+      "document_id": "backpressure",
+      "title": "역압력 · 느린 소비자의 한계를 상류로 전달",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "b5d20175c8812d104aec9b9316eba14e73458b71ede890279d9ee89ab9ece92f",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/backpressure/"
+    },
+    {
+      "event_id": "urn:sha256:490da2ac493361cdef370c36d0a63ce937ef5a7d588725259370ffb3d95a9452",
+      "document_id": "atomic_dual_slot",
+      "title": "이중 슬롯 저장 · 이전 유효본을 남기고 교체",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "4ba288f6ad5d3fd717cf1282a7b2ec99c4a8b07bcde0b64335fa1ea8b96a2bd2",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/atomic_dual_slot/"
+    },
+    {
+      "event_id": "urn:sha256:2990c8b371a6b1063a0c1ac6b5a139963a35c71cc3ae0ab0d795550d43245f5e",
+      "document_id": "arena",
+      "title": "아레나 · 함께 끝나는 객체를 한 번에 반환",
+      "kind": "body_changed",
+      "observed_at": "2026-09-19T18:09:25.705Z",
+      "document_version": "0.1.0",
+      "body_sha256": "e79b052a5268c604d70efb6127094a7a4b18e30cb19099ff9a1c892fb6be252b",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/arena/"
+    },
+    {
+      "event_id": "urn:sha256:2a4a8829fedcecc1a0faaa0fc88940caf49123197229f38edc2b4d8d1467539c",
+      "document_id": "zero_copy",
+      "title": "제로카피 · 복사 대신 버퍼 수명 전달",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "9831e24abec91e9c3182cffbb0c8387b2cd415c00dd46397045e513a446942da",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/zero_copy/"
+    },
+    {
+      "event_id": "urn:sha256:b5bae0436e142a529f1d9a28f2c0dde79b445576980f21da00e871583cf7a6e3",
+      "document_id": "worker_pool",
+      "title": "워커 풀 · 동시 실행 수를 예산으로 관리",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "94e9b82158b8e004f5a03e072ef736b7f58fc7f143f21280009e180f17e7d844",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/worker_pool/"
+    },
+    {
+      "event_id": "urn:sha256:d5680d1e5b452cd387806dc37d7e9ce0f68130e72decde0c432bb3dc60e37ba3",
+      "document_id": "web_queue_serverless",
+      "title": "Web-Queue-Worker와 Serverless: 오래 걸리는 일을 요청에서 분리하기",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "b9314be31fd42cd0f2cfc3bee3a7389877836eb46065f8373764c3880faf772c",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/web_queue_serverless/"
+    },
+    {
+      "event_id": "urn:sha256:bce2549f5282e017c3a78f21c0243ba6667a1746b4557caa2544d9dcd9268da9",
+      "document_id": "watchdog_health",
+      "title": "워치독·헬스 체크 · 살아 있음과 정상 진행 구분",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "503813491dc24ad30abd84f54da0d1303eebb1b2a49196472263a70e4cd1bdd4",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/watchdog_health/"
+    },
+    {
+      "event_id": "urn:sha256:8e3908747071ef43f6983a0cfb3e04b555d71e856b975847c8658e25e7664618",
+      "document_id": "wal",
+      "title": "WAL · 데이터보다 먼저 남기는 복구 기록",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "e216dc8d0839d340110c59690813d2d1d514db7921f4be9c4f19957ab51cdd96",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/wal/"
+    },
+    {
+      "event_id": "urn:sha256:8235f64d0aebe975fc8b0593af33231ef6512a162c9c347a1421e26a7bf49db7",
+      "document_id": "ui_state_architecture",
+      "title": "MVC·MVVM·단방향 상태: 화면과 업무 로직을 분리하기",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "f0bdbe39d04f2a4767781b2409b03956bf4b4f2dec9f9e0d82942a5ac4f6580b",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/ui_state_architecture/"
+    },
+    {
+      "event_id": "urn:sha256:99edeb03972ab881c1b3a13d44e075b8180cd413487155cf860e78ba4f4f87f2",
+      "document_id": "uart_receive_flow",
+      "title": "UART 데이터가 끊겨 들어올 때 처리하기",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "2cf090a3cb68a7fe1b68749767a92fb7e84d331b9fe3d32ff7bd6d6969bee581",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/uart_receive_flow/"
+    },
+    {
+      "event_id": "urn:sha256:ff4aec57461f2a262975a06b72c2c85671d52aeec395ac660668a84529598c8f",
+      "document_id": "token_bucket",
+      "title": "토큰 버킷 · 평균 유입률과 순간 burst 분리",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "bba0b6535972dd5d9104d8294e9d8f0740e6c7731b6eb60b9dd5cd2e17c4f72f",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/token_bucket/"
+    },
+    {
+      "event_id": "urn:sha256:b3ce474a5ca6a90d45485328f4490128c43417140f7d84ed6e9db310788ae9e4",
+      "document_id": "state_machine_active_object",
+      "title": "상태 머신·Active Object: 순서와 상태 변경 경로를 고정하기",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "bd18884e0dd6d04dbb1044f8c13d3e868f96d5db3a24628c84db7a611b09ca60",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/state_machine_active_object/"
+    },
+    {
+      "event_id": "urn:sha256:bc5179639b27134a32c671fbcfc115cb3d992b0f782b682c33d7f16343d19e08",
+      "document_id": "shared_bus_ownership",
+      "title": "여러 장치가 한 버스를 쓸 때: 소유권과 계층 나누기",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "55de974ad25cc0e1765669825f5bd6b80b08d3b7153cce6d610281e6f3013dbb",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/shared_bus_ownership/"
+    },
+    {
+      "event_id": "urn:sha256:6548612426b0d31af879882537a03feef5bbbdb1b9ea2119c53c624621a966fd",
+      "document_id": "rtos_task_architecture",
+      "title": "RTOS 태스크 구성: 우선순위보다 마감·소유권·예산부터",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "081add3dac7da4808627c631555eb9fd736b2d01049424c2841f858361d9329f",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/rtos_task_architecture/"
+    },
+    {
+      "event_id": "urn:sha256:57eba062c8aa6ab85b802828a911748a6b90cf4f70cc19f3f2a7cb3f818a27c7",
+      "document_id": "ring_buffer",
+      "title": "링버퍼 · 순서를 지키는 유한 순환 저장소",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "effaf628d1d11c0526d16c3daf68f2cf69c209590306f53aa8001b5be3e5c197",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/ring_buffer/"
+    },
+    {
+      "event_id": "urn:sha256:36b3708085919ca6ddfab9ecbebaa1a392acbe2765d623fa1e2c47d3fa31b71c",
+      "document_id": "retry_idempotency",
+      "title": "재시도·멱등성 · 응답 유실과 중복 실행 분리",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "dbaed24311677ee94fd29a3af329f3bd969c80a8140ba19926bc5e744b285a66",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/retry_idempotency/"
+    },
+    {
+      "event_id": "urn:sha256:7cd600ba4e79b941a49ed81e5717cf1b27633cbbfec8cb125706d99362e682b7",
+      "document_id": "resilience_bulkheads",
+      "title": "장애 격리와 복원력: 타임아웃·재시도·Circuit Breaker·Bulkhead",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "b606f944dadd000556a511179469ddb53a67f6e6a23e9a37eeceffa4e8beac00",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/resilience_bulkheads/"
+    },
+    {
+      "event_id": "urn:sha256:9e77b51adca1889bb2ff1d3a2a03a54b0a1b831e9c3c7ecefb09b7cb2f1dd334",
+      "document_id": "request_coalescing",
+      "title": "요청 합치기 · 같은 계산은 진행 중 한 번만",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "a7fb29296de06aecb9b0366a4bb585574fc3d25d4a2efdd9d755be5af9194549",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/request_coalescing/"
+    },
+    {
+      "event_id": "urn:sha256:9ae6a35e1ea369c7edc29e29e70fffdc61e287e396c41d6a4bf9fc57ef80641b",
+      "document_id": "plugin_microkernel",
+      "title": "플러그인·Microkernel: 확장점과 신뢰 경계를 따로 설계하기",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "cff010a2576a2672e1ca06103978aa960ccce52d3361056a5127fe145026ebfa",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/plugin_microkernel/"
+    },
+    {
+      "event_id": "urn:sha256:8d84860aeb51a72f49eb80ab174a9c3cf6886812b4e8f442b9b822254649d6ca",
+      "document_id": "pipeline_batch_stream",
+      "title": "파이프라인·배치·스트림: 데이터를 단계별 계약으로 처리하기",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "93c0387d9b141477489ebfe7c4fc6928698b397b3a1c48c52b4ad69eb3ccb114",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/pipeline_batch_stream/"
+    },
+    {
+      "event_id": "urn:sha256:64e6905ff1b2ef98062dd311a3533dd6206cc754538850d88aafb98ac581590a",
+      "document_id": "pid_antiwindup",
+      "title": "PID 안티윈드업 · 출력 포화 때 적분 관리",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "077fb9a63317c9fbe31a28fc6d08e77a7d2906d0d92949d510ec78bf49b91dfb",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/pid_antiwindup/"
+    },
+    {
+      "event_id": "urn:sha256:c4c00bed881bf1216219292c716909d896c01781b7406ad5900e356713a91d32",
+      "document_id": "ownership_raii",
+      "title": "소유권·RAII · 자원 반환을 수명에 묶기",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "7ee22b1fa61158e29322b3ac46a785d32a6c97404920adf5bed3334ad0d51d86",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/ownership_raii/"
+    },
+    {
+      "event_id": "urn:sha256:3a25bf5bb66f20baea65acf0ec26f88d68de5f5170bb48596decf831c9eaca0c",
+      "document_id": "outbox_saga",
+      "title": "Outbox·Saga: 여러 저장소의 변경과 실패를 연결하기",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "ea01cad390868b60f93d4b27fcf6a301da63718e8b40b1c729b7264f65b2f871",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/outbox_saga/"
+    },
+    {
+      "event_id": "urn:sha256:9a9d6ff06d705e2a6998058f0a4f2adad866f56903d3a5f76c00793f98931df1",
+      "document_id": "moving_average",
+      "title": "이동 평균·EMA · 부드러움과 지연의 교환",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "e4a4b5415850768eb964314dc677b0097596a72d8ba2c36846ca5e52cdd3dcff",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/moving_average/"
+    },
+    {
+      "event_id": "urn:sha256:39bba2243ff99642ab5d3c20c87dfe2eb35763568a516f3ea970ab002b9d5403",
+      "document_id": "microservices_boundaries",
+      "title": "마이크로서비스: 작은 코드보다 독립 배포의 가치가 먼저",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "05f1b5616b6b4bb282d79fdd234c0df537217131cbfab7dc23d9c2f51a240b9e",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/microservices_boundaries/"
+    },
+    {
+      "event_id": "urn:sha256:ca5c4e712445b4feda345287d2c4cb449b211fc1a57f4573d509c0956fe2a773",
+      "document_id": "main_loop_or_rtos",
+      "title": "메인 루프로 충분한가, RTOS가 필요한가?",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "ee21306ef60b0af162345b5485c3eab0fa04a10e275cd61a0986e09963e1feed",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/main_loop_or_rtos/"
+    },
+    {
+      "event_id": "urn:sha256:9afcbf2295032f1ad2ae82b2216c0ee29cb3aaa7dd2ac3e6134a26fe2e0f935e",
+      "document_id": "mailbox",
+      "title": "메일박스 · 최신 상태와 명령을 구분하기",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "c230c710b1b6ed3bf57873b3e38926a6877058d0ce215943200e3a83d819e434",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/mailbox/"
+    },
+    {
+      "event_id": "urn:sha256:415970cd0483ef6c0133f0ee865ce0c3f4fb77e45d9dceb989914801c3c38c5b",
+      "document_id": "lru_cache",
+      "title": "LRU 캐시 · 최근 사용과 데이터 유효성은 별개",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "50777f54effab9d78a06cd37de0d9afd330766b3d6575ba5472e1572a0dd2bb5",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/lru_cache/"
+    },
+    {
+      "event_id": "urn:sha256:68efd257f0636e80e704259bb9218b1128dd3e23068e8768e9b0103f349a549f",
+      "document_id": "layered_modular_monolith",
+      "title": "계층형과 모듈러 모놀리스: 하나로 배포하되 경계는 지키기",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "ac1306aa7ef9862fabaa7eaca83f344ef35347608f301380f186d883f2b606cd",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/layered_modular_monolith/"
+    },
+    {
+      "event_id": "urn:sha256:3351a36774efc3fba8715dcd81d5febbd17b7b46ae63fbba3700dd875fe26df7",
+      "document_id": "input_validation",
+      "title": "입력·권한 경계 · 파싱 성공이 실행 허가는 아니다",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "71b1fdbaa390923869c532a845d90f17c7f54ef1332bb3b1b5dbae486686dede",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/input_validation/"
+    },
+    {
+      "event_id": "urn:sha256:d9faa2a33ff75afe8187369ae2f56286ae58bd3c35890a8fa41abfbbccec97f4",
+      "document_id": "incremental_parser",
+      "title": "점진 파서 · 조각난 바이트에서 프레임 복원",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "449cd99b239eeccd9433aa70ca6bd1a296d21679f8edeeacf71f8bcb4a7f10c6",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/incremental_parser/"
+    },
+    {
+      "event_id": "urn:sha256:906a792e8544e7b33144da2368f26c82cfb45ca711661716254687377745256a",
+      "document_id": "hexagonal_clean",
+      "title": "Hexagonal·Clean: 정책을 장치와 프레임워크에서 분리하기",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "fc4641c29276928e738ec407e01de4af007cd17774df455570bc6853fdacc901",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/hexagonal_clean/"
+    },
+    {
+      "event_id": "urn:sha256:5400ba16919bd79cf4a1287224b539da67916af20adbb441ee202e30531b45f3",
+      "document_id": "fixed_pool",
+      "title": "고정 메모리 풀 · 할당량과 반환 책임 고정",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "720b9212ffd157d2fed3dc70a569834c6488dcb38c3f16abba2365818c223819",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/fixed_pool/"
+    },
+    {
+      "event_id": "urn:sha256:783d4de77dd1621c7b717265faa216a20c9b8981d3f8e913ebe9670932a96db5",
+      "document_id": "event_driven_pubsub",
+      "title": "이벤트 기반·Pub/Sub: 결합을 낮추되 전달 계약은 더 엄격하게",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "04f9a083dbb05e4d780c301f237eb6afc956d689d5bcbfb3beb78881fe8bdedd",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/event_driven_pubsub/"
+    },
+    {
+      "event_id": "urn:sha256:a4d321054f29075aeab8bcf1cf7ea99fa3df4b1bb6fb303b03c21e0abe413d6e",
+      "document_id": "edge_cloud_offline",
+      "title": "엣지·클라우드·오프라인: 연결이 없어도 지켜야 할 책임",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "23c1e90e6b713d2ea75a9aa65112a3d57f26d28b163543df511c81cb7e56f421",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/edge_cloud_offline/"
+    },
+    {
+      "event_id": "urn:sha256:81940a20bfa64f7bcc0ec2444dff995a55cac35e1b56f2453c69280af0ae6150",
+      "document_id": "double_buffer",
+      "title": "더블 버퍼 · 읽기와 쓰기의 작업장 분리",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "5b43449db77a23224c8d6c22bcbff05c4128a8dfa16db003cf6812b206b6706d",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/double_buffer/"
+    },
+    {
+      "event_id": "urn:sha256:95ad85e095951b7664feac07b47b9742c8d63977c25154bb21b4f1b63d656a15",
+      "document_id": "domain_boundaries_ddd",
+      "title": "DDD와 기능 경계: 데이터 이름보다 의미와 소유자를 나누기",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "103a2548ed6eacea537d8e652f1e8f7a0770cb2f8df04a21e6599deaa6a0ffb6",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/domain_boundaries_ddd/"
+    },
+    {
+      "event_id": "urn:sha256:d9012fd7decd3c1829d3a0b7385bd4d39b7d1d5b27321645c6bd4d2f4dbc37a8",
+      "document_id": "debounce_throttle",
+      "title": "디바운스·스로틀 · UI 호출 빈도 줄이기",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "46610395087581e8158badcecf36f6fd8ddb4f27c9071410d21c8b84814270f4",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/debounce_throttle/"
+    },
+    {
+      "event_id": "urn:sha256:f9eb5c8041532af25b1ffe6aaffafb2fc95024b805ba9de150ae13b81949ad3a",
+      "document_id": "debounce_hysteresis",
+      "title": "디바운스·히스테리시스 · 전환이 흔들리지 않게",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "d8ec9aef5de925a93ba766f4dfd8eef7ad4a97984408471d934df09aa477a108",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/debounce_hysteresis/"
+    },
+    {
+      "event_id": "urn:sha256:4f4a3f78f748c1db745780225a810b78be2333c9be46fd74738278b595a31597",
+      "document_id": "cqrs_event_sourcing",
+      "title": "CQRS와 Event Sourcing: 읽기 분리와 이력 저장은 별개 결정",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "b090b55dc7116460c60829ac62ed9391b6488b89fd6484b89ca8f8c1b8041268",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/cqrs_event_sourcing/"
+    },
+    {
+      "event_id": "urn:sha256:d28241724901e626a06cc2dd9345708d24dcd18f98d962c1ca701a5108dbef56",
+      "document_id": "communication_recovery",
+      "title": "통신 실패를 설계에 넣기: 타임아웃·재시도·복구 상태",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "c4eedeabf6b14d06d74dfaa7f1e2ea7f7d99b80d3b181e78a31e8ee7052d2032",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/communication_recovery/"
+    },
+    {
+      "event_id": "urn:sha256:a45412a66ea2a13d4c2301f826b65c87f87c43eb74b2a7dfecbe0729986898ab",
+      "document_id": "cancellation_generation",
+      "title": "취소·세대 번호 · 늦은 응답이 현재 상태를 덮지 않게",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "cb5a13f3f26edce86d9d16c8e5f38b0c2165d15cac61857db5563f614c3ab950",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/cancellation_generation/"
+    },
+    {
+      "event_id": "urn:sha256:0f3da728bed54c96511320965ba59b116ee89afa3817343b3c65f5580eeb79a6",
+      "document_id": "bounded_queue",
+      "title": "유한 큐 · 생산자–소비자의 속도 조정",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "824b130a979e021e9a6e5604daaf5caab5bb35338a660ada15ea91d98e745763",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/bounded_queue/"
+    },
+    {
+      "event_id": "urn:sha256:380548dbc58c3c32717ec788809f97fcf5a4d6c64d80df8337210f21dbd6ac06",
+      "document_id": "backpressure",
+      "title": "역압력 · 느린 소비자의 한계를 상류로 전달",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "c1cc06126f8e88f7e7d8577660b19f93038a2685e74cd569bc3423ccc9b9c56a",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/backpressure/"
+    },
+    {
+      "event_id": "urn:sha256:a6b4bdb91535d7c8d1fdf082eda97ef4445321d23e949ae65935f01d6016a963",
+      "document_id": "atomic_dual_slot",
+      "title": "이중 슬롯 저장 · 이전 유효본을 남기고 교체",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "7697019b130d519534446c568f222e350737dcd1e4188bee0793571b3f8dc224",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/atomic_dual_slot/"
+    },
+    {
+      "event_id": "urn:sha256:098ffb393dc6a63f9e4903c7da7982e462a25714d000f7633c439f5f0e0be478",
+      "document_id": "arena",
+      "title": "아레나 · 함께 끝나는 객체를 한 번에 반환",
+      "kind": "added",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "1c5927b563ed057c620e6af68100e95f68e2acd61eb00248e56232ca6787bb63",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/arena/"
+    },
+    {
+      "event_id": "urn:sha256:c10e1a9909a96825cc503eef851ce84c11889d7cf79a1f7efa9b07ce767875e1",
+      "document_id": "architecture_validation",
+      "title": "아키텍처를 검증하고 바꾸기: C4·ADR·관측·위협 모델",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "e92c3ae89f1481f37f35f62bdcf0ca33781af688f94dd6d151bf3a05704bd8fc",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/architecture_validation/"
+    },
+    {
+      "event_id": "urn:sha256:5f1abd44f63e31e6c65aff279b35ad6a2f911da360d209addb4e32c6446dbc2c",
+      "document_id": "architecture_selection",
+      "title": "SW 아키텍처 선택 지도: 이름보다 제약부터",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "85c180392125987488fc951b2692d55472b1cf804536339ac284058a0b60459c",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/architecture_selection/"
+    },
+    {
+      "event_id": "urn:sha256:b66d606afe0c4558cc772cf1f876695ad7524cc22f5e3db37fb01c154e3c90d5",
+      "document_id": "actor_supervision",
+      "title": "Actor와 Supervision: 상태 소유와 재시작 경계를 함께 설계하기",
+      "kind": "metadata_changed",
+      "observed_at": "2026-09-19T18:07:10.522Z",
+      "document_version": "0.1.0",
+      "body_sha256": "8707c3c5bba8e2ebfc12bf61c4a15a74fb6bcff96169c10ca37d6c5af487bf71",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/actor_supervision/"
+    },
     {
       "event_id": "urn:sha256:a8f3389bcf2f1853751a28d25631b43c78417ee2bc5ab410e0e71112bd3b1a11",
       "document_id": "web_queue_serverless",

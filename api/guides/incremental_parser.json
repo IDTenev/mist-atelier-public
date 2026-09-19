@@ -1,0 +1,38 @@
+{
+  "document_id": "incremental_parser",
+  "title": "점진 파서 · 조각난 바이트에서 프레임 복원",
+  "category": "pattern",
+  "summary": "프레임이 여러 수신에 나뉘거나 여러 프레임이 한 번에 도착할 때. 분할·병합된 수신을 같은 로직으로 처리하며 상태·메모리 한도를 명시할 수 있다.",
+  "body_sha256": "03d60e17c8077914291b3c83af8fa5609618b85c0adbfd43686bf3ef634b8020",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "통신·프로토콜",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-20 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "ring_buffer",
+    "uart_receive_flow",
+    "state_machine_active_object",
+    "input_validation"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-20",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/incremental_parser.md",
+  "text": "# 점진 파서 · 조각난 바이트에서 프레임 복원\n\n검토: 2026-09-20 · 분류: 구현 패턴 / 통신·프로토콜 / 프로토콜 상태 패턴\n\n별칭: Incremental Parser, Framing, Stream Parser, 프레이밍\n\n적용 분야: UART, TCP, 파일 스트림, 센서 패킷\n\n## 개념과 특징\n\n한 번의 read가 메시지 하나라는 가정을 버리고, 입력 조각을 받을 때마다 파서 상태를 진행시킨다. TCP는 byte stream이며 send/read 경계가 메시지 경계와 일치하지 않는다. UART도 애플리케이션 프레임을 따로 정의해야 한다.\n\n## 구조와 동작\n\n헤더 탐색 → 고정 헤더 수집 → 길이 검증 → payload 수집 → 무결성 검증 → 전달/재동기화\n\n## 언제 쓰고 피할까\n\n- 사용: 프레임이 여러 수신에 나뉘거나 여러 프레임이 한 번에 도착할 때.\n- 비추천: 상위 라이브러리가 이미 메시지 경계를 검증하는데 별도 파서를 중복 구현하는 경우. 자체 암호·인증 프로토콜 설계를 대신하지 않는다.\n\n## 장점과 비용\n\n- 장점: 분할·병합된 수신을 같은 로직으로 처리하며 상태·메모리 한도를 명시할 수 있다.\n- 단점·비용: 잘못된 길이·동기 바이트·timeout·재동기화 정책이 복잡해진다. CRC는 우발 오류 검출이지 발신자 인증이 아니다.\n\n## 설계·구현 가이드\n\n1. 길이 단위·엔디언·최대 payload·escape 규칙과 header 길이를 고정한다.\n2. 길이는 할당 전에 검사하고 header+payload 계산 overflow를 방지한다. 상태마다 최소 필요 바이트만 소비한다.\n3. 한 feed에서 여러 프레임을 처리하되 CPU 처리량 예산을 넘으면 다음 주기로 나눈다. 반환된 payload의 수명도 정한다.\n4. 부분 프레임 deadline과 stream 종료 시 오류를 정의한다. 손상 후 다음 sync를 찾을지 연결을 닫을지 프로토콜별로 선택한다.\n\n## 적용 예시\n\n[길이 2 byte][payload 최대 256 byte] 계약이면 0xFFFF 길이는 즉시 거절한다. payload 안의 헤더 같은 바이트를 매번 재탐색하면 정상 데이터가 잘리므로 현재 상태와 길이를 우선한다.\n\n이 절은 구현 결정을 설명하는 설계 사례다. 실행 프로그램이나 장비 설정 파일이 아니다.\n\n## 실패·동시성·종료 조건\n\n바이트 유실 후 잘못된 프레임을 실행 명령으로 넘기지 않는다. 수신 ISR은 저장·알림만 맡기고 파서는 태스크에서 제한된 양을 처리한다. parser reset은 수신 버퍼와 함께 세대를 바꾼다.\n\n## 검증 기준\n\n동일 입력을 모든 단일 분할 위치로 나눠 결과가 같은지 검사한다. 1-byte 조각·연속 두 프레임·잘린 EOF·최대+1 길이·손상·timeout·fuzz 입력을 포함한다.\n\n## 관련 설계와 대안\n\n- [링버퍼 · 순서를 지키는 유한 순환 저장소](/guides/ring_buffer)\n- [UART 데이터가 끊겨 들어올 때 처리하기](/guides/uart_receive_flow)\n- [상태 머신·Active Object: 순서와 상태 변경 경로를 고정하기](/guides/state_machine_active_object)\n- [입력·권한 경계 · 파싱 성공이 실행 허가는 아니다](/guides/input_validation)\n\n## 근거와 한계\n\n- [RFC 9293 §3.7 Segmentation](https://www.rfc-editor.org/rfc/rfc9293.html) — 2022 RFC의 TCP byte-stream 경계 규정.\n\n출처 확인일: 2026-09-20. 위 자료는 개념·API 계약의 근거다. 적용 판단·수치·절차·예제는 독자 작성 편집 제안이며 외부 코드·그림의 복제나 제조사 권고 설정값이 아니다. 변동 문서는 적용 시 대상 판본을 다시 확인한다.\n\n검증 상태: not_tested (실제 대상 환경). 설계 절차용 가이드이며 실행 코드가 없고 MCU 빌드·실기·운영 부하·안전/보안 인증은 별도 검증이 필요하다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

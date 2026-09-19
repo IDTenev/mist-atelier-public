@@ -11,7 +11,7 @@ export function filter_public_guides(documents, params) {
     const manufacturers = [...new Set(documents.map(item => item.target.manufacturer))].sort();
     if (filters.q.length > 200 || /[\u0000-\u001f\u007f]/.test(filters.q) ||
         filters.manufacturer !== 'all' && !manufacturers.includes(filters.manufacturer) ||
-        !['all', 'board', 'practice', 'architecture'].includes(filters.category)) throw new Error('검색 조건을 확인해 주세요.');
+        !['all', 'board', 'practice', 'architecture', 'pattern'].includes(filters.category)) throw new Error('검색 조건을 확인해 주세요.');
     const terms = filters.q.toLocaleLowerCase('ko').split(/\s+/).filter(Boolean);
     const items = documents.filter(item => (filters.manufacturer === 'all' || item.target.manufacturer === filters.manufacturer) &&
         (filters.category === 'all' || (item.category || 'board') === filters.category) &&

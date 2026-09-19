@@ -1,0 +1,38 @@
+{
+  "document_id": "backpressure",
+  "title": "역압력 · 느린 소비자의 한계를 상류로 전달",
+  "category": "pattern",
+  "summary": "생산 속도를 조절할 수 있고 적체를 유한 메모리와 deadline 안에 묶어야 할 때. 과부하가 메모리 폭주로 바뀌는 것을 줄이고 시스템의 실제 처리율로 흐름을 맞춘다.",
+  "body_sha256": "b5d20175c8812d104aec9b9316eba14e73458b71ede890279d9ee89ab9ece92f",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "통신·프로토콜",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-20 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "bounded_queue",
+    "pipeline_batch_stream",
+    "token_bucket",
+    "edge_cloud_offline"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-20",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/backpressure.md",
+  "text": "# 역압력 · 느린 소비자의 한계를 상류로 전달\n\n검토: 2026-09-20 · 분류: 구현 패턴 / 통신·프로토콜 / 흐름 제어 패턴\n\n별칭: Backpressure, Flow Control, High/Low Watermark, Credit\n\n적용 분야: 스트림, 통신 게이트웨이, 파일 처리, 데이터 파이프라인\n\n## 개념과 특징\n\n하류가 더 받지 못할 때 상류의 생산·전송을 늦추는 피드백이다. 단순히 큐를 늘리는 것과 다르며, 상류를 멈출 수 없다면 손실·샘플링·저장 정책이 추가로 필요하다.\n\n## 구조와 동작\n\n하류 점유 증가 → pause/credit 감소 → 상류 감속 → 하류 배출 → resume/credit 회복\n\n## 언제 쓰고 피할까\n\n- 사용: 생산 속도를 조절할 수 있고 적체를 유한 메모리와 deadline 안에 묶어야 할 때.\n- 비추천: 물리 센서가 멈출 수 없거나 제어 루프를 블로킹하면 위험한데 일률적으로 upstream을 기다리게 하는 경우.\n\n## 장점과 비용\n\n- 장점: 과부하가 메모리 폭주로 바뀌는 것을 줄이고 시스템의 실제 처리율로 흐름을 맞춘다.\n- 단점·비용: 피드백 지연 동안 이미 날아오는 데이터가 있다. 고리형 대기나 공유 스레드를 막는 구현은 교착·기아를 만들 수 있다.\n\n## 설계·구현 가이드\n\n1. 바이트/항목/시간 단위를 통일하고 각 단계의 총 in-flight 상한을 적는다.\n2. pause 상한 H와 resume 하한 L을 다르게 둬 흔들림을 줄인다. 전파 지연 동안의 입력 R×T만큼 여유를 남긴다.\n3. Node Writable.write가 false면 이미 받은 chunk를 재전송하지 말고 추가 쓰기를 멈춘 뒤 drain 또는 error/close를 기다린다.\n4. 멈출 수 없는 입력은 샘플링·drop·bounded spill 중 하나를 명시하고 제어 경로와 분리한다. 종료/실패 신호를 상·하류 모두에 전파한다.\n\n## 적용 예시\n\n100 KiB/s 입력에 pause가 반영되는 최장 시간이 20 ms면 약 2 KiB는 추가로 올 수 있다. 8 KiB 버퍼를 8 KiB에서 멈추도록 설정하면 늦다. 실제 burst와 전송 중 데이터까지 예산에 포함한다.\n\n이 절은 구현 결정을 설명하는 설계 사례다. 실행 프로그램이나 장비 설정 파일이 아니다.\n\n## 실패·동시성·종료 조건\n\nhighWaterMark는 일반적으로 절대 RAM 상한이 아니다. 한 chunk 크기, 내부 transform, 외부 대기 Promise까지 제한해야 한다. 하류 실패 후 drain만 기다리면 영원히 멈출 수 있다.\n\n## 검증 기준\n\n하류 지연·완전 정지·중간 오류를 주입하고 peak memory·in-flight·복구 후 순서를 측정한다. pause/resume 반복 시 busy loop와 알림 유실이 없어야 한다.\n\n## 관련 설계와 대안\n\n- [유한 큐 · 생산자–소비자의 속도 조정](/guides/bounded_queue)\n- [파이프라인·배치·스트림: 데이터를 단계별 계약으로 처리하기](/guides/pipeline_batch_stream)\n- [토큰 버킷 · 평균 유입률과 순간 burst 분리](/guides/token_bucket)\n- [엣지·클라우드·오프라인: 연결이 없어도 지켜야 할 책임](/guides/edge_cloud_offline)\n\n## 근거와 한계\n\n- [Node.js Backpressuring in Streams](https://nodejs.org/en/learn/modules/backpressuring-in-streams) — write 반환값·drain·파이프라인 오류; 변동 문서.\n\n출처 확인일: 2026-09-20. 위 자료는 개념·API 계약의 근거다. 적용 판단·수치·절차·예제는 독자 작성 편집 제안이며 외부 코드·그림의 복제나 제조사 권고 설정값이 아니다. 변동 문서는 적용 시 대상 판본을 다시 확인한다.\n\n검증 상태: not_tested (실제 대상 환경). 설계 절차용 가이드이며 실행 코드가 없고 MCU 빌드·실기·운영 부하·안전/보안 인증은 별도 검증이 필요하다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

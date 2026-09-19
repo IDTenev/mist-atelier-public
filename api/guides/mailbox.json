@@ -1,0 +1,37 @@
+{
+  "document_id": "mailbox",
+  "title": "메일박스 · 최신 상태와 명령을 구분하기",
+  "category": "pattern",
+  "summary": "온도 표시·목표 속도처럼 중간값보다 최신 상태가 중요하거나 한 태스크가 장치 상태를 독점 소유해야 할 때. 최신값 슬롯은 적체가 한 칸으로 제한되고 오래된 목표를 순서대로 처리하지 않는다. 상태 소유자를 한 곳에 둘 수 있다.",
+  "body_sha256": "17390e100cf0aa7d5e443d1691cfd7e670f881f9c931c2fc8cda65d96d2c17e6",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "동시성·작업 분배",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-20 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "bounded_queue",
+    "state_machine_active_object",
+    "shared_bus_ownership"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-20",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/mailbox.md",
+  "text": "# 메일박스 · 최신 상태와 명령을 구분하기\n\n검토: 2026-09-20 · 분류: 구현 패턴 / 동시성·작업 분배 / 상태 전달·소유권 패턴\n\n별칭: Mailbox, Latest-Value Slot, 메시지함\n\n적용 분야: 제어 목표값, 화면 상태, 태스크 간 통신\n\n## 개념과 특징\n\nmailbox는 문맥에 따라 의미가 다르다. 여기서는 단일 소유자에게 메시지를 전달하는 경계를 다루고, 최신값 슬롯을 별도 변형으로 설명한다. Zephyr k_mbox는 가변 길이 메시지의 동기/비동기 교환이며 단순 한 칸 덮어쓰기 저장소가 아니다.\n\n## 구조와 동작\n\n최신값 변형: 생산자 → version과 값 게시 → 알림 → 소비자가 최신 snapshot 읽기\n\n## 언제 쓰고 피할까\n\n- 사용: 온도 표시·목표 속도처럼 중간값보다 최신 상태가 중요하거나 한 태스크가 장치 상태를 독점 소유해야 할 때.\n- 비추천: 결제·버튼 클릭 횟수·안전 명령 등 각 사건을 모두 처리해야 하는 경우. 이런 이벤트는 유한 큐와 식별자가 필요하다.\n\n## 장점과 비용\n\n- 장점: 최신값 슬롯은 적체가 한 칸으로 제한되고 오래된 목표를 순서대로 처리하지 않는다. 상태 소유자를 한 곳에 둘 수 있다.\n- 단점·비용: 중간 상태가 사라지며 얼마나 바뀌었는지 알 수 없다. 알림 병합과 snapshot 일관성은 별도로 해결해야 한다.\n\n## 설계·구현 가이드\n\n1. 상태 갱신과 명령을 서로 다른 채널로 나눈다. latest-wins를 허용하는 항목만 슬롯에 넣는다.\n2. 값과 version을 같은 임계 구역에서 쓰고 읽는다. 큰 구조체를 원자적 값처럼 취급하지 않는다.\n3. 알림은 깨어나라는 신호로만 사용하고 실제 상태는 슬롯에서 읽는다. 대기 전 version 재확인 등 유실된 wakeup을 막는 계약을 둔다.\n4. API가 synchronous 교환인지 복사 큐인지 확인한다. Zephyr mailbox는 ISR 사용 대상이 아니므로 이름만 보고 고르지 않는다.\n\n## 적용 예시\n\n목표 밝기가 10→20→80으로 빠르게 바뀌면 소비자는 80만 적용해도 된다. 하지만 “밝기를 10 증가”라는 명령을 덮어쓰면 결과가 달라지므로 명령은 별도 큐로 보낸다.\n\n이 절은 구현 결정을 설명하는 설계 사례다. 실행 프로그램이나 장비 설정 파일이 아니다.\n\n## 실패·동시성·종료 조건\n\n알림을 소비한 직후 갱신이 들어오는 경쟁, 값/버전 찢김, 반환된 포인터의 수명에 주의한다. 종료 플래그와 슬롯 갱신을 직렬화하고 대기자를 깨워 종료시킨다.\n\n## 검증 기준\n\n빠른 연속 갱신 후 최종값 일치, 읽기와 게시 경합, 알림 직전/직후 갱신, 종료 중 대기 해제를 검사한다.\n\n## 관련 설계와 대안\n\n- [유한 큐 · 생산자–소비자의 속도 조정](/guides/bounded_queue)\n- [상태 머신·Active Object: 순서와 상태 변경 경로를 고정하기](/guides/state_machine_active_object)\n- [여러 장치가 한 버스를 쓸 때: 소유권과 계층 나누기](/guides/shared_bus_ownership)\n\n## 근거와 한계\n\n- [Zephyr Mailboxes](https://docs.zephyrproject.org/latest/kernel/services/data_passing/mailboxes.html) — 동기/비동기 교환과 thread-only 계약; latest 변동 문서.\n\n출처 확인일: 2026-09-20. 위 자료는 개념·API 계약의 근거다. 적용 판단·수치·절차·예제는 독자 작성 편집 제안이며 외부 코드·그림의 복제나 제조사 권고 설정값이 아니다. 변동 문서는 적용 시 대상 판본을 다시 확인한다.\n\n검증 상태: not_tested (실제 대상 환경). 설계 절차용 가이드이며 실행 코드가 없고 MCU 빌드·실기·운영 부하·안전/보안 인증은 별도 검증이 필요하다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

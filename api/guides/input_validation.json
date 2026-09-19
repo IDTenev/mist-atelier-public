@@ -1,0 +1,38 @@
+{
+  "document_id": "input_validation",
+  "title": "입력·권한 경계 · 파싱 성공이 실행 허가는 아니다",
+  "category": "pattern",
+  "summary": "외부·덜 신뢰하는 컴포넌트에서 데이터나 명령을 받는 모든 경계. 잘못된 데이터가 깊은 계층까지 들어가는 것을 막고 실패 원인을 경계에서 분리한다.",
+  "body_sha256": "c572886347aa7d9af83fed15b6aab90b579772754ed396e066e6d0b293a6bcc2",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "보호·진단·보안",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-20 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "incremental_parser",
+    "hexagonal_clean",
+    "plugin_microkernel",
+    "architecture_validation"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-20",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/input_validation.md",
+  "text": "# 입력·권한 경계 · 파싱 성공이 실행 허가는 아니다\n\n검토: 2026-09-20 · 분류: 구현 패턴 / 보호·진단·보안 / 보안·계약 검증 패턴\n\n별칭: Input Validation, Allowlist, Trust Boundary, Authorization, Fail Closed\n\n적용 분야: API, 장치 명령, 설정 파일, 플러그인 경계\n\n## 개념과 특징\n\n입력이 문법에 맞는지, 값이 의미적으로 유효한지, 호출자가 그 객체에 그 동작을 해도 되는지를 별도로 검사한다. 인증은 누구인지, 인가는 무엇을 해도 되는지다. 내부 네트워크 입력도 자동 신뢰하지 않는다.\n\n## 구조와 동작\n\n크기/시간 제한 → 파싱·스키마 → 의미 검증 → 대상별 권한 → 상태 전이 검증 → 실행 → 감사 결과\n\n## 언제 쓰고 피할까\n\n- 사용: 외부·덜 신뢰하는 컴포넌트에서 데이터나 명령을 받는 모든 경계.\n- 비추천: 클라이언트 검증만으로 서버 보호를 끝내거나, 문자열 금칙어 목록으로 injection을 해결하려는 방식. 검증 자체를 생략할 상황이 아니라 중복·비용을 설계할 문제다.\n\n## 장점과 비용\n\n- 장점: 잘못된 데이터가 깊은 계층까지 들어가는 것을 막고 실패 원인을 경계에서 분리한다.\n- 단점·비용: 정상 국제화 입력을 지나치게 제한할 수 있다. 규칙 drift·버전 호환·검사 비용·오류 메시지 정보 노출도 관리해야 한다.\n\n## 설계·구현 가이드\n\n1. 전송 byte·중첩 깊이·배열 수·파싱 시간부터 제한한다. 길이 제한 전에 거대한 객체를 모두 생성하지 않는다.\n2. 필드 allowlist·타입·범위·필수값·알 수 없는 필드 정책을 정하고 숫자 NaN/Infinity·정수 overflow를 거절한다.\n3. 정규화와 경로 해석 규칙을 하나로 유지하고 대상 ID를 실제 리소스에 매핑한 뒤 매 요청 권한을 확인한다.\n4. DB는 매개변수 쿼리, HTML은 문맥별 출력 인코딩을 사용한다. 입력 검증만으로 SQL injection/XSS 방어를 대신하지 않는다.\n\n## 적용 예시\n\n모터 속도 명령이 정수 범위 안이어도 정비 모드에서만 허용되거나 특정 장치 소유자만 실행 가능할 수 있다. 다른 사용자 장치 ID로 바꾼 요청은 문법 검사에서 통과해도 인가에서 거절해야 한다.\n\n이 절은 구현 결정을 설명하는 설계 사례다. 실행 프로그램이나 장비 설정 파일이 아니다.\n\n## 실패·동시성·종료 조건\n\n검사 후 상태가 바뀌는 TOCTOU는 transaction/락/버전 확인으로 실행 경계에서 다룬다. 실패는 기본 거절하되 실제 장비는 정의된 안전 상태를 유지한다. 로그에 토큰·비밀·원문 개인정보를 남기지 않는다.\n\n## 검증 기준\n\n허용/거절 경계·알 수 없는 필드·큰 입력·중복 키·다른 tenant ID·권한 변경·동시 상태 변경·fuzz를 시험한다. 단위 테스트 통과는 침투시험이나 보안 인증이 아니다.\n\n## 관련 설계와 대안\n\n- [점진 파서 · 조각난 바이트에서 프레임 복원](/guides/incremental_parser)\n- [Hexagonal·Clean: 정책을 장치와 프레임워크에서 분리하기](/guides/hexagonal_clean)\n- [플러그인·Microkernel: 확장점과 신뢰 경계를 따로 설계하기](/guides/plugin_microkernel)\n- [아키텍처를 검증하고 바꾸기: C4·ADR·관측·위협 모델](/guides/architecture_validation)\n\n## 근거와 한계\n\n- [OWASP Input Validation](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html) — 문법/의미 검증·allowlist·검증의 한계; 변동 문서.\n- [OWASP Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) — 기본 거절·매 요청 권한; 변동 문서.\n\n출처 확인일: 2026-09-20. 위 자료는 개념·API 계약의 근거다. 적용 판단·수치·절차·예제는 독자 작성 편집 제안이며 외부 코드·그림의 복제나 제조사 권고 설정값이 아니다. 변동 문서는 적용 시 대상 판본을 다시 확인한다.\n\n검증 상태: not_tested (실제 대상 환경). 설계 절차용 가이드이며 실행 코드가 없고 MCU 빌드·실기·운영 부하·안전/보안 인증은 별도 검증이 필요하다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

@@ -1,0 +1,37 @@
+{
+  "document_id": "double_buffer",
+  "title": "더블 버퍼 · 읽기와 쓰기의 작업장 분리",
+  "category": "pattern",
+  "summary": "고정 크기 블록의 생산과 소비를 겹칠 수 있고, 각 단계의 최장 시간이 다음 블록 준비 시간 안에 들어올 때. 읽는 중인 화면/블록을 수정하지 않는 소유권 규칙이 명료하다. 하드웨어 전송과 CPU 계산을 겹칠 수 있다.",
+  "body_sha256": "482d0efba9d45961e411daff6bd4c84080e9dce394a50b0125588337dc91c0c9",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "버퍼·데이터 이동",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-20 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "ring_buffer",
+    "zero_copy",
+    "pipeline_batch_stream"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-20",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/double_buffer.md",
+  "text": "# 더블 버퍼 · 읽기와 쓰기의 작업장 분리\n\n검토: 2026-09-20 · 분류: 구현 패턴 / 버퍼·데이터 이동 / 버퍼 소유권 패턴\n\n별칭: Double Buffer, Ping-Pong Buffer, 이중 버퍼\n\n적용 분야: 디스플레이, ADC 블록, 오디오, 영상 프레임\n\n## 개념과 특징\n\n한 버퍼를 소비하는 동안 다른 버퍼를 생산한다. 완성된 시점에 역할을 교환한다. 최신 완성 화면을 교체하는 방식과 모든 블록을 번갈아 처리하는 ping-pong은 유실 정책이 같지 않다.\n\n## 구조와 동작\n\nA: 채우기 / B: 소비 → A 완료 표시 → B 소비 완료 확인 → 경계에서 역할 교환\n\n## 언제 쓰고 피할까\n\n- 사용: 고정 크기 블록의 생산과 소비를 겹칠 수 있고, 각 단계의 최장 시간이 다음 블록 준비 시간 안에 들어올 때.\n- 비추천: 소비 시간 편차가 크거나 블록을 하나도 버릴 수 없는데 소비가 늦는 경우. 유한 큐나 더 많은 슬롯과 역압력이 필요하다.\n\n## 장점과 비용\n\n- 장점: 읽는 중인 화면/블록을 수정하지 않는 소유권 규칙이 명료하다. 하드웨어 전송과 CPU 계산을 겹칠 수 있다.\n- 단점·비용: 단일 버퍼의 약 두 배 RAM이 필요하고 완성 경계까지 지연이 생긴다. 두 버퍼만으로 끊김·tearing 방지가 자동 해결되지 않는다.\n\n## 설계·구현 가이드\n\n1. 각 버퍼를 FREE, FILLING, READY, READING 상태로 관리하고 한 시점에 하나의 쓰기 소유자만 허용한다.\n2. 스왑은 소비 완료/디스플레이 VSYNC 등 실제 장치 경계와 맞춘다. 포인터 교환의 원자성과 메모리 순서를 확인한다.\n3. 블록 처리 마감과 late 정책을 정한다. 모든 샘플 필요 시 재사용 금지·오류 처리, 화면 최신값이면 이전 READY 프레임 폐기를 명시한다.\n4. DMA 송신 완료 전에 flush 완료를 알리지 않는다. 캐시·정렬·장치가 접근 가능한 메모리를 점검한다.\n\n## 적용 예시\n\n48 kHz 오디오 480샘플 블록은 10 ms 간격이다. 한 블록 처리+스케줄링 최악 시간이 10 ms를 넘으면 단순 ping-pong으로 지속 입력을 보존할 수 없다. 평균 2 ms만 보고 통과시키지 않는다.\n\n이 절은 구현 결정을 설명하는 설계 사례다. 실행 프로그램이나 장비 설정 파일이 아니다.\n\n## 실패·동시성·종료 조건\n\n생산자가 READING 슬롯을 재사용하면 찢어진 데이터가 된다. STOP은 새 전송을 막고 진행 중 DMA의 완료 또는 안전한 취소를 확인한 뒤 메모리를 반환한다.\n\n## 검증 기준\n\n소비 완료를 한 블록 이상 지연시켜 overrun 정책을 확인한다. 블록 세대 번호로 혼합·중복·누락을 검출하고 화면은 VSYNC 전후 전환을 관찰한다.\n\n## 관련 설계와 대안\n\n- [링버퍼 · 순서를 지키는 유한 순환 저장소](/guides/ring_buffer)\n- [제로카피 · 복사 대신 버퍼 수명 전달](/guides/zero_copy)\n- [파이프라인·배치·스트림: 데이터를 단계별 계약으로 처리하기](/guides/pipeline_batch_stream)\n\n## 근거와 한계\n\n- [LVGL 9.2 Display interface](https://docs.lvgl.io/9.2/porting/display.html) — 고정 9.2의 두 draw buffer와 flush 완료 규칙.\n\n출처 확인일: 2026-09-20. 위 자료는 개념·API 계약의 근거다. 적용 판단·수치·절차·예제는 독자 작성 편집 제안이며 외부 코드·그림의 복제나 제조사 권고 설정값이 아니다. 변동 문서는 적용 시 대상 판본을 다시 확인한다.\n\n검증 상태: not_tested (실제 대상 환경). 설계 절차용 가이드이며 실행 코드가 없고 MCU 빌드·실기·운영 부하·안전/보안 인증은 별도 검증이 필요하다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

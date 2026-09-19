@@ -1,0 +1,37 @@
+{
+  "document_id": "debounce_throttle",
+  "title": "디바운스·스로틀 · UI 호출 빈도 줄이기",
+  "category": "pattern",
+  "summary": "검색창처럼 최종 입력이 중요하면 debounce, 연속 스크롤처럼 주기적 진행 표시가 필요하면 throttle. 불필요한 연산과 요청을 줄이고 화면 반응성을 개선할 수 있다.",
+  "body_sha256": "c3ee52bcc1ea51ebf5f16d9a49459210835877562eb3a51bb63f03209dcf2852",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "UI·비동기 요청",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-20 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "cancellation_generation",
+    "token_bucket",
+    "ui_state_architecture"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-20",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/debounce_throttle.md",
+  "text": "# 디바운스·스로틀 · UI 호출 빈도 줄이기\n\n검토: 2026-09-20 · 분류: 구현 패턴 / UI·비동기 요청 / 이벤트 빈도 조절 패턴\n\n별칭: Debounce, Throttle, Leading/Trailing Edge, Max Wait\n\n적용 분야: 검색 입력, 자동 저장, 스크롤, 화면 갱신\n\n## 개념과 특징\n\n디바운스는 조용해진 뒤 여러 호출을 하나로 모은다. 스로틀은 계속 입력되는 동안에도 실행 빈도를 제한한다. 어느 쪽도 서버의 권한 검사나 부하 보호를 대신하지 않는다.\n\n## 구조와 동작\n\n입력 → 마지막 인자 보관 → timer 재설정 또는 실행 창 검사 → leading/trailing 실행 → 정리\n\n## 언제 쓰고 피할까\n\n- 사용: 검색창처럼 최종 입력이 중요하면 debounce, 연속 스크롤처럼 주기적 진행 표시가 필요하면 throttle.\n- 비추천: 모든 사건을 보존해야 하는 결제·명령·감사 로그, 지연을 허용하지 않는 안전 입력.\n\n## 장점과 비용\n\n- 장점: 불필요한 연산과 요청을 줄이고 화면 반응성을 개선할 수 있다.\n- 단점·비용: 마지막 값 유실·오래된 closure·컴포넌트 해제 후 실행·중복 leading/trailing이 생길 수 있다. debounce만 쓰면 계속 입력할 때 영원히 실행되지 않을 수 있다.\n\n## 설계·구현 가이드\n\n1. leading/trailing, 마지막 인자 사용, 최대 대기시간, flush/cancel을 명시한다.\n2. debounce는 기존 timer를 취소하고 마지막 입력 기준으로 다시 예약한다. throttle은 다음 허용 시점과 trailing 실행 유무를 구분한다.\n3. 화면 해제 시 timer와 pending 작업을 취소하고 늦은 결과는 generation으로 차단한다.\n4. 입력창 한글 IME composition 중간값 처리와 Enter 즉시 검색·접근성 피드백을 정의한다.\n\n## 적용 예시\n\n300 ms trailing debounce에서 입력 시각이 0,100,250 ms면 다른 입력이 없을 때 550 ms 이후 한 번 실행한다. 같은 300 ms leading throttle은 0 ms 실행 후 100·250 ms 호출을 억제한다. trailing 옵션이 있으면 마지막 값 처리가 달라진다.\n\n이 절은 구현 결정을 설명하는 설계 사례다. 실행 프로그램이나 장비 설정 파일이 아니다.\n\n## 실패·동시성·종료 조건\n\n브라우저 timer는 정확한 deadline이 아니며 background 탭에서 늦어질 수 있다. 자동 저장의 마지막 입력을 화면 종료 때 조용히 버리지 말고 저장 상태와 실패를 사용자에게 알린다.\n\n## 검증 기준\n\n가짜 시계로 연속 입력·긴 지속 입력·정확한 경계·cancel·flush·화면 해제·IME를 시험한다. 호출 횟수와 마지막 인자가 계약과 일치해야 한다.\n\n## 관련 설계와 대안\n\n- [취소·세대 번호 · 늦은 응답이 현재 상태를 덮지 않게](/guides/cancellation_generation)\n- [토큰 버킷 · 평균 유입률과 순간 burst 분리](/guides/token_bucket)\n- [MVC·MVVM·단방향 상태: 화면과 업무 로직을 분리하기](/guides/ui_state_architecture)\n\n## 근거와 한계\n\n- [MDN Debounce](https://developer.mozilla.org/en-US/docs/Glossary/Debounce) — 호출 병합·leading/trailing; 변동 문서.\n- [MDN Throttle](https://developer.mozilla.org/en-US/docs/Glossary/Throttle) — 연속 호출 빈도 제한; 변동 문서.\n\n출처 확인일: 2026-09-20. 위 자료는 개념·API 계약의 근거다. 적용 판단·수치·절차·예제는 독자 작성 편집 제안이며 외부 코드·그림의 복제나 제조사 권고 설정값이 아니다. 변동 문서는 적용 시 대상 판본을 다시 확인한다.\n\n검증 상태: not_tested (실제 대상 환경). 설계 절차용 가이드이며 실행 코드가 없고 MCU 빌드·실기·운영 부하·안전/보안 인증은 별도 검증이 필요하다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

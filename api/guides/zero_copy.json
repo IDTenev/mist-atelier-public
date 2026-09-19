@@ -1,0 +1,37 @@
+{
+  "document_id": "zero_copy",
+  "title": "제로카피 · 복사 대신 버퍼 수명 전달",
+  "category": "pattern",
+  "summary": "프로파일에서 복사 비용이 병목이고 큰 payload가 여러 단계를 통과할 때. 버퍼 반환 시점을 확실히 알 수 있어야 한다. 큰 데이터의 메모리 대역폭·CPU 복사량을 줄일 수 있다. descriptor 큐는 payload 큐보다 작다.",
+  "body_sha256": "9831e24abec91e9c3182cffbb0c8387b2cd415c00dd46397045e513a446942da",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "버퍼·데이터 이동",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-20 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "fixed_pool",
+    "double_buffer",
+    "ownership_raii"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-20",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/zero_copy.md",
+  "text": "# 제로카피 · 복사 대신 버퍼 수명 전달\n\n검토: 2026-09-20 · 분류: 구현 패턴 / 버퍼·데이터 이동 / 데이터 전달·소유권 패턴\n\n별칭: Zero Copy, Buffer Lease, Scatter-Gather, DMA\n\n적용 분야: 네트워크 패킷, 영상, 스토리지, DMA 통신\n\n## 개념과 특징\n\n단계 사이 payload 복사를 줄이고 포인터·오프셋·길이 같은 descriptor를 전달한다. 메모리 확보부터 하드웨어·소비자의 마지막 접근까지 수명 관리가 핵심이다. “제로”는 선택한 경계의 복사를 뜻하며 시스템 전체 무복사가 아니다.\n\n## 구조와 동작\n\n풀에서 임대 → 생산/수신 → descriptor 게시 → 소비/송신 → 마지막 완료 → 풀 반환\n\n## 언제 쓰고 피할까\n\n- 사용: 프로파일에서 복사 비용이 병목이고 큰 payload가 여러 단계를 통과할 때. 버퍼 반환 시점을 확실히 알 수 있어야 한다.\n- 비추천: 작은 메시지, 수명이 복잡한 공유 객체, 신뢰 경계를 넘어 내용을 검증·변환해야 하는데 복사를 제거하려는 경우.\n\n## 장점과 비용\n\n- 장점: 큰 데이터의 메모리 대역폭·CPU 복사량을 줄일 수 있다. descriptor 큐는 payload 큐보다 작다.\n- 단점·비용: 오래 잡힌 버퍼가 풀을 고갈시킨다. 정렬·cache line·DMA 주소 변환·반환 누락 비용이 추가되어 작은 데이터에서는 더 느릴 수 있다.\n\n## 설계·구현 가이드\n\n1. 현재 복사 횟수와 바이트/초를 측정하고 제거할 경계를 하나만 선정한다.\n2. descriptor에 buffer_id, offset, length, generation을 두고 범위 검사를 한다. 소유권 이동인지 읽기 임대인지 명시한다.\n3. 기기용 주소와 CPU 포인터를 구분한다. DMA map 실패, 방향, 정렬과 캐시 동기화는 대상 SDK 계약을 따른다.\n4. 완료 콜백 이후 반환하고 취소도 마지막 접근 종료를 보장해야 한다. 팬아웃이면 반환 카운트 또는 단일 소유자 정책을 둔다.\n\n## 적용 예시\n\n64 KiB 영상 블록 8개 풀에서 7개가 소비 중이면 남은 하나만 수신 가능하다. 큐 길이만 제한해도 소비자가 계속 참조하면 메모리는 돌아오지 않는다. 임대 시간과 outstanding 블록 수를 함께 제한한다.\n\n이 절은 구현 결정을 설명하는 설계 사례다. 실행 프로그램이나 장비 설정 파일이 아니다.\n\n## 실패·동시성·종료 조건\n\nuse-after-free, 중복 반환, DMA 완료 이전 재사용, stale cache가 핵심 실패다. Linux DMA 규칙을 다른 MCU API명으로 기계적으로 옮기지 않는다. 중단 시 하드웨어 정지→접근 종료→반환 순서를 지킨다.\n\n## 검증 기준\n\n긴 소비 지연·map 실패·전송 취소를 주입해 모든 임대가 한 번만 반환되는지 확인한다. guard 영역·generation·풀 최대 점유율을 검사한다.\n\n## 관련 설계와 대안\n\n- [고정 메모리 풀 · 할당량과 반환 책임 고정](/guides/fixed_pool)\n- [더블 버퍼 · 읽기와 쓰기의 작업장 분리](/guides/double_buffer)\n- [소유권·RAII · 자원 반환을 수명에 묶기](/guides/ownership_raii)\n\n## 근거와 한계\n\n- [Linux DMA mapping guide](https://www.kernel.org/doc/html/latest/core-api/dma-api-howto.html) — CPU/DMA 주소·매핑 실패·동기화; 변동 문서.\n\n출처 확인일: 2026-09-20. 위 자료는 개념·API 계약의 근거다. 적용 판단·수치·절차·예제는 독자 작성 편집 제안이며 외부 코드·그림의 복제나 제조사 권고 설정값이 아니다. 변동 문서는 적용 시 대상 판본을 다시 확인한다.\n\n검증 상태: not_tested (실제 대상 환경). 설계 절차용 가이드이며 실행 코드가 없고 MCU 빌드·실기·운영 부하·안전/보안 인증은 별도 검증이 필요하다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

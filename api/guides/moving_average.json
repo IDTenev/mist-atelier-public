@@ -1,0 +1,37 @@
+{
+  "document_id": "moving_average",
+  "title": "이동 평균·EMA · 부드러움과 지연의 교환",
+  "category": "pattern",
+  "summary": "작은 랜덤 변동을 줄여 표시나 느린 상태 판단을 안정화하고 지연을 허용할 때. 이동 평균은 순환 배열·누적합으로 샘플당 O(1), EMA는 O(1) 메모리로 구현할 수 있다.",
+  "body_sha256": "22784a3fdde5b05f70461af00c9d4ae17c4fd4ea9e8d5c41fbb9af52efc77af3",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "센서·제어",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-20 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "ring_buffer",
+    "debounce_hysteresis",
+    "pid_antiwindup"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-20",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/moving_average.md",
+  "text": "# 이동 평균·EMA · 부드러움과 지연의 교환\n\n검토: 2026-09-20 · 분류: 구현 패턴 / 센서·제어 / 신호 처리 패턴\n\n별칭: Moving Average, Boxcar FIR, EMA, Exponential Smoothing\n\n적용 분야: 센서 표시, 측정 추세, 지표 평활\n\n## 개념과 특징\n\n이동 평균은 최근 N개 샘플을 동일 가중치로 평균한다. EMA는 y += alpha×(x-y)로 과거를 점점 적게 반영한다. 잡음을 줄이지만 실제 변화도 늦게 보이며 이상치에 강한 필터와는 다르다.\n\n## 구조와 동작\n\n유효 샘플/시각 → 오래된 값 제거·누적합 갱신 또는 EMA 갱신 → 평활 값 + 유효 상태\n\n## 언제 쓰고 피할까\n\n- 사용: 작은 랜덤 변동을 줄여 표시나 느린 상태 판단을 안정화하고 지연을 허용할 때.\n- 비추천: 짧은 위험 peak를 놓치면 안 되는 보호 경로, 샘플링 이전 aliasing을 소프트웨어 평균으로 해결하려는 경우.\n\n## 장점과 비용\n\n- 장점: 이동 평균은 순환 배열·누적합으로 샘플당 O(1), EMA는 O(1) 메모리로 구현할 수 있다.\n- 단점·비용: 이동 평균은 O(N) 메모리와 지연을 가진다. EMA는 초기화와 샘플 주기 변화에 민감하다. 정수 누적 overflow·반올림 누적에 주의해야 한다.\n\n## 설계·구현 가이드\n\n1. 샘플 주기와 허용 지연을 정한다. 균일 샘플 N점 평균의 선형 위상 group delay는 (N-1)/2 샘플이다.\n2. 초기 N개가 차기 전에는 현재 유효 개수로 나누거나 warming 상태로 명시한다. 0으로 채운 값을 실제 측정처럼 섞지 않는다.\n3. 누적합 타입에 N×최대값 여유를 두고 invalid/누락 처리 정책을 정한다.\n4. EMA의 alpha는 0<alpha<=1로 검사한다. 불규칙 주기에서 시간 상수를 유지하려면 dt 기반 계수를 설계·검증한다.\n\n## 적용 예시\n\n100 Hz에서 11점 평균의 group delay는 50 ms다. 표시에는 괜찮아도 10 ms 이내 보호 동작에는 맞지 않는다. EMA alpha=0.2, 초기값 0, 일정 입력 10이면 출력은 2→3.6→4.88로 접근한다.\n\n이 절은 구현 결정을 설명하는 설계 사례다. 실행 프로그램이나 장비 설정 파일이 아니다.\n\n## 실패·동시성·종료 조건\n\nNaN 한 번으로 필터 상태 전체가 오염될 수 있다. 센서 fault와 정상값 필터를 분리하고 재연결 때 초기화 규칙을 정한다. 제어 루프에 넣으면 위상 지연이 안정성에 미치는 영향을 다시 평가한다.\n\n## 검증 기준\n\n상수·계단·임펄스·최대/최소·누락 입력을 검사한다. 필터 전후 잡음과 응답 지연을 같이 측정하고 동작 주기 변경 시 다시 평가한다.\n\n## 관련 설계와 대안\n\n- [링버퍼 · 순서를 지키는 유한 순환 저장소](/guides/ring_buffer)\n- [디바운스·히스테리시스 · 전환이 흔들리지 않게](/guides/debounce_hysteresis)\n- [PID 안티윈드업 · 출력 포화 때 적분 관리](/guides/pid_antiwindup)\n\n## 근거와 한계\n\n- [Arduino Smoothing 공식 예제](https://raw.githubusercontent.com/arduino/arduino-examples/main/examples/03.Analog/Smoothing/Smoothing.ino) — main 변동 소스의 순환 합/평균.\n- [NIST Single Exponential Smoothing](https://www.itl.nist.gov/div898/handbook/pmc/section4/pmc431.htm) — EMA 식·계수·초기값의 영향. 수치 예시와 적용 판단은 편집 설계.\n\n출처 확인일: 2026-09-20. 위 자료는 개념·API 계약의 근거다. 적용 판단·수치·절차·예제는 독자 작성 편집 제안이며 외부 코드·그림의 복제나 제조사 권고 설정값이 아니다. 변동 문서는 적용 시 대상 판본을 다시 확인한다.\n\n검증 상태: not_tested (실제 대상 환경). 설계 절차용 가이드이며 실행 코드가 없고 MCU 빌드·실기·운영 부하·안전/보안 인증은 별도 검증이 필요하다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

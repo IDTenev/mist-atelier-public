@@ -32,6 +32,30 @@
 - [Web-Queue-Worker와 Serverless: 오래 걸리는 일을 요청에서 분리하기](https://idtenev.github.io/mist-atelier-public/guides/web_queue_serverless/index.md)
 - [장애 격리와 복원력: 타임아웃·재시도·Circuit Breaker·Bulkhead](https://idtenev.github.io/mist-atelier-public/guides/resilience_bulkheads/index.md)
 - [아키텍처를 검증하고 바꾸기: C4·ADR·관측·위협 모델](https://idtenev.github.io/mist-atelier-public/guides/architecture_validation/index.md)
+- [링버퍼 · 순서를 지키는 유한 순환 저장소](https://idtenev.github.io/mist-atelier-public/guides/ring_buffer/index.md)
+- [더블 버퍼 · 읽기와 쓰기의 작업장 분리](https://idtenev.github.io/mist-atelier-public/guides/double_buffer/index.md)
+- [제로카피 · 복사 대신 버퍼 수명 전달](https://idtenev.github.io/mist-atelier-public/guides/zero_copy/index.md)
+- [유한 큐 · 생산자–소비자의 속도 조정](https://idtenev.github.io/mist-atelier-public/guides/bounded_queue/index.md)
+- [메일박스 · 최신 상태와 명령을 구분하기](https://idtenev.github.io/mist-atelier-public/guides/mailbox/index.md)
+- [워커 풀 · 동시 실행 수를 예산으로 관리](https://idtenev.github.io/mist-atelier-public/guides/worker_pool/index.md)
+- [고정 메모리 풀 · 할당량과 반환 책임 고정](https://idtenev.github.io/mist-atelier-public/guides/fixed_pool/index.md)
+- [아레나 · 함께 끝나는 객체를 한 번에 반환](https://idtenev.github.io/mist-atelier-public/guides/arena/index.md)
+- [소유권·RAII · 자원 반환을 수명에 묶기](https://idtenev.github.io/mist-atelier-public/guides/ownership_raii/index.md)
+- [점진 파서 · 조각난 바이트에서 프레임 복원](https://idtenev.github.io/mist-atelier-public/guides/incremental_parser/index.md)
+- [재시도·멱등성 · 응답 유실과 중복 실행 분리](https://idtenev.github.io/mist-atelier-public/guides/retry_idempotency/index.md)
+- [역압력 · 느린 소비자의 한계를 상류로 전달](https://idtenev.github.io/mist-atelier-public/guides/backpressure/index.md)
+- [WAL · 데이터보다 먼저 남기는 복구 기록](https://idtenev.github.io/mist-atelier-public/guides/wal/index.md)
+- [이중 슬롯 저장 · 이전 유효본을 남기고 교체](https://idtenev.github.io/mist-atelier-public/guides/atomic_dual_slot/index.md)
+- [LRU 캐시 · 최근 사용과 데이터 유효성은 별개](https://idtenev.github.io/mist-atelier-public/guides/lru_cache/index.md)
+- [디바운스·히스테리시스 · 전환이 흔들리지 않게](https://idtenev.github.io/mist-atelier-public/guides/debounce_hysteresis/index.md)
+- [이동 평균·EMA · 부드러움과 지연의 교환](https://idtenev.github.io/mist-atelier-public/guides/moving_average/index.md)
+- [PID 안티윈드업 · 출력 포화 때 적분 관리](https://idtenev.github.io/mist-atelier-public/guides/pid_antiwindup/index.md)
+- [디바운스·스로틀 · UI 호출 빈도 줄이기](https://idtenev.github.io/mist-atelier-public/guides/debounce_throttle/index.md)
+- [요청 합치기 · 같은 계산은 진행 중 한 번만](https://idtenev.github.io/mist-atelier-public/guides/request_coalescing/index.md)
+- [취소·세대 번호 · 늦은 응답이 현재 상태를 덮지 않게](https://idtenev.github.io/mist-atelier-public/guides/cancellation_generation/index.md)
+- [토큰 버킷 · 평균 유입률과 순간 burst 분리](https://idtenev.github.io/mist-atelier-public/guides/token_bucket/index.md)
+- [워치독·헬스 체크 · 살아 있음과 정상 진행 구분](https://idtenev.github.io/mist-atelier-public/guides/watchdog_health/index.md)
+- [입력·권한 경계 · 파싱 성공이 실행 허가는 아니다](https://idtenev.github.io/mist-atelier-public/guides/input_validation/index.md)
 
 ## 권리 확인 원문
 
@@ -58,3 +82,10 @@
 - [데이터시트 자료명·공개 상태 목록](https://idtenev.github.io/mist-atelier-public/api/datasheets/inventory.json)
 
 제품 문서의 분류를 최신 판매·지원 상태로 단정하지 마세요. 자료명 공개는 전문 이용 권한이 아닙니다.
+
+## 구현 패턴 백과
+
+- [분야별 선택과 비교](https://idtenev.github.io/mist-atelier-public/patterns/)
+- [패턴 본문 검색](https://idtenev.github.io/mist-atelier-public/guides/?category=pattern)
+
+PC 모델 검증과 실제 하드웨어·운영 검증을 구분하세요.

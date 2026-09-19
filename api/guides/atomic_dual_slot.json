@@ -1,0 +1,37 @@
+{
+  "document_id": "atomic_dual_slot",
+  "title": "이중 슬롯 저장 · 이전 유효본을 남기고 교체",
+  "category": "pattern",
+  "summary": "작은 설정을 드물게 갱신하고 전원 차단 후 마지막 유효본을 유지해야 할 때. 복구 판단이 비교적 단순하고 쓰기 도중 이전 유효본을 유지한다.",
+  "body_sha256": "4ba288f6ad5d3fd717cf1282a7b2ec99c4a8b07bcde0b64335fa1ea8b96a2bd2",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "저장·캐시",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-20 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "wal",
+    "edge_cloud_offline",
+    "input_validation"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-20",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/atomic_dual_slot.md",
+  "text": "# 이중 슬롯 저장 · 이전 유효본을 남기고 교체\n\n검토: 2026-09-20 · 분류: 구현 패턴 / 저장·캐시 / 영속 상태 교체 패턴\n\n별칭: Dual Slot, A/B Record, Copy-on-Write, 원자적 설정 교체\n\n적용 분야: MCU 설정, 보정값, 작은 영속 상태\n\n## 개념과 특징\n\n현재 유효한 A를 남긴 채 B에 새 데이터를 쓴 뒤 완전성을 검증하고 commit 표식을 마지막에 남긴다. 여기서 원자적이라는 말은 복구 후 이전 또는 새 유효본을 선택한다는 계약이지 전체 기록이 한 번에 물리적으로 써진다는 뜻이 아니다.\n\n## 구조와 동작\n\n유효 A 유지 → 비활성 B 지우기/쓰기 → 내용 검증 → B commit → 다음 부팅에서 검증 후 세대 선택\n\n## 언제 쓰고 피할까\n\n- 사용: 작은 설정을 드물게 갱신하고 전원 차단 후 마지막 유효본을 유지해야 할 때.\n- 비추천: 빈번한 대량 쓰기·여러 레코드 간 transaction·flash 수명 관리가 필요한데 A/B 두 칸만으로 해결하려는 경우. SDK NVS나 검증된 파일시스템을 먼저 검토한다.\n\n## 장점과 비용\n\n- 장점: 복구 판단이 비교적 단순하고 쓰기 도중 이전 유효본을 유지한다.\n- 단점·비용: 최소 두 슬롯과 메타데이터가 필요하다. erase 단위·부분 program·수명·sequence wrap·데이터 포맷 변경을 처리해야 한다.\n\n## 설계·구현 가이드\n\n1. 슬롯을 독립 erase 단위에 두고 magic, schema, sequence, length, payload, checksum, commit을 정의한다. CRC는 인증이 아니다.\n2. 길이·버전·checksum·commit을 모두 검증한다. 같은 erase sector 안에서 A를 지우며 B를 쓰는 구조는 보호가 되지 않는다.\n3. commit 쓰기의 최소 원자 단위와 전원 실패 동작을 실제 flash 데이터시트/SDK로 확인한다. read-back만으로 내구성을 단정하지 않는다.\n4. 두 유효 슬롯의 세대 선택·wrap 비교·둘 다 무효 시 안전 기본값을 정한다. 다중 writer는 하나로 직렬화한다.\n\n## 적용 예시\n\n설정 schema 2를 쓰다가 전원이 꺼지면 schema 1의 A가 살아 있어야 한다. 새 펌웨어가 이전 schema를 읽거나 명시적으로 변환할 수 없으면 이중 슬롯만으로 호환성이 해결되지 않는다.\n\n이 절은 구현 결정을 설명하는 설계 사례다. 실행 프로그램이나 장비 설정 파일이 아니다.\n\n## 실패·동시성·종료 조건\n\n현재 유일한 유효본을 먼저 지우지 않는다. commit 표식과 데이터가 같은 program 단위에서 섞이는지 확인한다. Zephyr NVS는 데이터 이후 metadata로 완료를 판별하는 참고 사례이며 여기의 A/B 알고리즘과 동일 구현은 아니다.\n\n## 검증 기준\n\nerase·각 program 단위·검증·commit 모든 경계에서 전원을 끊는 fault injection을 실시한다. 결과는 이전/새 유효본 또는 명시적 안전 초기화 중 하나여야 하며 혼합 설정을 허용하지 않는다.\n\n## 관련 설계와 대안\n\n- [WAL · 데이터보다 먼저 남기는 복구 기록](/guides/wal)\n- [엣지·클라우드·오프라인: 연결이 없어도 지켜야 할 책임](/guides/edge_cloud_offline)\n- [입력·권한 경계 · 파싱 성공이 실행 허가는 아니다](/guides/input_validation)\n\n## 근거와 한계\n\n- [Zephyr NVS](https://docs.zephyrproject.org/latest/services/storage/nvs/nvs.html) — data→metadata 쓰기 순서·CRC·flash 수명; latest 변동 문서.\n\n출처 확인일: 2026-09-20. 위 자료는 개념·API 계약의 근거다. 적용 판단·수치·절차·예제는 독자 작성 편집 제안이며 외부 코드·그림의 복제나 제조사 권고 설정값이 아니다. 변동 문서는 적용 시 대상 판본을 다시 확인한다.\n\n검증 상태: not_tested (실제 대상 환경). 설계 절차용 가이드이며 실행 코드가 없고 MCU 빌드·실기·운영 부하·안전/보안 인증은 별도 검증이 필요하다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

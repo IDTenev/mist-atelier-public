@@ -1,0 +1,37 @@
+{
+  "document_id": "worker_pool",
+  "title": "워커 풀 · 동시 실행 수를 예산으로 관리",
+  "category": "pattern",
+  "summary": "작업들이 독립적이고 스레드 생성 비용을 재사용할 수 있거나 CPU/외부 연결 수를 제한해야 할 때. 스레드·스택·연결 수가 통제되고 생성 비용을 나눌 수 있다. 독립 CPU 작업은 병렬화 가능하다.",
+  "body_sha256": "812ac69f9d547d6dfc1e3e05c31f85494440656a12de287e9e8e463d9c0b7444",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "동시성·작업 분배",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-20 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "bounded_queue",
+    "web_queue_serverless",
+    "resilience_bulkheads"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-20",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/worker_pool.md",
+  "text": "# 워커 풀 · 동시 실행 수를 예산으로 관리\n\n검토: 2026-09-20 · 분류: 구현 패턴 / 동시성·작업 분배 / 실행 자원 패턴\n\n별칭: Worker Pool, Thread Pool, Work Queue, 작업 풀\n\n적용 분야: 서버 계산, 이미지 처리, RTOS 지연 작업, 배치\n\n## 개념과 특징\n\n미리 정한 실행 주체가 유한 대기 큐에서 작업을 꺼낸다. 동시 실행 수 W와 대기 용량 Q는 서로 다른 예산이다. 한 스레드의 workqueue는 워커 여러 개가 병렬 실행하는 풀과 다르다.\n\n## 구조와 동작\n\n접수/거절 → 유한 큐 → W개 워커 → 결과·실패 회수 → 다음 작업\n\n## 언제 쓰고 피할까\n\n- 사용: 작업들이 독립적이고 스레드 생성 비용을 재사용할 수 있거나 CPU/외부 연결 수를 제한해야 할 때.\n- 비추천: 단일 버스 접근처럼 결국 직렬인 작업, 아주 짧은 연산, 작업끼리 같은 풀의 하위 작업 완료를 기다리는 구조.\n\n## 장점과 비용\n\n- 장점: 스레드·스택·연결 수가 통제되고 생성 비용을 나눌 수 있다. 독립 CPU 작업은 병렬화 가능하다.\n- 단점·비용: 공유 락·직렬 자원이 있으면 워커 증가가 경합만 키운다. 결과 순서와 취소, 장애 워커의 재시작을 설계해야 한다.\n\n## 설계·구현 가이드\n\n1. CPU-bound와 I/O-bound를 나누고 실제 처리량·지연·메모리로 W를 선택한다. Node worker_threads는 CPU 작업에 맞고 일반 비동기 I/O의 대체가 아니다.\n2. Q와 접수 마감, 작업 ID, 결과 크기 제한을 둔다. 워커 수만 제한하고 무한 Promise 대기열을 만들지 않는다.\n3. 긴 작업은 협력적 취소 지점과 최대 실행 시간을 둔다. RTOS workqueue에서 블로킹하면 뒤 작업 전체가 지연된다.\n4. shutdown은 신규 거절→대기 작업 정책→실행 중 취소/완료→join 순서로 정의한다. 실패한 작업을 맹목적으로 자동 재실행하지 않는다.\n\n## 적용 예시\n\n워커 4개가 각자 같은 mutex 안에서 90% 시간을 쓰면 4배 성능은 기대할 수 없다. 큐 대기 p95, 실행 시간, 락 대기 비율을 분리해서 측정한 뒤 병렬화를 판단한다.\n\n이 절은 구현 결정을 설명하는 설계 사례다. 실행 프로그램이나 장비 설정 파일이 아니다.\n\n## 실패·동시성·종료 조건\n\n워커가 동일 풀에 하위 작업을 넣고 기다리면 모든 워커가 대기하는 고갈 교착이 가능하다. 코어 고정은 측정 후 선택하고 태스크 우선순위·스택 최댓값·공유 메모리 소유권을 확인한다.\n\n## 검증 기준\n\nW+Q+1 접수 거절, 작업 throw, 워커 종료, 취소 응답, 결과 순서, 종료 deadline을 검사한다. peak active가 W를 넘지 않아야 한다.\n\n## 관련 설계와 대안\n\n- [유한 큐 · 생산자–소비자의 속도 조정](/guides/bounded_queue)\n- [Web-Queue-Worker와 Serverless: 오래 걸리는 일을 요청에서 분리하기](/guides/web_queue_serverless)\n- [장애 격리와 복원력: 타임아웃·재시도·Circuit Breaker·Bulkhead](/guides/resilience_bulkheads)\n\n## 근거와 한계\n\n- [Node.js Worker threads](https://nodejs.org/api/worker_threads.html) — v26.9.0 표시 페이지, pool 권고; 변동 문서.\n- [Zephyr Workqueue Threads](https://docs.zephyrproject.org/latest/kernel/services/threads/workqueue.html) — 블로킹 작업과 drain 제약; latest 변동 문서.\n\n출처 확인일: 2026-09-20. 위 자료는 개념·API 계약의 근거다. 적용 판단·수치·절차·예제는 독자 작성 편집 제안이며 외부 코드·그림의 복제나 제조사 권고 설정값이 아니다. 변동 문서는 적용 시 대상 판본을 다시 확인한다.\n\n검증 상태: not_tested (실제 대상 환경). 설계 절차용 가이드이며 실행 코드가 없고 MCU 빌드·실기·운영 부하·안전/보안 인증은 별도 검증이 필요하다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

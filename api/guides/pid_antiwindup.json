@@ -1,0 +1,37 @@
+{
+  "document_id": "pid_antiwindup",
+  "title": "PID 안티윈드업 · 출력 포화 때 적분 관리",
+  "category": "pattern",
+  "summary": "PID 출력 제한이 자주 발생하고 포화 후 큰 overshoot나 긴 회복이 관찰될 때. 불필요한 적분 누적을 억제하고 포화 후 복귀를 개선할 수 있다.",
+  "body_sha256": "6e139c5a52f6f7854f62c65b0d9db9cca95684aa7f09806a6f319af310503a8a",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "센서·제어",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-20 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "moving_average",
+    "watchdog_health",
+    "architecture_validation"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-20",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/pid_antiwindup.md",
+  "text": "# PID 안티윈드업 · 출력 포화 때 적분 관리\n\n검토: 2026-09-20 · 분류: 구현 패턴 / 센서·제어 / 제어기 보호 패턴\n\n별칭: PID, Anti-Windup, Conditional Integration, Back-Calculation\n\n적용 분야: 온도·속도·위치 제어의 출력 제한\n\n## 개념과 특징\n\n액추에이터 출력이 한계에 걸린 동안 오차를 계속 적분하면 적분값이 커져 포화에서 늦게 회복한다. 조건부 적분은 포화를 악화시키는 누적을 막고, back-calculation은 제한 전후 출력 차이를 적분기에 되먹인다.\n\n## 구조와 동작\n\n목표−측정 → P/I/D 계산 → 출력 제한 → 실제 적용 출력/포화 상태 → 적분 보정\n\n## 언제 쓰고 피할까\n\n- 사용: PID 출력 제한이 자주 발생하고 포화 후 큰 overshoot나 긴 회복이 관찰될 때.\n- 비추천: 센서 방향·단위·샘플 주기·출력 부호가 잘못됐는데 안티윈드업으로 가리려는 경우. 안전 차단·기계 한계 보호의 대체가 아니다.\n\n## 장점과 비용\n\n- 장점: 불필요한 적분 누적을 억제하고 포화 후 복귀를 개선할 수 있다.\n- 단점·비용: anti-windup gain·출력 모델·다단 액추에이터에 따라 튜닝이 달라진다. 출력 clamp만으로 적분기까지 제한되는 것은 아니다.\n\n## 설계·구현 가이드\n\n1. 플랜트·단위·고정 샘플 주기·실제 출력 최소/최대를 정의하고 낮은 에너지 환경에서 방향을 확인한다.\n2. 양의 Ki 기준으로 상한 포화에서 양의 오차 적분은 멈추되 포화를 풀어주는 음의 오차는 허용하는 등 조건부 적분을 설계한다.\n3. back-calculation은 실제 적용 출력과 제한 전 출력의 차이를 사용한다. 하류 별도 제한·feedforward가 있으면 그 기여를 구분한다.\n4. 수동↔자동 전환 시 적분 상태를 맞추고 센서 fault·deadline 초과 시 안전 출력을 별도 정의한다.\n\n## 적용 예시\n\n출력 한계가 0~100%인데 계산 출력이 180%라고 해서 100%로 잘라 보내기만 하면 적분은 계속 자랄 수 있다. 목표를 낮춰도 한동안 100%가 유지되는 현상이 검토 대상이다. 이 수치는 특정 장비의 설정값이 아니다.\n\n이 절은 구현 결정을 설명하는 설계 사례다. 실행 프로그램이나 장비 설정 파일이 아니다.\n\n## 실패·동시성·종료 조건\n\n미분 잡음·샘플 jitter·부호 오류·센서 단선은 별도 문제다. 라이브 장비에 예시 gain을 그대로 적용하지 않는다. 종료 시 출력 안전 상태와 재시작 적분 초기값을 정한다.\n\n## 검증 기준\n\n긴 포화 후 목표 반전·부하 변화·센서 오류·수동 전환을 모델에서 먼저 시험한다. overshoot·정착시간·출력 제한·deadline을 수치 기준으로 정한 후 제한된 실기로 진행한다.\n\n## 관련 설계와 대안\n\n- [이동 평균·EMA · 부드러움과 지연의 교환](/guides/moving_average)\n- [워치독·헬스 체크 · 살아 있음과 정상 진행 구분](/guides/watchdog_health)\n- [아키텍처를 검증하고 바꾸기: C4·ADR·관측·위협 모델](/guides/architecture_validation)\n\n## 근거와 한계\n\n- [MathWorks Anti-Windup Control](https://www.mathworks.com/help/simulink/slref/anti-windup-control-using-a-pid-controller.html) — 조건부 적분·back-calculation·tracking; 변동 문서.\n\n출처 확인일: 2026-09-20. 위 자료는 개념·API 계약의 근거다. 적용 판단·수치·절차·예제는 독자 작성 편집 제안이며 외부 코드·그림의 복제나 제조사 권고 설정값이 아니다. 변동 문서는 적용 시 대상 판본을 다시 확인한다.\n\n검증 상태: not_tested (실제 대상 환경). 설계 절차용 가이드이며 실행 코드가 없고 MCU 빌드·실기·운영 부하·안전/보안 인증은 별도 검증이 필요하다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

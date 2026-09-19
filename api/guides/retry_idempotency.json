@@ -1,0 +1,37 @@
+{
+  "document_id": "retry_idempotency",
+  "title": "재시도·멱등성 · 응답 유실과 중복 실행 분리",
+  "category": "pattern",
+  "summary": "일시 장애가 있고 동일 작업 재시도의 안전성을 서비스 또는 장치가 보장할 수 있을 때. 일시적인 통신 장애를 견딘다. 논리 ID와 결과 기록이 있으면 응답 유실 후 결과 조회가 가능하다.",
+  "body_sha256": "29de1d417784aada64648e7fe43c7f48638c692f30835dc57020fcab59b7e95c",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "통신·프로토콜",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-20 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "communication_recovery",
+    "outbox_saga",
+    "resilience_bulkheads"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-20",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/retry_idempotency.md",
+  "text": "# 재시도·멱등성 · 응답 유실과 중복 실행 분리\n\n검토: 2026-09-20 · 분류: 구현 패턴 / 통신·프로토콜 / 오류 회복 패턴\n\n별칭: Retry, Backoff, Jitter, Idempotency, Deduplication, ACK\n\n적용 분야: 장치 명령, HTTP API, 작업 소비자, 메시지 전송\n\n## 개념과 특징\n\ntimeout은 원격 실행 실패를 뜻하지 않는다. 재시도는 같은 논리 작업을 다시 시도하고, 멱등성은 반복이 업무 효과를 중복시키지 않는 계약이다. ACK도 접수·저장·실행 완료 중 어떤 의미인지 정해야 한다.\n\n## 구조와 동작\n\n작업 ID 생성 → 전송 → 응답/timeout → 재시도 가능 여부·남은 예산 검사 → 같은 ID 재전송 → 기존 결과 또는 단일 실행\n\n## 언제 쓰고 피할까\n\n- 사용: 일시 장애가 있고 동일 작업 재시도의 안전성을 서비스 또는 장치가 보장할 수 있을 때.\n- 비추천: 인증 오류·잘못된 입력·영구 고장, 중복 제어 동작이 위험한데 중복 제거 장치가 없는 경우.\n\n## 장점과 비용\n\n- 장점: 일시적인 통신 장애를 견딘다. 논리 ID와 결과 기록이 있으면 응답 유실 후 결과 조회가 가능하다.\n- 단점·비용: 부하와 최악 지연이 증가한다. 여러 계층의 재시도는 시도 횟수를 곱하고, dedup 기록 보관 기간·정합성 비용이 든다.\n\n## 설계·구현 가이드\n\n1. 재시도 가능한 오류를 allowlist로 나누고 전체 deadline·최대 시도·최대 지연을 둔다. SDK 자체 재시도와 겹치지 않게 소유 계층 하나를 정한다.\n2. 동일 논리 작업에는 같은 ID와 동일 payload를 사용한다. ID 재사용 시 payload가 다르면 거절한다.\n3. 수신 측 dedup 기록과 업무 변경을 가능한 같은 transaction에 묶는다. 처리 중·성공·실패 상태와 보관 기간을 정의한다.\n4. 지수 backoff의 상한을 두고 지연을 분산한다. 만료·취소 후에는 새 재시도를 시작하지 않는다.\n\n## 적용 예시\n\n“목표 위치 100으로 설정”과 “100만큼 이동”은 중복 효과가 다르다. 이동이 완료됐으나 ACK만 유실되면 후자를 무조건 재전송하지 말고 command_id 결과를 조회한다.\n\n이 절은 구현 결정을 설명하는 설계 사례다. 실행 프로그램이나 장비 설정 파일이 아니다.\n\n## 실패·동시성·종료 조건\n\n메모리 dedup은 재부팅하면 사라진다. 기록 만료 이후 같은 ID도 새 실행이 될 수 있으므로 무기한 exactly-once를 주장하지 않는다. 결과 불명 상태를 단순 실패로 덮지 않는다.\n\n## 검증 기준\n\n실행 직후 응답 유실·동시 같은 ID·동일 ID 다른 payload·기록 만료·재부팅·취소 중 backoff를 시험한다. 수락된 한 논리 작업의 업무 효과가 계약대로 한 번이어야 한다.\n\n## 관련 설계와 대안\n\n- [통신 실패를 설계에 넣기: 타임아웃·재시도·복구 상태](/guides/communication_recovery)\n- [Outbox·Saga: 여러 저장소의 변경과 실패를 연결하기](/guides/outbox_saga)\n- [장애 격리와 복원력: 타임아웃·재시도·Circuit Breaker·Bulkhead](/guides/resilience_bulkheads)\n\n## 근거와 한계\n\n- [Microsoft Retry pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/retry) — 일시 장애·재시도 계층·멱등성; 변동 문서.\n- [Stripe Idempotent requests](https://docs.stripe.com/api/idempotent_requests) — ID/payload/보관 계약의 구체 사례; 일반 규칙이 아닌 서비스별 동작.\n\n출처 확인일: 2026-09-20. 위 자료는 개념·API 계약의 근거다. 적용 판단·수치·절차·예제는 독자 작성 편집 제안이며 외부 코드·그림의 복제나 제조사 권고 설정값이 아니다. 변동 문서는 적용 시 대상 판본을 다시 확인한다.\n\n검증 상태: not_tested (실제 대상 환경). 설계 절차용 가이드이며 실행 코드가 없고 MCU 빌드·실기·운영 부하·안전/보안 인증은 별도 검증이 필요하다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

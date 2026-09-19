@@ -1,0 +1,38 @@
+{
+  "document_id": "bounded_queue",
+  "title": "유한 큐 · 생산자–소비자의 속도 조정",
+  "category": "pattern",
+  "summary": "개별 이벤트를 보존해야 하고 짧은 burst를 흡수하거나 실행 문맥을 분리할 때. 실행 문맥과 순간 속도를 분리한다. admission 제어와 점유율 관측 지점을 만들기 쉽다.",
+  "body_sha256": "c9743e127c0cc5dd75aee4c1dedcedbfdb6064ab198d7f1f0c8ea1906f9570a3",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "동시성·작업 분배",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-20 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "ring_buffer",
+    "rtos_task_architecture",
+    "backpressure",
+    "worker_pool"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-20",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/bounded_queue.md",
+  "text": "# 유한 큐 · 생산자–소비자의 속도 조정\n\n검토: 2026-09-20 · 분류: 구현 패턴 / 동시성·작업 분배 / 작업 전달 패턴\n\n별칭: Bounded Queue, Producer–Consumer, SPSC, MPSC, MPMC\n\n적용 분야: RTOS 태스크, 이벤트 처리, 서버 작업, 로그\n\n## 개념과 특징\n\n생산과 소비를 큐로 분리하되 개수·바이트·대기시간에 상한을 둔다. SPSC는 한 생산자/소비자, MPSC는 여러 생산자/한 소비자, MPMC는 양쪽 모두 여러 실행 주체다. 링버퍼는 큐의 저장 구현 중 하나다.\n\n## 구조와 동작\n\n생산 → 용량/마감 검사 → 대기 큐 → 소비자 획득 → 처리 → 자원 반환\n\n## 언제 쓰고 피할까\n\n- 사용: 개별 이벤트를 보존해야 하고 짧은 burst를 흡수하거나 실행 문맥을 분리할 때.\n- 비추천: 항상 최신값만 필요한 제어 목표, 호출 즉시 결과가 필요한 짧은 연산, 처리 능력보다 영구적으로 큰 입력을 숨기려는 경우.\n\n## 장점과 비용\n\n- 장점: 실행 문맥과 순간 속도를 분리한다. admission 제어와 점유율 관측 지점을 만들기 쉽다.\n- 단점·비용: 적체는 지연이다. 큐를 크게 하면 메모리와 오래된 작업이 늘어난다. 다중 워커에서는 dequeue 순서와 완료 순서가 다르다.\n\n## 설계·구현 가이드\n\n1. 메시지 크기·최대 개수·총 바이트와 소유권을 정한다. 포인터 큐는 payload 메모리까지 별도 한도를 둔다.\n2. full 시 거절, 시간 제한 대기, drop-oldest 중 업무 의미에 맞춰 고른다. ISR은 기다리지 않고 전용 안전 API를 쓴다.\n3. 우선순위와 공유 자원 락 범위를 정한다. 소비자에게 필요한 락을 가진 채 enqueue 대기하지 않는다.\n4. 종료 상태에서 새 입력을 막고 drain 또는 cancel을 선택한다. 빈 큐 종료와 처리 중 작업 종료를 구분한다.\n\n## 적용 예시\n\n최대 32개의 64-byte 이벤트는 payload만 2048 byte다. 큐 관리 정보·정렬·태스크 스택은 별도다. 초당 100건, 건당 20 ms 소비 한 개면 처리율은 50건/s라 어떤 유한 큐도 지속 입력을 보존하지 못한다.\n\n이 절은 구현 결정을 설명하는 설계 사례다. 실행 프로그램이나 장비 설정 파일이 아니다.\n\n## 실패·동시성·종료 조건\n\n큐 가득 참을 무시하면 조용한 유실이 생긴다. Zephyr message queue는 복사 기반이며 큰 항목의 복사 시간이 인터럽트 지연에 영향을 줄 수 있다. 큐 대기와 처리 실패는 다른 지표다.\n\n## 검증 기준\n\n용량+1 입력, timeout, 생산자 경합, 우선순위 역전, 종료 중 대기를 검사한다. 수락=완료+실패+대기+실행 중이라는 회계가 맞아야 한다.\n\n## 관련 설계와 대안\n\n- [링버퍼 · 순서를 지키는 유한 순환 저장소](/guides/ring_buffer)\n- [RTOS 태스크 구성: 우선순위보다 마감·소유권·예산부터](/guides/rtos_task_architecture)\n- [역압력 · 느린 소비자의 한계를 상류로 전달](/guides/backpressure)\n- [워커 풀 · 동시 실행 수를 예산으로 관리](/guides/worker_pool)\n\n## 근거와 한계\n\n- [Zephyr Message Queues](https://docs.zephyrproject.org/latest/kernel/services/data_passing/message_queues.html) — 복사·대기·ISR 제약; latest 변동 문서.\n\n출처 확인일: 2026-09-20. 위 자료는 개념·API 계약의 근거다. 적용 판단·수치·절차·예제는 독자 작성 편집 제안이며 외부 코드·그림의 복제나 제조사 권고 설정값이 아니다. 변동 문서는 적용 시 대상 판본을 다시 확인한다.\n\n검증 상태: not_tested (실제 대상 환경). 설계 절차용 가이드이며 실행 코드가 없고 MCU 빌드·실기·운영 부하·안전/보안 인증은 별도 검증이 필요하다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

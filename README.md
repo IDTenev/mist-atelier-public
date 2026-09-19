@@ -2,7 +2,7 @@
 
 [사이트 열기](https://idtenev.github.io/mist-atelier-public/) · [출처·범위·데이터 처리](https://idtenev.github.io/mist-atelier-public/policy/) · [정정 문의](https://github.com/IDTenev/mist-atelier-public/issues)
 
-이 저장소는 승인된 한국어 MCU 안내 26개, 필요한 라이선스 고지, 사이트 디자인 자산, 아래 승인 원문과 정적 파일을 담습니다. 개발 저장소와 Git 이력은 분리되어 있으며 사내 원문·비공개 수집 영수증·개발 문서는 포함하지 않습니다.
+이 저장소는 승인된 한국어 MCU 안내 50개, 필요한 라이선스 고지, 사이트 디자인 자산, 아래 승인 원문과 정적 파일을 담습니다. 개발 저장소와 Git 이력은 분리되어 있으며 사내 원문·비공개 수집 영수증·개발 문서는 포함하지 않습니다.
 
 ## 이용 안내
 
@@ -47,3 +47,7 @@ HTML은 noindex 요청 중이지만 공개 접근 보호가 아닙니다. 철회
 ## SW 구성·아키텍처
 
 [상황별 선택 지도](https://idtenev.github.io/mist-atelier-public/architecture/)에서 코드 구성·실행/동시성·배포/데이터·회복/검증을 탐색합니다. 공식·원저자 문헌을 바탕으로 독자 작성한 해설이며, 각 글의 출처·검토일·판본·실행 예제와 미검증 범위를 확인하세요.
+
+## 구현 패턴 백과
+
+[분야별 구현 패턴](https://idtenev.github.io/mist-atelier-public/patterns/)에서 장단점·사용/비추천 상황·설계 절차·실패 조건·검증 기준을 비교합니다. 첫 선정 범위이며 전체 패턴의 전수 목록은 아닙니다.
