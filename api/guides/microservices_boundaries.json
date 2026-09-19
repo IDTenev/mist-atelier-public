@@ -1,0 +1,38 @@
+{
+  "document_id": "microservices_boundaries",
+  "title": "마이크로서비스: 작은 코드보다 독립 배포의 가치가 먼저",
+  "category": "architecture",
+  "summary": "독립 배포·데이터 소유권·팀 책임이 필요한지 판단하고 점진적 분리와 분산 실패 비용을 비교합니다.",
+  "body_sha256": "05f1b5616b6b4bb282d79fdd234c0df537217131cbfab7dc23d9c2f51a240b9e",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "서비스·배포",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-19 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "layered_modular_monolith",
+    "domain_boundaries_ddd",
+    "outbox_saga",
+    "resilience_bulkheads"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-19",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/microservices_boundaries.md",
+  "text": "# 마이크로서비스: 작은 코드보다 독립 배포의 가치가 먼저\n\n문서 0.1.0 · 검토 2026-09-19 · 서버·플랫폼 배포 구조\n\n## 개념과 특징\n\n마이크로서비스는 업무 능력과 데이터 소유권을 가진 서비스를 독립적으로 배포·운영하는 구조다. [Microsoft 구조 문서](https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices)는 독립 배포·확장 이점과 분산 시스템의 복잡성을 함께 설명한다. 컨테이너 사용, 코드 저장소 분할, 작은 함수 개수만으로 독립성이 생기지는 않는다.\n\n[Fowler의 Monolith First](https://martinfowler.com/bliki/MonolithFirst.html)는 경계가 불확실한 초기에 분산 비용을 서둘러 부담하지 말자는 경험 기반 논의다. 작은 팀에는 모듈러 모놀리스를 기준안으로 삼되, 처음부터 격리가 필수인 환경은 다른 결론이 가능하다.\n\n## 구조와 동작\n\n```text\n클라이언트 → API 경계 → 자산 서비스 → 소유 데이터\n                    ├→ 계측 서비스 → 소유 데이터\n                    └→ 보고서 서비스 → 읽기 모델\n서비스 간: 명시 API / 이벤트 계약\n공통 운영: 신원·권한·추적·배포·복구\n```\n\n서비스별 데이터 소유권은 반드시 물리 DB 서버 한 대씩을 뜻하지 않는다. 다른 서비스가 소유 schema에 직접 쓰지 못하도록 권한과 계약을 분리하는 것이 핵심이다. Gateway가 내부 서비스의 권한 검사를 모두 대신한다고 가정하지 않는다.\n\n## 구현 순서\n\n1. [DDD 경계](/guides/domain_boundaries_ddd), 독립 배포 담당, 실제 확장 비율 차이를 확인한다. 분리 이유를 측정 가능한 목표로 적는다.\n2. API의 오류·deadline·멱등 키·판본 호환을 정의한다. 호출 체인의 재시도가 곱으로 늘지 않게 총 예산을 둔다.\n3. 각 서비스의 배포·관측·비밀 관리·권한·복구·데이터 변경 절차를 준비한다.\n4. 한 기능을 추출해 트래픽 전환과 되돌리기를 시험한다. 이전·신규 구현이 동시에 쓰는 데이터의 충돌 정책을 먼저 정한다.\n5. 나머지 모듈과의 통신량·장애 전파·팀 인지 부담을 관측한 뒤 추가 분리를 결정한다.\n\n## 장점과 비용\n\n서로 다른 배포 주기·자원 요구·팀 소유권을 분리할 수 있다. 반면 네트워크 실패·분산 일관성·추적·계약 시험·운영 비용을 부담한다. 장애 격리는 호출자가 타임아웃과 자원 상한을 지킬 때만 효과가 난다. 전체 요청마다 모든 서비스가 필요하면 가용성 경로가 길어진다.\n\n## 적용·비추천 조건\n\n명확한 업무 경계, 독립 팀, 성숙한 운영과 실제 독립 확장 요구가 있을 때 적합하다. 작은 CRUD 서비스, 경계가 자주 바뀌는 실험, 운영 인력 부족, 모든 작업이 같은 트랜잭션을 요구하는 경우는 신중해야 한다. 단일 MCU 내부 모듈 구성을 이 용어로 포장하지 않는다.\n\n## 검증과 전환\n\n소비자/제공자 계약, rolling upgrade의 구/신판 혼합, 부분 장애, 느린 의존 서비스, 중복 요청, DB 복구를 검사한다. 공유 DB·동시 릴리즈 강제가 남았다면 ‘분산 모놀리스’ 징후를 조사한다. [Outbox/Saga](/guides/outbox_saga)와 [장애 격리](/guides/resilience_bulkheads) 도입도 필요성별로 선택한다.\n\n## 근거와 한계\n\n2026-09-19 열람한 공식·원저자 설명을 개념 근거로 사용했다. 위 도입 계획은 독자적 제안이며 특정 클라우드 상품의 구매 권고가 아니다. 실제 서비스 구축·비용·부하·장애 시험은 not_tested다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

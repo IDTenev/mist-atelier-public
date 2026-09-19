@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/actor_supervision/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/architecture_selection/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/architecture_validation/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/arduino_uno_r3/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/arduino_zero_samd21/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/communication_recovery/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/cqrs_event_sourcing/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/domain_boundaries_ddd/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/edge_cloud_offline/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/esp32_p4_function_ev/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/event_driven_pubsub/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/hexagonal_clean/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/layered_modular_monolith/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/main_loop_or_rtos/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/microservices_boundaries/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/outbox_saga/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/pipeline_batch_stream/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/plugin_microkernel/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/resilience_bulkheads/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/rtos_task_architecture/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/shared_bus_ownership/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/state_machine_active_object/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/stm32_nucleo_f401re/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/uart_receive_flow/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/ui_state_architecture/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/web_queue_serverless/</loc></url>
 </urlset>

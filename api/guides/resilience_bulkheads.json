@@ -1,0 +1,37 @@
+{
+  "document_id": "resilience_bulkheads",
+  "title": "장애 격리와 복원력: 타임아웃·재시도·Circuit Breaker·Bulkhead",
+  "category": "architecture",
+  "summary": "타임아웃·재시도 예산·Circuit Breaker·Bulkhead가 해결하는 문제와 과부하 검증을 구분합니다.",
+  "body_sha256": "b606f944dadd000556a511179469ddb53a67f6e6a23e9a37eeceffa4e8beac00",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "장애 격리·회복",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-19 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "communication_recovery",
+    "microservices_boundaries",
+    "architecture_validation"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-19",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/resilience_bulkheads.md",
+  "text": "# 장애 격리와 복원력: 타임아웃·재시도·Circuit Breaker·Bulkhead\n\n문서 버전: 0.1.0 · 검토: 2026-09-19 · 검증 상태: not_tested\n\n## 개념과 특징\n\n타임아웃은 기다림의 한도, 재시도는 다시 실행하는 정책, Circuit Breaker는 실패가 누적된 의존성 호출을 잠시 차단하는 상태, Bulkhead는 자원 풀을 분리하여 장애 확산을 제한하는 구조입니다. 각각 다른 문제를 풀며 추가할수록 좋은 장식이 아닙니다.\n\n## 구조와 동작\n\n```text\n요청 + 전체 마감\n  → 업무별 동시성/큐 한도 (Bulkhead)\n  → 의존성 상태 검사 (Circuit Breaker)\n  → 남은 기한 안의 호출 + 제한된 재시도\n  → 정상 결과 / 명시된 대체 결과 / 실패\n```\n\nBreaker는 닫힘(호출 허용), 열림(빠른 거절), 제한된 시험 호출 상태를 가질 수 있습니다. 라이브러리별 집계 창·상태 이름·시험 동시성은 다릅니다. 호출 차단은 이미 실행 중인 원격 작업의 취소나 취소 완료 확인을 뜻하지 않습니다.\n\n## 구현 순서\n\n1. 사용자 관점의 전체 기한과 각 의존성 예산을 먼저 정합니다. 단계마다 새로 전체 시간을 주면 총 응답 시간이 늘어납니다.\n2. 재시도 가능한 오류와 불가능한 오류를 구분합니다. 읽기도 고비용 요청이면 예산이 필요하고, 쓰기는 중복 적용 방지 계약 없이는 자동 재전송하지 않습니다.\n3. 재시도 책임을 한 계층에 두고 최대 시도 수·총 시간·최대 지연·무작위 분산(jitter)을 정합니다. 여러 계층의 재시도 곱셈을 피합니다.\n4. 중요 업무와 배치 업무의 작업자·연결·큐 예산을 분리합니다. 공통 DB가 병목이면 애플리케이션 풀만 나눠도 충분하지 않습니다.\n5. Breaker가 계산할 실패 종류·최소 표본·집계 창·차단 시간·시험 호출 수를 설정합니다. 권한 오류를 서비스 전체 장애로 잘못 세지 않습니다.\n6. 대체 값이 가능한 경우 신선도·출처·누락을 응답에 표시합니다. 안전 제어에 오래된 값을 정상값처럼 반환하지 않습니다.\n\n예를 들어 화면 조회에 총 800 ms가 허용된다는 가상의 요구에서는 인증·로컬 처리·원격 호출·응답 여유를 합쳐 그 안에 들어가게 배분합니다. 이 숫자는 추천 기본값이 아닙니다. 실제 지연 분포와 업무 요구에서 정해야 합니다.\n\n## 장점과 비용\n\n- 장점: 실패를 빨리 알리고 중요 작업의 자원을 보호합니다. 일시 장애의 회복 가능성과 무한 재시도를 구분할 수 있습니다.\n- 비용: 상태와 임계값이 늘고 잘못된 설정은 멀쩡한 요청도 차단합니다. 업무별 풀은 유휴 자원을 공유하지 못해 효율이 떨어질 수 있습니다.\n- 한계: 연결 취소·시간 초과 뒤에도 원격 부작용은 남을 수 있습니다. 재시도 성공이 중복 부작용 없음을 증명하지 않습니다.\n\n## 적용·비추천 조건\n\n추천: 느려지는 외부 API가 전체 스레드·연결을 고갈시키는 서비스, 서로 다른 중요도의 작업이 자원을 공유하는 시스템. 비추천: 측정 없이 모든 로컬 함수 호출에 Breaker를 씌우는 구조. 하드웨어 비상 정지·안전 제어는 별도 안전 요구와 검증이 필요하며 일반 서비스 패턴으로 인증을 대체할 수 없습니다.\n\n## 검증과 전환\n\n정상·고지연·연결 실패·부분 성공·지속 과부하·의존성 복구를 각각 시험합니다. 시험 호출 폭주, 종료 후 늦은 응답, 큐 포화, 취소 미지원 라이브러리도 포함합니다. 전체 마감 초과율, 거절 사유, 실제 원격 시도 수, 진행 중 작업 수, 자원 회수 시간을 측정합니다. 타임아웃·유한 큐부터 도입하고 관측된 실패에 맞춰 격리와 차단을 추가합니다.\n\n## 근거와 한계\n\n- [Microsoft: Circuit Breaker](https://learn.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker) — 차단·회복 시험 상태와 적용 조건.\n- [Microsoft: Bulkhead](https://learn.microsoft.com/en-us/azure/architecture/patterns/bulkhead) — 자원 분할과 장애 격리 비용.\n- [Google SRE: Handling Overload](https://sre.google/sre-book/handling-overload/) — 과부하 시 제한·부하 차단·재시도 예산을 고려하는 근거.\n\n2026-09-19 확인한 문헌과 독자 작성 시나리오입니다. 특정 라이브러리 설정이나 서비스 부하 시험은 하지 않았습니다. MCU 통신의 작은 모델은 [통신 복구 가이드](/guides/communication_recovery)를 참고하되 네트워크 서비스의 성능 보장으로 확대 해석하지 마세요.\n",
+  "self_contained": false,
+  "deprecated": false
+}

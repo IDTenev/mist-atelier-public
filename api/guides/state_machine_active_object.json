@@ -1,0 +1,38 @@
+{
+  "document_id": "state_machine_active_object",
+  "title": "상태 머신·Active Object: 순서와 상태 변경 경로를 고정하기",
+  "category": "architecture",
+  "summary": "상태 전이와 Run-to-completion, 유한 이벤트 큐를 설명하고 지연 응답을 거르는 상태 모델을 실행합니다.",
+  "body_sha256": "bd18884e0dd6d04dbb1044f8c13d3e868f96d5db3a24628c84db7a611b09ca60",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "host_model",
+  "target": {
+    "manufacturer": "공통",
+    "board": "상태·이벤트 실행",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "Node.js 호스트 모델 / 언어 독립 설계",
+    "sdk_version": "Node.js 24 이상 / 문헌 검토 2026-09-19"
+  },
+  "related_guides": [
+    "main_loop_or_rtos",
+    "rtos_task_architecture",
+    "actor_supervision",
+    "communication_recovery"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-19",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/state_machine_active_object.md",
+  "text": "# 상태 머신·Active Object: 순서와 상태 변경 경로를 고정하기\n\n문서 0.1.0 · 검토 2026-09-19 · MCU·프로토콜 · Node.js 24 모델\n\n## 개념과 특징\n\n상태 머신은 현재 상태와 입력 이벤트로 허용 전이를 정한다. Active Object는 상태를 소유하는 실행 주체가 큐의 이벤트를 처리하는 구성이다. 상태 머신은 메인 루프·RTOS·Actor 안에 들어갈 수 있으므로 RTOS와 양자택일이 아니다.\n\n[Zephyr 3.7.0 SMF](https://docs.zephyrproject.org/3.7.0/services/smf/index.html)는 상태 진입·실행·종료 및 계층 상태를 제공한다. [QP/C Active Object 계약](https://www.state-machine.com/qpc/srs-qp_ao.html)은 이벤트의 run-to-completion 처리를 설명한다. 이는 현재 이벤트 처리를 끝내고 다음 이벤트를 받는다는 뜻이지 인터럽트 금지나 선점 불가능을 뜻하지 않는다.\n\n## 구조와 동작\n\n```text\n입력 / 타이머 → 유한 이벤트 큐 → 상태 소유자 → 출력 요청\n                  full 정책       현재 상태 + 전이표\n출력 완료 → 별도 이벤트로 되돌림\n```\n\n긴 작업을 이벤트 처리 함수 안에서 기다리면 뒤의 이벤트가 막힌다. 시작 요청을 내보내고 완료·타임아웃을 새 이벤트로 받아야 한다. 늦게 도착한 완료에는 연결 세대나 요청 ID를 붙여 현재 작업과 구분한다.\n\n## 구현 순서\n\n1. 정상 상태뿐 아니라 초기화·중단·실패·재시작을 포함한 전이표를 작성한다.\n2. 한 이벤트 처리 시간의 상한과 큐 크기, 포화 시 버릴 대상·거절·상위 오류 보고를 정한다.\n3. 상태를 변경하는 진입점을 하나로 모은다. UI나 ISR이 상태 변수를 직접 고치지 않는다.\n4. 타이머 취소와 이미 큐에 들어간 timeout을 구별한다. 세대 번호가 다른 입력은 무시하거나 기록한다.\n5. 공통 동작이 반복될 때 계층 상태를 검토한다. 처음부터 모든 상태를 상속 구조로 만들지 않는다.\n\n## 실행 가능한 호스트 예제\n\n전체를 `state_model.mjs`로 저장해 `node state_model.mjs`로 실행한다. 연결 결과를 판정하는 순수 함수이며 큐·타이머·실제 연결은 구현하지 않는다.\n\n```javascript\nimport assert from 'node:assert/strict';\n\n// Ignore stale completions and keep failed sessions closed until an explicit new start.\nfunction transition(state, event) {\n    if (!['idle', 'waiting', 'ready', 'fault'].includes(state.phase)) throw new TypeError('invalid state');\n    if (event.type === 'start') {\n        if (!Number.isSafeInteger(event.generation) || event.generation <= state.generation) return state;\n        return { phase: 'waiting', generation: event.generation };\n    }\n    if (event.type === 'stop') return { ...state, phase: 'idle' };\n    if (state.phase !== 'waiting' || event.generation !== state.generation) return state;\n    if (event.type === 'connected') return { ...state, phase: 'ready' };\n    if (event.type === 'timeout') return { ...state, phase: 'fault' };\n    return state;\n}\n\nlet state = { phase: 'idle', generation: 0 };\nstate = transition(state, { type: 'start', generation: 1 });\nassert.equal(state.phase, 'waiting');\nassert.strictEqual(transition(state, { type: 'connected', generation: 0 }), state);\nstate = transition(state, { type: 'timeout', generation: 1 });\nassert.equal(state.phase, 'fault');\nassert.strictEqual(transition(state, { type: 'connected', generation: 1 }), state);\nstate = transition(state, { type: 'start', generation: 2 });\nstate = transition(state, { type: 'connected', generation: 2 });\nassert.equal(state.phase, 'ready');\nassert.equal(transition(state, { type: 'stop' }).phase, 'idle');\nassert.throws(() => transition({ phase: 'bad' }, {}), TypeError);\nconsole.log('PASS: state transitions, stale events, timeout and restart');\n```\n\n세대 번호는 이 모델의 생존 기간에만 유일하다. 실제 재부팅·서버 재시작을 넘는 고유성, 번호 순환, 취소된 외부 작업의 정리는 별도 계약이다. ‘이벤트 무시’가 실제 자원 해제를 대신하지 않는다.\n\n## 장점과 비용\n\n불가능한 상태 조합을 줄이고 전이를 재현하기 쉽다. 대신 이벤트 설계·큐·타이머 수명 관리가 추가된다. 많은 독립 속성을 하나의 상태 enum에 곱해 넣으면 상태 수가 폭발한다. 독립 영역을 분리하되 상호작용 규칙을 시험해야 한다.\n\n## 적용·비추천 조건\n\n연결·부팅·업데이트·통신 복구처럼 순서와 재진입이 중요한 흐름에 적합하다. 단순 계산 함수에는 이점이 작다. 짧은 제어 마감은 이벤트 모델만으로 보장되지 않는다. [RTOS 실행 예산](/guides/rtos_task_architecture)과 [통신 복구](/guides/communication_recovery)를 함께 검토한다.\n\n## 검증과 전환\n\n전이표의 허용·금지 입력, 중복 완료, timeout 직후 성공, stop 후 늦은 응답을 시험한다. 기존 boolean 묶음을 한 가지 실행 흐름부터 전이 함수로 옮긴다. 큐 지연과 최대 처리 시간은 실제 타깃에서 따로 측정한다.\n\n## 근거와 한계\n\nZephyr 문서는 3.7.0 고정 판본, QP/C 링크는 2026-09-19의 변동 문서다. 외부 프레임워크 코드는 복제하지 않았다. 위 Node 모델은 독자 작성한 상태 전이 시험이며 MCU/RTOS·실기 검증은 not_tested다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

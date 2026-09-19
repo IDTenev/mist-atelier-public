@@ -1,0 +1,37 @@
+{
+  "document_id": "architecture_validation",
+  "title": "아키텍처를 검증하고 바꾸기: C4·ADR·관측·위협 모델",
+  "category": "architecture",
+  "summary": "C4·ADR·관측·위협 모델을 활용해 설계 결정을 검증하고 데이터 이관·롤백 기준을 남깁니다.",
+  "body_sha256": "e92c3ae89f1481f37f35f62bdcf0ca33781af688f94dd6d151bf3a05704bd8fc",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "설계 검증·전환",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-19 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "architecture_selection",
+    "edge_cloud_offline",
+    "microservices_boundaries"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-19",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/architecture_validation.md",
+  "text": "# 아키텍처를 검증하고 바꾸기: C4·ADR·관측·위협 모델\n\n문서 버전: 0.1.0 · 검토: 2026-09-19 · 검증 상태: not_tested\n\n## 개념과 특징\n\n설계가 그럴듯한지보다 요구한 응답 시간·장애 범위·변경 비용을 만족하는지가 중요합니다. C4는 서로 다른 확대 수준의 구조 설명, ADR은 결정과 이유의 기록, 관측은 실행 중 증거, 위협 모델은 신뢰 경계와 공격 가능성의 검토입니다. 어느 하나도 다른 항목의 검증을 대신하지 않습니다.\n\n## 구조와 동작\n\n```text\n요구·제약 → 구조 후보 → 작은 구현/시험 → ADR로 선택과 근거 기록\n    ↑                                         ↓\n새 요구·운영 증거 ← 지표·추적·로그 ← 배포·이관·롤백 시험\n```\n\nC4의 시스템 맥락·컨테이너·컴포넌트·코드 관점을 필요한 만큼 사용합니다. 여기서 컨테이너는 실행 또는 데이터 저장의 주요 단위이지 반드시 Docker 컨테이너가 아닙니다. MCU 도면에는 태스크·ISR·DMA·큐·실제 버스와 실행 주기도 별도로 표현해야 합니다.\n\n## 구현 순서\n\n1. 정상·최악 부하, 최대 지연, 데이터 손실 허용, 메모리·비용 한도, 운영 인력을 요구로 적습니다. 측정 단위와 합격 기준을 함께 정합니다.\n2. 외부 사용자·장치·서비스와 신뢰 경계를 그립니다. 인증·권한·비밀·업데이트·입력 검증의 담당을 표시합니다.\n3. 각 데이터·버퍼·연결의 소유자, 동시 접근, 큐 상한, 종료 절차를 표시합니다. 논리 계층과 실제 배포 단위를 구분합니다.\n4. 가장 위험한 가정 하나를 작은 구현으로 시험합니다. 스케줄링 지연, DB 경합, 전원 차단 복구 등 위험에 맞는 시험이어야 합니다.\n5. ADR에 채택·기각한 후보, 근거, 비용, 재검토 조건을 기록합니다. 과거 결정은 지우지 말고 새 결정으로 대체 관계를 남깁니다.\n6. 운영 신호와 배포·데이터 이관·롤백 절차를 구현합니다. 계측에 비밀·개인정보를 넣지 말고 값의 개수와 수집량도 제한합니다.\n\n## 결정 기록 예시\n\n다음은 이 사이트의 기능을 설명하는 것이 아닌, 가상의 센서 수집 서비스에 대한 예시입니다.\n\n| 항목 | 예시 기록 |\n| --- | --- |\n| 맥락 | 한 팀이 수집·조회 기능을 함께 배포한다. 실제 부하 한도는 시험으로 산출한다. |\n| 결정 | 모듈형 모놀리스로 시작하고 수집/조회 모듈의 데이터 쓰기 권한을 나눈다. |\n| 기각 | 즉시 Microservices 전환: 독립 배포 필요보다 운영 비용이 크다는 현재 판단. |\n| 비용 | 한 프로세스 장애가 함께 영향을 줄 수 있고 배포가 묶인다. |\n| 검증 | 큐 포화·DB 지연·재시작 중 중복 처리 시험, 최대 지연과 메모리 한도 확인. |\n| 재검토 | 독립 배포 요구 또는 서로 다른 확장·장애 격리 요구가 측정으로 확인될 때. |\n\n## 장점과 비용\n\n- 장점: 선택 이유와 재검토 조건이 남아 취향 싸움을 줄이고, 새 사람이 시스템을 이해할 수 있습니다.\n- 비용: 그림·문서·경보가 실제 코드와 어긋나지 않게 유지해야 합니다. 모든 호출을 무제한 기록하면 비용과 보안 위험이 늘어납니다.\n- 주의: 지표는 집계량, 추적은 요청 경로, 로그는 사건 기록에 유용하지만 신호를 수집하는 것만으로 원인이 자동 확정되지는 않습니다.\n\n## 적용·비추천 조건\n\n신규·기존 시스템 모두에 적용하되 작은 프로젝트는 맥락 그림 하나, 결정 기록 하나, 핵심 실패 시험부터 시작합니다. 모든 코드를 자동 생성한 거대한 그림이나 승인받기 위한 문서량을 목표로 삼지 않습니다. 보안 위협 모델은 기능 구현 전후와 신뢰 경계가 바뀔 때 갱신합니다.\n\n## 검증과 전환\n\n변경 후보별로 정상, 경계값, 실패, 회복, 종료, 부하, 보안, 롤백의 합격 기준을 만듭니다. 기존 시스템을 점진적으로 교체하는 Strangler Fig 접근에서는 트래픽 전환 지점과 데이터의 유일한 쓰기 주체를 명확히 합니다. 그림상 두 경로가 보인다고 양쪽에 쓰기를 동시에 허용하지 않습니다.\n\n스키마가 비호환으로 변경되면 코드만 이전 판본으로 바꿔도 복구되지 않을 수 있습니다. 구·신 판본 공존 기간, 데이터 역변환 가능성, 복원 시간과 복원된 데이터의 허용 손실을 사전에 시험하세요. MCU에는 소프트웨어 롤백 외에 부트·업데이트 이미지 검증·전원 차단 조건을 추가합니다.\n\n## 근거와 한계\n\n- [C4 model](https://c4model.com/) — 구조를 확대 수준별로 설명하는 원저자 자료.\n- [ADR GitHub organization](https://adr.github.io/) — 결정과 배경을 남기는 기록 방식.\n- [OWASP: Threat Modeling](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html) — 시스템 이해·위협·대응·검증의 검토 흐름.\n- [OpenTelemetry: Signals](https://opentelemetry.io/docs/concepts/signals/) — 추적·지표·로그 등의 관측 신호 구분.\n- [Microsoft: Strangler Fig](https://learn.microsoft.com/en-us/azure/architecture/patterns/strangler-fig) — 기존 기능의 점진적 이관과 적용 제약.\n\n2026-09-19 확인한 문헌을 바탕으로 구성한 설계 점검법입니다. 보안 인증, 운영 성능, 실제 롤백 성공을 보증하지 않습니다. 이 가이드의 예시 목표와 결정은 각 프로젝트에서 측정·승인해야 합니다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

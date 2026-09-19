@@ -1,0 +1,37 @@
+{
+  "document_id": "architecture_selection",
+  "title": "SW 아키텍처 선택 지도: 이름보다 제약부터",
+  "category": "architecture",
+  "summary": "코드·실행·배포·검증 축을 나누고 MCU, 서비스, 데이터 처리의 제약에서 출발하는 선택 지도입니다.",
+  "body_sha256": "85c180392125987488fc951b2692d55472b1cf804536339ac284058a0b60459c",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "설계 선택",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-19 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "architecture_validation",
+    "main_loop_or_rtos",
+    "layered_modular_monolith"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-19",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/architecture_selection.md",
+  "text": "# SW 아키텍처 선택 지도: 이름보다 제약부터\n\n문서 0.1.0 · 검토 2026-09-19 · 언어·제품 독립 설계 가이드\n\n## 개념과 특징\n\n아키텍처는 폴더 모양이 아니라 무엇을 함께 바꾸고, 누가 상태를 소유하며, 어디서 실패를 격리할지 정하는 규칙이다. 이 글의 추천은 조사 자료를 바탕으로 한 편집자의 판단이며 성능 순위나 제조사 인증이 아니다.\n\n[C4 원저자 설명](https://c4model.com/)은 시스템·컨테이너·컴포넌트·코드를 다른 확대 수준으로 다룬다. 여기서 컨테이너를 Docker와 동의어로 읽지 않는다. [ADR 안내](https://adr.github.io/)는 결정의 이유와 결과를 남기는 기록 방식이다. 둘은 실행 아키텍처가 아니라 설계를 설명하고 유지하는 도구다.\n\n## 구조와 동작\n\n다음 네 질문은 함께 답해야 한다. Hexagonal과 RTOS, 모듈러 모놀리스와 이벤트 처리는 동시에 사용할 수 있다.\n\n| 축 | 결정할 것 | 후보 |\n|---|---|---|\n| 코드 구성 | 변경·테스트 경계 | 계층, 모듈러 모놀리스, Ports & Adapters, DDD |\n| 실행 | 언제 누가 상태를 바꾸는가 | 메인 루프, 상태 머신, RTOS, Actor |\n| 배포·데이터 | 어느 실패가 어디까지 전파되는가 | 단일 배포, Worker, 서비스 분리, 이벤트, 엣지 |\n| 검증·운영 | 선택이 계속 유효한가 | 지연·자원 예산, 관측, 보안 경계, ADR |\n\n## 구현 순서\n\n1. 기능 목록보다 먼저 최악 응답 시간, 허용 데이터 손실, 오프라인 시간, RAM/저장 공간, 운영 인력을 적는다. 평균 처리량과 최악 지연은 분리한다.\n2. 입력부터 결과까지 한 가지 핵심 사용 사례를 그린다. 동기 호출·큐·저장·네트워크 화살표를 구별하고 각 상태에 소유자를 한 명 정한다.\n3. 같은 제약을 만족하는 가장 단순한 후보를 기준안으로 둔다. 추가 구조는 해결하는 구체적인 문제와 함께 제안한다.\n4. 정상·타임아웃·중복·재시작 시나리오를 동일 입력으로 실험한다. 비교 환경·측정 방법·실패 기준을 기록한다.\n5. 결과와 탈락 대안, 재검토 조건을 ADR 한 장으로 남긴다. 팀 규모나 제품명이 같다는 이유만으로 다른 프로젝트의 결론을 복사하지 않는다.\n\n## 적용·비추천 조건\n\n| 상황 | 먼저 검토할 조합 | 피할 출발점 |\n|---|---|---|\n| 작은 MCU 주기 제어 | [메인 루프](/guides/main_loop_or_rtos) + [상태 머신](/guides/state_machine_active_object) | 기능마다 태스크 생성 |\n| 여러 통신과 독립 마감 | [RTOS 태스크](/guides/rtos_task_architecture) + [버스 소유권](/guides/shared_bus_ownership) | 우선순위만 올려 해결 |\n| 장비 교체·시뮬레이터 | [Ports & Adapters](/guides/hexagonal_clean) | HAL 타입이 업무 로직까지 전파 |\n| 작은 팀 업무 서비스 | [모듈러 모놀리스](/guides/layered_modular_monolith) | 운영 준비 없는 서비스 세분화 |\n| 오래 걸리는 처리 | [Web-Queue-Worker](/guides/web_queue_serverless) | HTTP 연결을 끝없이 유지 |\n| 독립 팀·배포·확장 | [DDD 경계](/guides/domain_boundaries_ddd) → [마이크로서비스](/guides/microservices_boundaries) | 테이블마다 서비스 생성 |\n| 센서 데이터 분석 | [파이프라인](/guides/pipeline_batch_stream) + [이벤트](/guides/event_driven_pubsub) | 무한 큐로 속도 차이 은폐 |\n| 인터넷이 끊기는 장비 | [엣지·오프라인](/guides/edge_cloud_offline) | 클라우드 응답에 현장 제어 종속 |\n\n## 장점과 비용\n\n축을 분리하면 같은 문제를 다른 수준의 패턴으로 비교하는 오류가 줄고 복합 구조를 설명하기 쉬워진다. 대신 결정 과정과 측정에 시간이 든다. 작은 일회성 스크립트에 모든 도표·문서를 강제하면 구현보다 관리가 커진다. 실제 변경과 위험이 있는 경계에만 적용한다.\n\n## 검증과 전환\n\n결정표에는 후보별 마감 충족 여부, 최대 큐 길이, 복구 시간, 배포/되돌리기 절차, 담당자를 적는다. 숫자 없는 별점 대신 관측 결과를 사용한다. 선택한 구조가 복잡해지면 가장 큰 병목 한 곳부터 분리하고 다시 측정한다. [설계 인수 가이드](/guides/architecture_validation)에서 체크리스트를 이어간다.\n\n## 근거와 한계\n\n위 출처는 2026-09-19 열람한 공식·원저자 웹 문서다. 이 안내는 선택 절차이며 모든 패턴의 전수 목록이 아니다. 표의 상황별 조합과 작업 순서는 독자적 제안이다. 특정 제품의 펌웨어·실기·부하 결과는 not_tested다. 표준 준수나 안전 인증을 대체하지 않는다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

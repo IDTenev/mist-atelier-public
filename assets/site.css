@@ -373,6 +373,9 @@ footer { max-width:1800px; margin:auto; display:flex; flex-wrap:wrap; justify-co
 .guide-summary{max-width:75ch;font-size:1.1rem;line-height:1.8}
 .related-guides{margin:2rem 0}
 .guide-body h2{scroll-margin-top:1rem}
+.architecture-track{margin:2.5rem 0;scroll-margin-top:1rem}
+.architecture-track .guide-card h3{margin:.2rem 0 .8rem;font-size:1.15rem;line-height:1.6}
+.architecture-track .guide-card small{display:block;color:var(--muted);line-height:1.6}
 
 [data-static-site] [hidden]{display:none!important}
 [data-search-controls]{border:0;padding:0;margin:0;min-width:0}

@@ -1,0 +1,37 @@
+{
+  "document_id": "event_driven_pubsub",
+  "title": "이벤트 기반·Pub/Sub: 결합을 낮추되 전달 계약은 더 엄격하게",
+  "category": "architecture",
+  "summary": "이벤트와 명령, Pub/Sub와 경쟁 소비자, 전달·중복·순서·재생 계약을 구분합니다.",
+  "body_sha256": "04f9a083dbb05e4d780c301f237eb6afc956d689d5bcbfb3beb78881fe8bdedd",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "design_guide",
+  "target": {
+    "manufacturer": "공통",
+    "board": "이벤트·메시징",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "언어·제품 독립 설계",
+    "sdk_version": "문헌 검토 2026-09-19 · 세부 판본은 본문"
+  },
+  "related_guides": [
+    "outbox_saga",
+    "pipeline_batch_stream",
+    "cqrs_event_sourcing"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-19",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/event_driven_pubsub.md",
+  "text": "# 이벤트 기반·Pub/Sub: 결합을 낮추되 전달 계약은 더 엄격하게\n\n문서 0.1.0 · 검토 2026-09-19 · 장비 텔레메트리·서버 통합\n\n## 개념과 특징\n\n이벤트는 이미 일어난 사실이고 명령은 처리를 요구하는 의도다. ‘온도 측정 완료’와 ‘측정 시작’은 같은 계약이 아니다. [Microsoft 이벤트 기반 구조](https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/event-driven)는 생산자·채널·소비자를 나누고, Pub/Sub와 이벤트 스트림의 차이 및 eventual consistency를 설명한다.\n\nPub/Sub는 여러 종류의 구독자에게 전달하고, 작업 큐의 competing consumers는 같은 역할의 작업자 사이에 일을 분배한다. 구독자 수와 처리 횟수, 보관 기간·재생 가능 여부는 브로커 설정을 확인해야 한다. ‘이벤트’라는 이름만으로 영속성이나 전역 순서를 얻지 않는다.\n\n## 구조와 동작\n\n```text\n계측 서비스 → 측정 사실 → 채널 / 보관 로그\n                            ├─ 경보 소비자\n                            ├─ 이력 소비자\n                            └─ 분석 소비자\n각 소비자: 검증 → 중복/순서 확인 → 처리 → 완료 확인\n```\n\nDB 갱신과 발행 사이 crash는 이벤트 누락을 만들 수 있다. [AWS Transactional Outbox](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html)는 이 두 작업의 불일치를 줄이는 방식이며 중복 전달 가능성은 여전히 처리해야 한다.\n\n## 구현 순서\n\n1. 이벤트 이름·소유자·schema 판본·event_id·발생 시각·장치 세대·순서 키·단위를 정의한다. 비밀값과 불필요한 개인정보는 넣지 않는다.\n2. 반드시 보존할 사실과 잃어도 되는 최신 상태 표시를 구분해 보관·만료·재생 정책을 선택한다.\n3. 소비자의 중복 처리와 부작용을 같은 영속 트랜잭션으로 묶을 수 있는지 확인한다. 외부 부작용은 별도 멱등 계약이 필요하다.\n4. 재시도 한도와 지연, 실패 격리 큐, 수동 재처리 승인·기록을 구현한다. 실패 메시지를 무한 되돌려 넣지 않는다.\n5. 처리 완료 후 ack하는 위치와 crash 창을 시험한다. 이벤트를 받았다는 사실과 업무 처리가 끝났다는 사실을 구별한다.\n\n## 장점과 비용\n\n생산자가 소비자 목록을 직접 몰라도 되고 소비자를 독립적으로 확장하기 쉽다. 대신 흐름이 코드 호출 스택 밖으로 나가며 지연된 읽기, 순서 뒤바뀜, 중복, schema 호환성과 관측 비용이 생긴다. 비동기화가 항상 응답 지연을 줄이는 것은 아니다.\n\n## 적용·비추천 조건\n\n센서 데이터의 여러 활용처, 서로 다른 속도로 처리하는 시스템, 추후 소비자가 늘어나는 통합에 적합하다. 한 번의 짧은 조회·갱신에 명확한 즉시 결과가 필요한 작은 서비스에는 동기 호출이 단순할 수 있다. 안전 제어의 즉시 결정을 외부 브로커 왕복에 의존시키지 않는다.\n\n## 검증과 전환\n\n오래된 소비자와 새 schema의 병행, 중복/역순/누락, ack 직전 crash, 브로커 중단, backlog 증가를 검사한다. 저장된 이벤트를 재생할 때 실제 장치 명령·메일 발송 같은 부작용을 재실행하지 않도록 모드를 분리한다. 먼저 한 소비자와 한 이벤트부터 추가한다.\n\n## 근거와 한계\n\n2026-09-19 열람한 공식 웹 문서와 독자 설계안이다. MQTT/Kafka 등 특정 제품의 전달 보장을 일반화하지 않는다. 브로커 구축·장애 주입·실제 지연 시험은 not_tested다. [Outbox/Saga](/guides/outbox_saga), [파이프라인](/guides/pipeline_batch_stream)을 함께 읽는다.\n",
+  "self_contained": false,
+  "deprecated": false
+}

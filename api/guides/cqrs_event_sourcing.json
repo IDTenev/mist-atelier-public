@@ -1,0 +1,37 @@
+{
+  "document_id": "cqrs_event_sourcing",
+  "title": "CQRS와 Event Sourcing: 읽기 분리와 이력 저장은 별개 결정",
+  "category": "architecture",
+  "summary": "조회 모델 분리와 이벤트 이력 저장을 별도 결정으로 설명하고 중복·충돌·재구축 모델을 실행합니다.",
+  "body_sha256": "b090b55dc7116460c60829ac62ed9391b6488b89fd6484b89ca8f8c1b8041268",
+  "review_status": "approved",
+  "rights_status": "cleared_for_publication",
+  "example_kind": "host_model",
+  "target": {
+    "manufacturer": "공통",
+    "board": "읽기·쓰기·이력",
+    "part_number": "특정 MCU 지정 없음",
+    "framework": "Node.js 호스트 모델 / 언어 독립 설계",
+    "sdk_version": "Node.js 24 이상 / 문헌 검토 2026-09-19"
+  },
+  "related_guides": [
+    "domain_boundaries_ddd",
+    "event_driven_pubsub",
+    "outbox_saga"
+  ],
+  "schema_version": 1,
+  "document_version": "0.1.0",
+  "language": "ko",
+  "content_origin": "original",
+  "publication_mode": "summary",
+  "license_name": "LicenseRef-Project-Reserved",
+  "training_policy": "undetermined",
+  "rights_evidence": "Original editorial explanation and examples; external references are linked, not reproduced. No manufacturer certification or blanket reuse license.",
+  "reviewed_at": "2026-09-19",
+  "reviewed_by": "Codex: source-based editorial review; not manufacturer, hardware or legal certification",
+  "verification_status": "not_tested",
+  "markdown_path": "documents/cqrs_event_sourcing.md",
+  "text": "# CQRS와 Event Sourcing: 읽기 분리와 이력 저장은 별개 결정\n\n문서 0.1.0 · 검토 2026-09-19 · 데이터 모델 · Node.js 24 예제\n\n## 개념과 특징\n\n[CQRS 공식 설명](https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs)은 명령으로 상태를 바꾸는 모델과 조회 모델을 분리한다. 같은 데이터 저장소를 사용해도 된다. 두 DB, 메시지 브로커, Event Sourcing은 필수 조건이 아니다.\n\n[Event Sourcing 설명](https://learn.microsoft.com/en-us/azure/architecture/patterns/event-sourcing)은 현재 상태 대신 사실의 연속을 기준 기록으로 저장하고 재생해 상태를 구성하는 방식이다. 일반 로그와 달리 이벤트 판본·순서·재생 규칙이 업무 데이터 계약이 된다. 외부 projection을 비동기로 만들면 지연이 생기지만 이벤트 저장 자체가 모든 읽기를 반드시 비동기로 만들라는 뜻은 아니다.\n\n## 구조와 동작\n\n```text\nCQRS: 명령 → 규칙/갱신 모델 → 저장\n      조회 → 조회 모델     → 저장 또는 projection\nEvent Sourcing: 명령 → 기대 revision 검사 → 이벤트 append\n                                        → 재생/조회 모델\n```\n\n이벤트를 재생할 때 과거의 메일·장치 제어·결제를 다시 실행하지 않는다. 상태 계산과 외부 부작용을 분리한다. 개인정보 삭제 요구·schema 변화·snapshot 신뢰 경계는 도입 전 결정한다.\n\n## 구현 순서\n\n1. 먼저 읽기/쓰기 요구가 실제로 다른지 확인한다. 단순 CRUD는 기준안으로 유지한다.\n2. 필요하면 같은 DB에서 명령·조회 로직만 분리해 효과를 측정한다.\n3. 이력 재구성이 제품 요구일 때만 이벤트 저장을 추가 검토한다. 이벤트 이름·판본·aggregate ID·revision·중복 키를 정의한다.\n4. 기대 revision과 append를 저장소에서 원자적으로 처리한다. 별도 읽기 모델에는 반영 revision과 지연 상태를 노출한다.\n5. schema 변환·snapshot 재생·잘못된 이벤트 처리·자료 보존 정책을 실제 복구 연습으로 확인한다.\n\n## 실행 가능한 호스트 예제\n\n전체를 `event_log_model.mjs`로 저장해 `node event_log_model.mjs`로 실행한다. 동시성·DB·영속성 없는 유한 메모리 모델이며 분산 exactly-once 구현이 아니다.\n\n```javascript\nimport assert from 'node:assert/strict';\nconst MAX_EVENTS = 4;\n\n// Detect conflicting idempotency keys and revision changes before a bounded append.\nfunction append_adjustment(events, id, delta, expected_revision) {\n    if (typeof id !== 'string' || !/^[a-z0-9_]{1,32}$/.test(id) || !Number.isSafeInteger(delta)) throw new TypeError('invalid command');\n    const previous = events.find(event => event.id === id);\n    if (previous) {\n        if (previous.delta !== delta) throw new Error('id conflict');\n        return events;\n    }\n    if (expected_revision !== events.length) throw new Error('revision conflict');\n    if (events.length >= MAX_EVENTS) throw new Error('log full');\n    const value = events.reduce((sum, event) => sum + event.delta, 0) + delta;\n    if (!Number.isSafeInteger(value) || value < 0) throw new RangeError('invalid resulting count');\n    return [...events, Object.freeze({ id, delta, revision: events.length + 1 })];\n}\n\n// Replay only internal validated events; no external action is invoked here.\nfunction project_count(events) {\n    return { revision: events.length, count: events.reduce((sum, event) => sum + event.delta, 0) };\n}\n\nlet events = append_adjustment([], 'first', 2, 0);\nassert.strictEqual(append_adjustment(events, 'first', 2, 0), events);\nassert.throws(() => append_adjustment(events, 'first', 3, 1), /id conflict/);\nassert.throws(() => append_adjustment(events, 'second', 1, 0), /revision conflict/);\nassert.throws(() => append_adjustment(events, 'negative', -3, 1), /resulting count/);\nevents = append_adjustment(events, 'second', -1, 1);\nassert.deepEqual(project_count(events), { revision: 2, count: 1 });\nevents = append_adjustment(events, 'third', 0, 2);\nevents = append_adjustment(events, 'fourth', 0, 3);\nassert.throws(() => append_adjustment(events, 'fifth', 1, 4), /log full/);\nassert.throws(() => append_adjustment([], 'bad', NaN, 0), TypeError);\nconsole.log('PASS: replay, duplicate, conflicting command, revision and bounds');\n```\n\n읽기 모델이 같은 revision이면 이 예제의 결과는 재생과 일치한다. 실제 저장소에서는 프로세스 두 개가 동시에 길이를 읽어 append하지 않도록 저장소 수준 경쟁 검사를 구현해야 한다.\n\n## 장점과 비용\n\n읽기 최적화·이력 설명·재생에 유리하다. 반면 운영 도구, projection 재구축 시간, 이벤트 장기 호환 비용이 늘어난다. append-only가 무조건 저렴하거나 빠르다는 보장은 없다. 불변 기록에 민감 데이터를 넣으면 삭제·수정 정책이 어려워진다.\n\n## 적용·비추천 조건\n\n복잡한 업무 갱신과 조회 형태가 다르면 CQRS를, 상태 변화 이유와 재구성이 핵심이면 Event Sourcing을 선택적으로 검토한다. 단순 설정·주소록·짧은 실험에는 비용이 더 클 수 있다. 작은 MCU의 모든 상태 변화를 flash에 기록하는 설계는 쓰기 수명·전원 차단 시험 없이는 도입하지 않는다.\n\n## 검증과 전환\n\n중복 키 충돌, 동시 append, 오래된 이벤트 판본, snapshot 제거 후 재생, projection 지연을 시험한다. 먼저 한 도메인에만 적용한다. 과거 현재값을 완전한 사건 이력으로 복원할 수 없다면 초기 snapshot이라는 사실을 명시한다.\n\n## 근거와 한계\n\n2026-09-19 확인한 공식 문서와 독자 모델이다. 모델은 유효한 내부 이벤트만 재생한다. 외부 이벤트 검증·영속 저장·원자성·복구·개인정보 정책·MCU 실기는 not_tested다.\n",
+  "self_contained": false,
+  "deprecated": false
+}
