@@ -4,7 +4,7 @@
   "external_crawler_verification": "not_tested",
   "indexing": "blocked",
   "training_policy": "undetermined",
-  "observed_at": "2026-09-19T18:09:25.705Z",
+  "observed_at": "2026-09-20T05:33:39.408Z",
   "pending_changes": [],
   "pending_removed_count": 0,
   "documents": [
@@ -119,6 +119,17 @@
       "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/cancellation_generation.json"
     },
     {
+      "document_id": "checkpoint_delivery",
+      "title": "ACK·체크포인트·멱등성 · 한 번 처리의 보장 범위",
+      "document_version": "0.1.0",
+      "reviewed_at": "2026-09-20",
+      "body_sha256": "59f162873135aa13e774a5207144b300750db81043fe1bb8d4b30e6b5116c9bd",
+      "metadata_sha256": "538035b9dc37c0f16757c0cb13d6e5f935b5336025b174bf0c799be0886ff23f",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/checkpoint_delivery/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/checkpoint_delivery/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/checkpoint_delivery.json"
+    },
+    {
       "document_id": "communication_recovery",
       "title": "통신 실패를 설계에 넣기: 타임아웃·재시도·복구 상태",
       "document_version": "0.1.0",
@@ -128,6 +139,17 @@
       "url": "https://idtenev.github.io/mist-atelier-public/guides/communication_recovery/",
       "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/communication_recovery/index.md",
       "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/communication_recovery.json"
+    },
+    {
+      "document_id": "compaction_tiering",
+      "title": "압축·Compaction·계층화 · 무엇을 줄이고 무엇을 잃는가",
+      "document_version": "0.1.0",
+      "reviewed_at": "2026-09-20",
+      "body_sha256": "3c7d52702b4f560e12ff45a2918ec5cae5dcd6e2cc9655ca99361e302159d9dd",
+      "metadata_sha256": "d586af7dcb0f3d1a36e7e128d4781d41272b748d9472dd04a92df702fb75f811",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/compaction_tiering/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/compaction_tiering/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/compaction_tiering.json"
     },
     {
       "document_id": "cqrs_event_sourcing",
@@ -405,6 +427,17 @@
       "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/resilience_bulkheads.json"
     },
     {
+      "document_id": "retention_pin_quota",
+      "title": "순환 보존·중요 구간 보호 · 꽉 찬 저장소의 결정 규칙",
+      "document_version": "0.1.0",
+      "reviewed_at": "2026-09-20",
+      "body_sha256": "aab4bfba74587e7b9c7b8314a7279fb23dddfb63a9c326c01878e3e827b072b4",
+      "metadata_sha256": "904e63fd51503ba1f9616bd37da229202894fda46693a3e4ea61cadafbf6a634",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/retention_pin_quota/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/retention_pin_quota/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/retention_pin_quota.json"
+    },
+    {
       "document_id": "retry_idempotency",
       "title": "재시도·멱등성 · 응답 유실과 중복 실행 분리",
       "document_version": "0.1.0",
@@ -438,6 +471,17 @@
       "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/rtos_task_architecture.json"
     },
     {
+      "document_id": "segmented_commit_log",
+      "title": "세그먼트 순차 로그 · 쓰기 완료와 보존 확정을 분리하기",
+      "document_version": "0.1.0",
+      "reviewed_at": "2026-09-20",
+      "body_sha256": "68f665a26949b50bc9cb126d3a24d78987ce768ac02cbd936ff2c90da426e4ce",
+      "metadata_sha256": "8416d7e15b9ce83fd8d1ac964389d23e53a8fc3412b954f0ce4ee22ba84e8bb5",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/segmented_commit_log/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/segmented_commit_log/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/segmented_commit_log.json"
+    },
+    {
       "document_id": "shared_bus_ownership",
       "title": "여러 장치가 한 버스를 쓸 때: 소유권과 계층 나누기",
       "document_version": "0.1.0",
@@ -469,6 +513,94 @@
       "url": "https://idtenev.github.io/mist-atelier-public/guides/stm32_nucleo_f401re/",
       "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/stm32_nucleo_f401re/index.md",
       "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/stm32_nucleo_f401re.json"
+    },
+    {
+      "document_id": "stream_fanout",
+      "title": "독립 소비자 Fan-out · 한 소스를 여러 뷰로 나누기",
+      "document_version": "0.1.0",
+      "reviewed_at": "2026-09-20",
+      "body_sha256": "8681d76d69f321412abc7862800802187f854d51bd29a3ec4424ec305537a31b",
+      "metadata_sha256": "493e693264f271f0aced6051bc1dfc4131495ae4406ed307bc94c7783c4827f8",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_fanout/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/stream_fanout/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/stream_fanout.json"
+    },
+    {
+      "document_id": "stream_fault_testing",
+      "title": "연속 데이터 장애 검증 · 유실·복구·용량을 수치로 판단하기",
+      "document_version": "0.1.0",
+      "reviewed_at": "2026-09-20",
+      "body_sha256": "cb1fc1a5c309ab9b3ca1f36ed2f061abc080f856e8e43240c94c0b094a086a27",
+      "metadata_sha256": "fa0f39a16368d869ce3a13cc4ec18e3b344b003ba86da9f60c540260c56ddcdb",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_fault_testing/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/stream_fault_testing/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/stream_fault_testing.json"
+    },
+    {
+      "document_id": "stream_identity",
+      "title": "스트림 ID·세대·순번 · 연속성과 누락을 구분하기",
+      "document_version": "0.1.0",
+      "reviewed_at": "2026-09-20",
+      "body_sha256": "3ac8a9a5933176150f22133048f2481997f5f90d97ae955aa2a6a46cd8707d4a",
+      "metadata_sha256": "577eea015a69f2c2adc64d38cf4339a752610323c98697b77c6fc13fb7786cb7",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_identity/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/stream_identity/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/stream_identity.json"
+    },
+    {
+      "document_id": "stream_integrity_recovery",
+      "title": "무결성·복구 스캔 · 손상된 꼬리와 유효 이력 나누기",
+      "document_version": "0.1.0",
+      "reviewed_at": "2026-09-20",
+      "body_sha256": "7af6e634a7cdaee1cefcae4e8bfd7019ba00c36964f0c79f24ceb7747cce4b18",
+      "metadata_sha256": "0f58d4e883e9bf188216032f89a2be0b1a391c26815f387d4f79ea2f9a25670b",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_integrity_recovery/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/stream_integrity_recovery/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/stream_integrity_recovery.json"
+    },
+    {
+      "document_id": "stream_replay_views",
+      "title": "독립 재생·파생 뷰 · 원본은 하나, 시점과 표현은 여러 개",
+      "document_version": "0.1.0",
+      "reviewed_at": "2026-09-20",
+      "body_sha256": "cdb6acaf3bafc247b3d594bf348a0b4382db0786f147f1084050397e2c637a9d",
+      "metadata_sha256": "582ad1aff6c83243cbf87ce33d7ddd1177fa5a7eda1c1042fa5966989cf53f0e",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_replay_views/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/stream_replay_views/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/stream_replay_views.json"
+    },
+    {
+      "document_id": "stream_session_resume",
+      "title": "세션 재개·세대 fencing · 끊긴 뒤 어디서 이어갈까",
+      "document_version": "0.1.0",
+      "reviewed_at": "2026-09-20",
+      "body_sha256": "c23c1e19aa1103dc6ccf22f05cc664d0a97afbef0938097a29ae6dc8b0a41cee",
+      "metadata_sha256": "7819ace6703217e2c066c28b891f6127d7047d1316a1c9649288cf4534420853",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_session_resume/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/stream_session_resume/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/stream_session_resume.json"
+    },
+    {
+      "document_id": "stream_snapshot_catchup",
+      "title": "스냅샷 + Catch-up · 과거 상태와 실시간 경계를 잇기",
+      "document_version": "0.1.0",
+      "reviewed_at": "2026-09-20",
+      "body_sha256": "b6b92d549e7f12bbf0f7207e35c1e9f401341f2caa8ccac360331b75711fbfad",
+      "metadata_sha256": "68f10a0dfff357c109a88deb648f334d18e0df2d5b754486cdaa052f0b0a6bed",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_snapshot_catchup/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/stream_snapshot_catchup/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/stream_snapshot_catchup.json"
+    },
+    {
+      "document_id": "stream_time_watermark",
+      "title": "시간축·워터마크 · 순서와 시각을 따로 맞추기",
+      "document_version": "0.1.0",
+      "reviewed_at": "2026-09-20",
+      "body_sha256": "d23eeada2fbb40c694c41b67a442b7ec5fe1dfdc3a9f9e7f6a606853e4a8aab0",
+      "metadata_sha256": "2fd58ab1a92584590bf6af771499c3eb71b2c09ca70c6bd6d88b3f3a9e7e7986",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_time_watermark/",
+      "markdown_url": "https://idtenev.github.io/mist-atelier-public/guides/stream_time_watermark/index.md",
+      "json_url": "https://idtenev.github.io/mist-atelier-public/api/guides/stream_time_watermark.json"
     },
     {
       "document_id": "token_bucket",
@@ -561,6 +693,136 @@
   ],
   "duplicate_groups": [],
   "events": [
+    {
+      "event_id": "urn:sha256:15692f6fa302ff2287d0b3f48524c5a1fef62da4ba8db53d1dcde7bad144ff7f",
+      "document_id": "stream_fault_testing",
+      "title": "연속 데이터 장애 검증 · 유실·복구·용량을 수치로 판단하기",
+      "kind": "body_changed",
+      "observed_at": "2026-09-20T05:33:39.408Z",
+      "document_version": "0.1.0",
+      "body_sha256": "cb1fc1a5c309ab9b3ca1f36ed2f061abc080f856e8e43240c94c0b094a086a27",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_fault_testing/"
+    },
+    {
+      "event_id": "urn:sha256:381db5322bc3deb9fc4cefa774c915f1df253e73fdca29e73501174e52854f6b",
+      "document_id": "stream_time_watermark",
+      "title": "시간축·워터마크 · 순서와 시각을 따로 맞추기",
+      "kind": "added",
+      "observed_at": "2026-09-20T05:22:47.208Z",
+      "document_version": "0.1.0",
+      "body_sha256": "d23eeada2fbb40c694c41b67a442b7ec5fe1dfdc3a9f9e7f6a606853e4a8aab0",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_time_watermark/"
+    },
+    {
+      "event_id": "urn:sha256:c0de68a93b631af369caffc509348f4ad622fd176d6d74a31ae6eb2075451544",
+      "document_id": "stream_snapshot_catchup",
+      "title": "스냅샷 + Catch-up · 과거 상태와 실시간 경계를 잇기",
+      "kind": "added",
+      "observed_at": "2026-09-20T05:22:47.208Z",
+      "document_version": "0.1.0",
+      "body_sha256": "b6b92d549e7f12bbf0f7207e35c1e9f401341f2caa8ccac360331b75711fbfad",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_snapshot_catchup/"
+    },
+    {
+      "event_id": "urn:sha256:afabf310fba663bc05e1b0545f3c888a8d37cfd0dc19372161f51378824568fd",
+      "document_id": "stream_session_resume",
+      "title": "세션 재개·세대 fencing · 끊긴 뒤 어디서 이어갈까",
+      "kind": "added",
+      "observed_at": "2026-09-20T05:22:47.208Z",
+      "document_version": "0.1.0",
+      "body_sha256": "c23c1e19aa1103dc6ccf22f05cc664d0a97afbef0938097a29ae6dc8b0a41cee",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_session_resume/"
+    },
+    {
+      "event_id": "urn:sha256:d7dc2bf620a3626896edaab756e2495857ce66fc1af2dcd50ef01e55cca42805",
+      "document_id": "stream_replay_views",
+      "title": "독립 재생·파생 뷰 · 원본은 하나, 시점과 표현은 여러 개",
+      "kind": "added",
+      "observed_at": "2026-09-20T05:22:47.208Z",
+      "document_version": "0.1.0",
+      "body_sha256": "cdb6acaf3bafc247b3d594bf348a0b4382db0786f147f1084050397e2c637a9d",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_replay_views/"
+    },
+    {
+      "event_id": "urn:sha256:5478d97367fbad0372bdc23f11fca2003b46dea96d5f722273ed98c6cd68257d",
+      "document_id": "stream_integrity_recovery",
+      "title": "무결성·복구 스캔 · 손상된 꼬리와 유효 이력 나누기",
+      "kind": "added",
+      "observed_at": "2026-09-20T05:22:47.208Z",
+      "document_version": "0.1.0",
+      "body_sha256": "7af6e634a7cdaee1cefcae4e8bfd7019ba00c36964f0c79f24ceb7747cce4b18",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_integrity_recovery/"
+    },
+    {
+      "event_id": "urn:sha256:9d001efc587b3d71fea14e1fb20411e38ddb9c4a6b1d064c22c095c4a33d789d",
+      "document_id": "stream_identity",
+      "title": "스트림 ID·세대·순번 · 연속성과 누락을 구분하기",
+      "kind": "added",
+      "observed_at": "2026-09-20T05:22:47.208Z",
+      "document_version": "0.1.0",
+      "body_sha256": "3ac8a9a5933176150f22133048f2481997f5f90d97ae955aa2a6a46cd8707d4a",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_identity/"
+    },
+    {
+      "event_id": "urn:sha256:831d08548aab615f00fe8d35a657c9006f71a2d3cd242b495debae371a05044a",
+      "document_id": "stream_fault_testing",
+      "title": "연속 데이터 장애 검증 · 유실·복구·용량을 수치로 판단하기",
+      "kind": "added",
+      "observed_at": "2026-09-20T05:22:47.208Z",
+      "document_version": "0.1.0",
+      "body_sha256": "5acdbe786c73c513f352938c006cf664d76b75070cca01512e08769695684424",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_fault_testing/"
+    },
+    {
+      "event_id": "urn:sha256:0d793c8aca21a757294a376e13b3d2e2876e4afa256322c2bd5deaf6ffe85e17",
+      "document_id": "stream_fanout",
+      "title": "독립 소비자 Fan-out · 한 소스를 여러 뷰로 나누기",
+      "kind": "added",
+      "observed_at": "2026-09-20T05:22:47.208Z",
+      "document_version": "0.1.0",
+      "body_sha256": "8681d76d69f321412abc7862800802187f854d51bd29a3ec4424ec305537a31b",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/stream_fanout/"
+    },
+    {
+      "event_id": "urn:sha256:d5855e01d275f04c1e78ef8a87bc939bf4f631e4a8449abbc58250487a0e7dd4",
+      "document_id": "segmented_commit_log",
+      "title": "세그먼트 순차 로그 · 쓰기 완료와 보존 확정을 분리하기",
+      "kind": "added",
+      "observed_at": "2026-09-20T05:22:47.208Z",
+      "document_version": "0.1.0",
+      "body_sha256": "68f665a26949b50bc9cb126d3a24d78987ce768ac02cbd936ff2c90da426e4ce",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/segmented_commit_log/"
+    },
+    {
+      "event_id": "urn:sha256:2651f41b72c93bd8c0756f9b0922e8e1a1ff59d4f2bac9d7d54a6a3a02c67652",
+      "document_id": "retention_pin_quota",
+      "title": "순환 보존·중요 구간 보호 · 꽉 찬 저장소의 결정 규칙",
+      "kind": "added",
+      "observed_at": "2026-09-20T05:22:47.208Z",
+      "document_version": "0.1.0",
+      "body_sha256": "aab4bfba74587e7b9c7b8314a7279fb23dddfb63a9c326c01878e3e827b072b4",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/retention_pin_quota/"
+    },
+    {
+      "event_id": "urn:sha256:62596f8bcaea3be0132a46ca3629a83f8b334b4f82d9b51295abffed2b609de9",
+      "document_id": "compaction_tiering",
+      "title": "압축·Compaction·계층화 · 무엇을 줄이고 무엇을 잃는가",
+      "kind": "added",
+      "observed_at": "2026-09-20T05:22:47.208Z",
+      "document_version": "0.1.0",
+      "body_sha256": "3c7d52702b4f560e12ff45a2918ec5cae5dcd6e2cc9655ca99361e302159d9dd",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/compaction_tiering/"
+    },
+    {
+      "event_id": "urn:sha256:9d03d2667b16cc6bfb64c2611881b8cc81dbcb2e2ada2a3c1acdc46c8d0789e7",
+      "document_id": "checkpoint_delivery",
+      "title": "ACK·체크포인트·멱등성 · 한 번 처리의 보장 범위",
+      "kind": "added",
+      "observed_at": "2026-09-20T05:22:47.208Z",
+      "document_version": "0.1.0",
+      "body_sha256": "59f162873135aa13e774a5207144b300750db81043fe1bb8d4b30e6b5116c9bd",
+      "url": "https://idtenev.github.io/mist-atelier-public/guides/checkpoint_delivery/"
+    },
     {
       "event_id": "urn:sha256:b645ff6b4f0d39bc1c35f406f775480ee66e8bd7ae9a200ca9153304fe27ae33",
       "document_id": "worker_pool",

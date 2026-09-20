@@ -1,0 +1,64 @@
+# 시간축·워터마크 · 순서와 시각을 따로 맞추기
+
+검토: 2026-09-20 · 분류: 구현 패턴 / 연속성·세션·시간 / 범용 연속 데이터 설계
+
+별칭: Event Time, Processing Time, Watermark, Clock Domain, Jitter Buffer
+
+적용 분야: 다중 센서 융합, 로그 상관 분석, 시간창 통계, 오디오·영상 동기화
+
+## 개념과 특징
+
+도착 시간, 실제 발생 시간, 처리 시간은 다르다. 순번은 생성 순서를 나타내지만 다른 장치의 시각이 같다는 증거는 아니다. watermark는 설정한 진행 가정에 따른 시간 경계이며 “앞선 데이터가 절대로 더 오지 않는다”는 물리적 보장이 아니다.
+
+## 구조와 동작
+
+원본 event_time + clock_id + sequence → 시계 매핑/불확실도 → bounded reorder/jitter buffer → 시간창/재생 scheduler → watermark·late side channel
+
+UTC는 사람 간 시각 대조, monotonic clock은 로컬 timeout에 사용한다. 장치 tick을 공통 시각으로 변환할 때 offset뿐 아니라 drift와 보정 이력을 보존한다.
+
+## 언제 쓰고 피할까
+
+- 사용: 서로 다른 센서의 동일 시간 구간을 비교하거나 지연·역순 입력으로 시간창 집계를 하는 경우. 화면 여러 개를 같은 재생 시각에 묶을 때.
+- 비추천: 정확한 시간 비교가 필요 없는 단일 순서 처리에 복잡한 clock 보정부터 넣는 경우. timestamp 정렬만으로 원인과 결과의 인과 순서가 증명된다고 보는 경우.
+
+## 장점과 비용
+
+- 장점: 재생 속도와 수집 속도를 분리하고 늦은 데이터의 처리 결과를 설명할 수 있다. 지연과 정렬 오차의 예산을 명시한다.
+- 단점·비용: 더 기다릴수록 지연·메모리가 커진다. clock drift나 유휴 소스 때문에 진행이 멈출 수 있고, 보정·late 데이터로 결과 개정이 필요하다.
+
+## 설계·구현 가이드
+
+1. 단위·해상도·clock_id·재부팅 epoch·시각 불확실도를 schema에 적는다. clock 역행을 sequence 감소로 해석하지 않는다.
+2. 허용 out-of-order 기간 D와 버퍼 byte/레코드 상한을 정한다. 예시 watermark=max_observed_event_time-D는 그 가정을 만족할 때만 유효한 추정이다.
+3. 여러 입력의 진행은 느린 입력과 idle 정책의 영향을 받는다. 일정 시간 idle로 제외한 source가 돌아오면 늦은 데이터 정책을 다시 적용한다.
+4. late 데이터는 버림+계수, 별도 보관, 이전 결과 수정 중 선택한다. 수정 가능 뷰에는 result_version과 확정/잠정 상태를 노출한다. 영상의 decode 순서와 presentation 순서를 하나로 정렬하지 않는다.
+
+## 적용 예시
+
+온도·진동을 1초 창으로 비교하고 200 ms 늦은 입력까지 허용한다고 가정한다. 관찰 시각이 10.3초이면 예시 watermark는 10.1초다. 9.9초 데이터가 이후 오면 late 경로로 보낸다. 표시 지연 200 ms를 택해도 센서 시계 오차가 500 ms라면 두 값의 동시성을 주장할 수 없다.
+
+이 절은 독자 작성 설계 사례이며 실행 프로그램이나 바로 적용할 운영 설정 파일이 아니다.
+
+## 실패·동시성·종료 조건
+
+NTP 보정·suspend·clock wrap·source idle을 정상 변이로 다룬다. 미도착 데이터를 0으로 넣지 않고 missing과 실제 0을 구분한다. jitter buffer는 이미 사라진 데이터를 만들지 않는다. 종료 시 남은 창을 잠정 결과로 flush할지 폐기할지 명시한다.
+
+## 검증 기준
+
+시계 역행·상대 drift·동일 timestamp·out-of-order·지연 상한 초과·유휴 후 복귀를 재현한다. 허용 정렬 오차, late 비율, 최대 표시 지연, 잠정→확정 전환과 버퍼 상한을 측정한다.
+
+## 관련 설계와 대안
+
+- [스트림 ID·세대·순번 · 연속성과 누락을 구분하기](/guides/stream_identity)
+- [독립 재생·파생 뷰 · 원본은 하나, 시점과 표현은 여러 개](/guides/stream_replay_views)
+- [연속 데이터 장애 검증 · 유실·복구·용량을 수치로 판단하기](/guides/stream_fault_testing)
+- [이동 평균·EMA · 부드러움과 지연의 교환](/guides/moving_average)
+
+## 근거와 한계
+
+- [Apache Flink 1.20 Timely Stream Processing](https://nightlies.apache.org/flink/flink-docs-release-1.20/docs/concepts/time/) — 고정 1.20의 event time·watermark·late event·다중 입력 진행 기준.
+- [RFC 3550 §5.1·Appendix A](https://www.rfc-editor.org/rfc/rfc3550.html) — 2003 RTP 규격의 sequence/timestamp·유실/역순 식별. 이 글의 범용 레코드 형식 자체가 RTP는 아니다.
+
+출처 확인일: 2026-09-20. 공식 문서의 API·동작 계약을 참고하되 이 글의 구조 조합·숫자·절차·예제·수용 기준은 독자 작성 편집 제안이다. 외부 코드·그림은 복제하지 않았다. 고정 판본은 최신판이라는 뜻이 아니며 변동 문서는 적용 시 대상 버전과 제약을 다시 확인한다.
+
+검증 상태: not_tested (실제 대상 환경). 설계 절차용 가이드이며 실행 코드 검증 대상이 아니다. 실제 센서/영상 취득·브로커·파일시스템·저장매체 전원 차단·RTOS/ISR/SMP/DMA·운영 부하·안전/보안 인증은 별도 검증이 필요하다. 유한 저장소와 임의 길이의 장애에서 무조건 무손실을 보장하지 않는다.

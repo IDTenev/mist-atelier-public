@@ -10,7 +10,9 @@
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/backpressure/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/bounded_queue/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/cancellation_generation/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/checkpoint_delivery/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/communication_recovery/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/compaction_tiering/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/cqrs_event_sourcing/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/debounce_hysteresis/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/debounce_throttle/</loc></url>
@@ -36,12 +38,22 @@
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/plugin_microkernel/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/request_coalescing/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/resilience_bulkheads/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/retention_pin_quota/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/retry_idempotency/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/ring_buffer/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/rtos_task_architecture/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/segmented_commit_log/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/shared_bus_ownership/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/state_machine_active_object/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/stm32_nucleo_f401re/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/stream_fanout/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/stream_fault_testing/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/stream_identity/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/stream_integrity_recovery/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/stream_replay_views/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/stream_session_resume/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/stream_snapshot_catchup/</loc></url>
+  <url><loc>https://idtenev.github.io/mist-atelier-public/guides/stream_time_watermark/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/token_bucket/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/uart_receive_flow/</loc></url>
   <url><loc>https://idtenev.github.io/mist-atelier-public/guides/ui_state_architecture/</loc></url>

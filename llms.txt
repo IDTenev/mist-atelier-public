@@ -56,6 +56,18 @@
 - [토큰 버킷 · 평균 유입률과 순간 burst 분리](https://idtenev.github.io/mist-atelier-public/guides/token_bucket/index.md)
 - [워치독·헬스 체크 · 살아 있음과 정상 진행 구분](https://idtenev.github.io/mist-atelier-public/guides/watchdog_health/index.md)
 - [입력·권한 경계 · 파싱 성공이 실행 허가는 아니다](https://idtenev.github.io/mist-atelier-public/guides/input_validation/index.md)
+- [스트림 ID·세대·순번 · 연속성과 누락을 구분하기](https://idtenev.github.io/mist-atelier-public/guides/stream_identity/index.md)
+- [세션 재개·세대 fencing · 끊긴 뒤 어디서 이어갈까](https://idtenev.github.io/mist-atelier-public/guides/stream_session_resume/index.md)
+- [시간축·워터마크 · 순서와 시각을 따로 맞추기](https://idtenev.github.io/mist-atelier-public/guides/stream_time_watermark/index.md)
+- [독립 소비자 Fan-out · 한 소스를 여러 뷰로 나누기](https://idtenev.github.io/mist-atelier-public/guides/stream_fanout/index.md)
+- [독립 재생·파생 뷰 · 원본은 하나, 시점과 표현은 여러 개](https://idtenev.github.io/mist-atelier-public/guides/stream_replay_views/index.md)
+- [스냅샷 + Catch-up · 과거 상태와 실시간 경계를 잇기](https://idtenev.github.io/mist-atelier-public/guides/stream_snapshot_catchup/index.md)
+- [세그먼트 순차 로그 · 쓰기 완료와 보존 확정을 분리하기](https://idtenev.github.io/mist-atelier-public/guides/segmented_commit_log/index.md)
+- [순환 보존·중요 구간 보호 · 꽉 찬 저장소의 결정 규칙](https://idtenev.github.io/mist-atelier-public/guides/retention_pin_quota/index.md)
+- [압축·Compaction·계층화 · 무엇을 줄이고 무엇을 잃는가](https://idtenev.github.io/mist-atelier-public/guides/compaction_tiering/index.md)
+- [ACK·체크포인트·멱등성 · 한 번 처리의 보장 범위](https://idtenev.github.io/mist-atelier-public/guides/checkpoint_delivery/index.md)
+- [무결성·복구 스캔 · 손상된 꼬리와 유효 이력 나누기](https://idtenev.github.io/mist-atelier-public/guides/stream_integrity_recovery/index.md)
+- [연속 데이터 장애 검증 · 유실·복구·용량을 수치로 판단하기](https://idtenev.github.io/mist-atelier-public/guides/stream_fault_testing/index.md)
 
 ## 권리 확인 원문
 
